@@ -10,13 +10,65 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-family-sans: "Inter", sans-serif;
+
+  --color-primary-50: rgb(240, 247, 250);
+  --color-primary-100: rgb(224, 242, 248);
+  --color-primary-200: rgb(186, 227, 239);
+  --color-primary-300: rgb(147, 211, 229);
+  --color-primary-400: rgb(90, 179, 204);
+  --color-primary-500: rgb(35, 144, 174);
+  --color-primary-600: rgb(30, 128, 154);
+  --color-primary-700: rgb(25, 112, 134);
+  --color-primary-800: rgb(20, 96, 114);
+  --color-primary-900: rgb(15, 80, 94);
+  --color-primary-950: rgb(10, 64, 74);
+
+  /* color secondary purple */
+
+  --color-secondary-50: rgb(245, 243, 255);
+  --color-secondary-100: rgb(235, 231, 255);
+  --color-secondary-200: rgb(224, 218, 255);
+  --color-secondary-300: rgb(204, 192, 255);
+  --color-secondary-400: rgb(170, 153, 255);
+  --color-secondary-500: rgb(40, 48, 102);
+  --color-secondary-600: rgb(35, 43, 90);
+  --color-secondary-700: rgb(30, 38, 78);
+  --color-secondary-800: rgb(25, 33, 66);
+  --color-secondary-900: rgb(20, 28, 54);
+  --color-secondary-950: rgb(15, 23, 42);
+
+  --color-danger-50: rgb(254, 242, 242);
+  --color-danger-100: rgb(254, 226, 226);
+  --color-danger-200: rgb(254, 202, 202);
+  --color-danger-300: rgb(252, 165, 165);
+  --color-danger-400: rgb(248, 113, 113);
+  --color-danger-500: rgb(239, 68, 68);
+  --color-danger-600: rgb(220, 38, 38);
+  --color-danger-700: rgb(185, 28, 28);
+  --color-danger-800: rgb(153, 27, 27);
+  --color-danger-900: rgb(127, 29, 29);
+  --color-danger-950: rgb(51, 15, 15);
+
+  --colour-outline-50: rgb(249, 250, 251);
+  --colour-outline-100: rgb(243, 244, 246);
+  --colour-outline-200: rgb(229, 231, 235);
+  --colour-outline-300: rgb(209, 213, 219);
+  --colour-outline-400: rgb(156, 163, 175);
+  --colour-outline-500: rgb(107, 114, 128);
+  --colour-outline-600: rgb(75, 85, 99);
+  --colour-outline-700: rgb(56, 65, 81);
+  --colour-outline-800: rgb(30, 41, 59);
+  --colour-outline-900: rgb(15, 23, 42);
+  --colour-outline-950: rgb(0, 20, 37);
+
+  /* spacing design token */
+  --custom-xs: 8px;
+  --custom-sm: 12px;
+  --custom-md: 24px;
+  --custom-lg: 32px;
+  --custom-xl: 64px;
 }
 
 body {
