@@ -49,7 +49,7 @@ export default function InputTimePicker({
         <AriaTimeField {...props}>
           <DateInput
             className={cn(
-              "flex w-full rounded-md border-1 border-black py-(--custom-xs)",
+              "flex w-full rounded-md border-1 border-black px-0.5 py-(--custom-xs)",
               "focus-within:border-black focus-within:ring-1 focus-within:ring-primary-400",
               "hover:border-gray-400",
               className,
@@ -59,7 +59,7 @@ export default function InputTimePicker({
               <DateSegment
                 segment={segment}
                 className={cn(
-                  "rounded px-0.5 tabular-nums outline-none",
+                  "rounded pr-0.5 tabular-nums outline-none",
                   "focus:bg-primary-100 focus:text-primary-900",
                   "placeholder-shown:text-gray-400",
                   segment.isPlaceholder && "text-gray-400",
