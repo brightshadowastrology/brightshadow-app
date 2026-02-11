@@ -1,5 +1,5 @@
-export const bodySymbol = ["☉", "☽", "☿", "♀", "♂", "♃", "♄", "♅", "♆", "♇"];
-export const signSymbol = [
+export const BODY_SYMBOLS = ["☉", "☽", "☿", "♀", "♂", "♃", "♄", "♅", "♆", "♇"];
+export const SIGN_SYMBOLS = [
   "♈︎",
   "♉︎",
   "♊︎",
@@ -14,7 +14,7 @@ export const signSymbol = [
   "♓︎",
 ];
 
-export const months = [
+export const MONTHS = [
   { label: "January", value: "01" },
   { label: "February", value: "02" },
   { label: "March", value: "03" },
@@ -29,29 +29,158 @@ export const months = [
   { label: "December", value: "12" },
 ];
 
-export const houseTopics: { [key: number]: string[] } = {
-  1: ["self", "body", "identity"],
-  2: ["money", "assets", "self esteem"],
-  3: ["learning", "local travel", "communication", "siblings"],
-  4: ["home", "family", "ancestry", "property"],
-  5: ["creativity", "children", "fun", "romance", "pleasure"],
-  6: ["daily habits", "service", "health", "pets"],
-  7: ["one-to-one relationships", "contracts", "open enemies"],
-  8: ["debt", "taxes", "shared resources", "subconscious material"],
-  9: [
-    "worldview",
-    "higher education",
-    "religion",
-    "long distance travel",
-    "legal matters",
-  ],
-  10: ["career", "vocation", "public reputation", "authority figures"],
-  11: [
-    "friendships",
-    "professional networks",
-    "supporters",
-    "community",
-    "aspirations",
-  ],
-  12: ["solitude", "rest", "self-undoing", "hidden enemies", "spirituality"],
+export const MODALITIES = {
+  Cardinal: ["Aries", "Cancer", "Libra", "Capricorn"],
+  Fixed: ["Taurus", "Leo", "Scorpio", "Aquarius"],
+  Mutable: ["Gemini", "Virgo", "Sagittarius", "Pisces"],
+};
+
+export const ASPECTS_MAP = {
+  Aries: {
+    opposition: "Libra",
+    superiorSquare: "Capricorn",
+    inferiorSquare: "Cancer",
+    superiorTrine: "Leo",
+    inferiorTrine: "Sagittarius",
+    superiorSextile: "Aquarius",
+    inferiorSextile: "Gemini",
+  },
+  Taurus: {
+    opposition: "Scorpio",
+    superiorSquare: "Aquarius",
+    inferiorSquare: "Leo",
+    superiorTrine: "Capricorn",
+    inferiorTrine: "Virgo",
+    superiorSextile: "Pisces",
+    inferiorSextile: "Cancer",
+  },
+  Gemini: {
+    opposition: "Sagittarius",
+    superiorSquare: "Pisces",
+    inferiorSquare: "Virgo",
+    superiorTrine: "Aquarius",
+    inferiorTrine: "Libra",
+    superiorSextile: "Aries",
+    inferiorSextile: "Leo",
+  },
+  Cancer: {
+    opposition: "Capricorn",
+    superiorSquare: "Aries",
+    inferiorSquare: "Libra",
+    superiorTrine: "Pisces",
+    inferiorTrine: "Scorpio",
+    superiorSextile: "Taurus",
+    inferiorSextile: "Virgo",
+  },
+  Leo: {
+    opposition: "Aquarius",
+    superiorSquare: "Taurus",
+    inferiorSquare: "Scorpio",
+    superiorTrine: "Aries",
+    inferiorTrine: "Sagittarius",
+    superiorSextile: "Gemini",
+    inferiorSextile: "Libra",
+  },
+  Virgo: {
+    opposition: "Pisces",
+    superiorSquare: "Gemini",
+    inferiorSquare: "Sagittarius",
+    superiorTrine: "Taurus",
+    inferiorTrine: "Capricorn",
+    superiorSextile: "Cancer",
+    inferiorSextile: "Scorpio",
+  },
+  Libra: {
+    opposition: "Aries",
+    superiorSquare: "Cancer",
+    inferiorSquare: "Capricorn",
+    superiorTrine: "Gemini",
+    inferiorTrine: "Aquarius",
+    superiorSextile: "Leo",
+    inferiorSextile: "Sagittarius",
+  },
+  Scorpio: {
+    opposition: "Taurus",
+    superiorSquare: "Leo",
+    inferiorSquare: "Aquarius",
+    superiorTrine: "Cancer",
+    inferiorTrine: "Pisces",
+    superiorSextile: "Virgo",
+    inferiorSextile: "Capricorn",
+  },
+  Sagittarius: {
+    opposition: "Gemini",
+    superiorSquare: "Virgo",
+    inferiorSquare: "Pisces",
+    superiorTrine: "Leo",
+    inferiorTrine: "Aries",
+    superiorSextile: "Scorpio",
+    inferiorSextile: "Aries",
+  },
+  Capricorn: {
+    opposition: "Cancer",
+    superiorSquare: "Libra",
+    inferiorSquare: "Aries",
+    superiorTrine: "Aquarius",
+    inferiorTrine: "Pisces",
+    superiorSextile: "Sagittarius",
+    inferiorSextile: "Taurus",
+  },
+  Aquarius: {
+    opposition: "Leo",
+    superiorSquare: "Scorpio",
+    inferiorSquare: "Taurus",
+    superiorTrine: "Pisces",
+    inferiorTrine: "Aries",
+    superiorSextile: "Sagittarius",
+    inferiorSextile: "Aries",
+  },
+  Pisces: {
+    opposition: "Virgo",
+    superiorSquare: "Sagittarius",
+    inferiorSquare: "Gemini",
+    superiorTrine: "Scorpio",
+    inferiorTrine: "Cancer",
+    superiorSextile: "Capricorn",
+    inferiorSextile: "Taurus",
+  },
+};
+
+export const SIGNS = [
+  "Aries",
+  "Taurus",
+  "Gemini",
+  "Cancer",
+  "Leo",
+  "Virgo",
+  "Libra",
+  "Scorpio",
+  "Sagittarius",
+  "Capricorn",
+  "Aquarius",
+  "Pisces",
+];
+
+export const RULERSHIPS: { [key: string]: string[] } = {
+  Sun: ["Leo"],
+  Moon: ["Cancer"],
+  Mercury: ["Gemini", "Virgo"],
+  Venus: ["Taurus", "Libra"],
+  Mars: ["Aries", "Scorpio"],
+  Jupiter: ["Sagittarius", "Pisces"],
+  Saturn: ["Capricorn", "Aquarius"],
+};
+
+export const SIGN_RULERS: { [key: string]: string } = {
+  Aries: "Mars",
+  Taurus: "Venus",
+  Gemini: "Mercury",
+  Cancer: "Moon",
+  Leo: "Sun",
+  Virgo: "Mercury",
+  Scorpio: "Mars",
+  Saggittarius: "Jupiter",
+  Capricorn: "Saturn",
+  Aquarius: "Saturn",
+  Pisces: "Jupiter",
 };

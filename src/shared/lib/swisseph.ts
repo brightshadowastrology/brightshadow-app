@@ -1,5 +1,5 @@
 import sweph from "sweph";
-import { type Location } from "@/shared/types";
+import { type Location, type ProfectionYearData } from "@/shared/types";
 
 const bodySymbol = ["☉", "☽", "☿", "♀", "♂", "♃", "♄", "♅", "♆", "♇"];
 const signSymbol = [
@@ -252,7 +252,10 @@ export const getAngle = (
   };
 };
 
-export const getProfectionYear = (ascendantSign: string, birthdate: Date) => {
+export const getProfectionYear = (
+  ascendantSign: string,
+  birthdate: Date,
+): ProfectionYearData => {
   // get age
   const now = new Date();
   let age = now.getFullYear() - birthdate.getFullYear();

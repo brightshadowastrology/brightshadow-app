@@ -2,17 +2,22 @@
 
 import Dropdown from "@/components/UI/Dropdown";
 import Input from "@/components/UI/Form/Input";
-import { months } from "@/shared/lib/constants";
+import * as constants from "@/shared/lib/constants";
 import { useForm, Controller } from "react-hook-form";
 import * as Form from "@radix-ui/react-form";
 import InputTimePicker from "@/components/UI/Form/InputTimePicker";
 import { Time } from "@internationalized/date";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { type TimeValue } from "react-aria";
 import Button from "@/components/UI/Button";
 import PlacesAutocomplete, {
   type PlaceDetails,
 } from "@/components/UI/PlacesAutocomplete";
+import { trpc } from "@/shared/lib/trpc";
+import { type PlanetPoint, type ProfectionYearData } from "@/shared/types";
+import BirthchartData from "./components/BirthchartData";
+import ProfectionYear from "./components/ProfectionYear";
+import moment from "moment-timezone";
 
 type BirthchartFormData = {
   day: string;
@@ -24,6 +29,11 @@ type BirthchartFormData = {
 
 export default function Birthchart() {
   const today = new Date();
+  const [birthChartData, setBirthChartData] = useState<PlanetPoint[] | null>(
+    null,
+  );
+  const [profectionYear, setProfectionYear] =
+    useState<ProfectionYearData | null>(null);
 
   const {
     register,
@@ -34,7 +44,7 @@ export default function Birthchart() {
   } = useForm<BirthchartFormData>({
     defaultValues: {
       day: today.getDate().toString(),
-      month: months[today.getMonth()].value,
+      month: constants.MONTHS[today.getMonth()].value,
       year: today.getFullYear().toString(),
       time: new Time(12, 0),
       place: null,
@@ -44,16 +54,60 @@ export default function Birthchart() {
   useEffect(() => {
     reset({
       day: today.getDate().toString(),
-      month: months[today.getMonth()].value,
+      month: constants.MONTHS[today.getMonth()].value,
       year: today.getFullYear().toString(),
       time: new Time(12, 0),
       place: null,
     });
   }, [reset]);
 
-  const onSubmit = (data: BirthchartFormData) => {
-    console.log("Form data:", data);
-    // Handle form submission here
+  const trpcContext = trpc.useContext();
+
+  const onSubmit = async (data: BirthchartFormData) => {
+    if (!data.place?.location || !data.time) return;
+
+    const monthIndex = constants.MONTHS.findIndex(
+      (m) => m.value === data.month,
+    );
+    // datestring in this format: 1991-05-13 11:49:00
+    const dateString = `${data.year}-${String(monthIndex + 1).padStart(2, "0")}-${String(data.day).padStart(2, "0")} ${String(
+      data.time.hour,
+    ).padStart(2, "0")}:${String(data.time.minute).padStart(2, "0")}:00`;
+
+    // Convert from dateString to UTC using moment-timezone
+    const utcDate = moment
+      .tz(dateString, data.place.timeZone || "UTC")
+      .utc()
+      .toDate();
+
+    try {
+      const result = await trpcContext.fetchQuery([
+        "astro.getBirthChartData",
+        {
+          date: utcDate,
+          longitude: data.place.location.longitude,
+          latitude: data.place.location.latitude,
+        },
+      ]);
+
+      setBirthChartData(result);
+
+      // Get ascendant sign from birth chart and call getProfectionYear
+      const ascendant = result.find((p) => p.planet === "Ascendant");
+      if (ascendant) {
+        const profectionResult = await trpcContext.fetchQuery([
+          "astro.getProfectionYear",
+          {
+            ascendantSign: ascendant.position.sign,
+            birthdate: utcDate.toISOString(),
+          },
+        ]);
+        console.log("Profection Year:", profectionResult);
+        setProfectionYear(profectionResult);
+      }
+    } catch (error) {
+      console.error("tRPC fetchQuery error:", error);
+    }
   };
 
   return (
@@ -81,16 +135,17 @@ export default function Birthchart() {
 
             {/* Month */}
             <div>
-              <label htmlFor="month" className="block mb-2 text-gray-400">
-                Month
-              </label>
+              <label className="block mb-2 text-gray-400">Month</label>
               <Controller
                 name="month"
                 control={control}
                 rules={{ required: "Month is required" }}
                 render={({ field }) => (
                   <Dropdown
-                    options={months}
+                    options={constants.MONTHS.map((m) => ({
+                      label: m.label,
+                      value: m.value,
+                    }))}
                     placeholder="Select month"
                     onChange={(value) => field.onChange(value)}
                     value={field.value}
@@ -155,6 +210,18 @@ export default function Birthchart() {
             Submit
           </Button>
         </Form.Root>
+
+        {birthChartData && (
+          <div className="mt-8 w-full">
+            <BirthchartData data={birthChartData} />
+          </div>
+        )}
+
+        {profectionYear && (
+          <div className="mt-8 w-full">
+            <ProfectionYear data={profectionYear} />
+          </div>
+        )}
       </main>
     </div>
   );

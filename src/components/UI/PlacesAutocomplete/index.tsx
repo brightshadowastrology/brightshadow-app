@@ -19,6 +19,8 @@ export type PlaceDetails = {
   formattedAddress: string;
   displayName: string;
   location: { latitude: number; longitude: number } | null;
+  timeZone: string | null;
+  utcOffsetMinutes: number | null;
   addressComponents: Array<{
     longText: string;
     shortText: string;
@@ -81,18 +83,21 @@ async function fetchPlaceDetails(
       "Content-Type": "application/json",
       "X-Goog-Api-Key": apiKey,
       "X-Goog-FieldMask":
-        "id,formattedAddress,displayName,location,addressComponents",
+        "id,formattedAddress,displayName,location,addressComponents,timeZone,utcOffsetMinutes",
     },
   });
 
   if (!res.ok) return null;
 
   const data = await res.json();
+  console.log("Place Details Response:", data);
   return {
     placeId: data.id,
     formattedAddress: data.formattedAddress ?? "",
     displayName: data.displayName?.text ?? "",
     location: data.location ?? null,
+    timeZone: data.timeZone.id ?? null,
+    utcOffsetMinutes: data.utcOffsetMinutes ?? null,
     addressComponents: (data.addressComponents ?? []).map(
       (c: { longText: string; shortText: string; types: string[] }) => ({
         longText: c.longText,
