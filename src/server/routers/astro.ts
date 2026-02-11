@@ -11,6 +11,7 @@ import {
   getSolarEclipses,
   getEclipses,
   getMercuryRetrogradePeriods,
+  getAllPlanetZeroDegreeIngresses,
 } from "../astro";
 
 const positionSchema = z.object({
@@ -106,5 +107,13 @@ export const astroRouter = trpc
     }),
     resolve({ input }) {
       return getMercuryRetrogradePeriods(input.date);
+    },
+  })
+  .query("getAllPlanetZeroDegreeIngresses", {
+    input: z.object({
+      date: z.string().transform((val) => new Date(val)),
+    }),
+    resolve() {
+      return getAllPlanetZeroDegreeIngresses();
     },
   });

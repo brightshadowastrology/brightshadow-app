@@ -23,7 +23,7 @@ import {
   type MajorTransits,
   type Eclipse,
   type RetrogradePeriod,
-  ProfectionYearData,
+  type ProfectionYearData,
 } from "@/shared/types";
 
 export const getBirthChartData = (
@@ -174,20 +174,23 @@ export const getPlanetaryIngressByDegree = (
     );
 
     // TODO: add location for transit
-    if (
-      split_deg.sign === signIndex &&
-      split_deg.degree == position.degree &&
-      split_deg.minute == position.minute
-    ) {
-      results.push({
-        date: currentDate.toISOString().split("T")[0],
-        position: {
-          sign: getPlanetSign(split_deg.sign),
-          degree: split_deg.degree,
-          minute: split_deg.minute,
-        },
-        exactMatch: true,
-      });
+    if (split_deg.sign === signIndex && split_deg.degree == position.degree) {
+      const dateStr = currentDate.toISOString().split("T")[0];
+      const isDuplicate = results.some(
+        (result) => result.position.sign === getPlanetSign(split_deg.sign),
+      );
+
+      if (!isDuplicate) {
+        results.push({
+          date: dateStr,
+          position: {
+            sign: getPlanetSign(split_deg.sign),
+            degree: split_deg.degree,
+            minute: split_deg.minute,
+          },
+          exactMatch: true,
+        });
+      }
     }
 
     // Move to next day
@@ -404,22 +407,22 @@ export const getLunations = (date?: Date): Lunation[] => {
   }
 
   const uniqueLunations = results
-    .flatMap((lunations) => lunations)
-    .filter((lunation, index, self) => {
+    .flatMap((lunations: Lunation[]) => lunations)
+    .filter((lunation: Lunation, index: number, self: any) => {
       return (
         index ===
         self.findIndex(
-          (l) =>
+          (l: Lunation) =>
             l.date === lunation.date &&
             l.lunationType === lunation.lunationType,
         )
       );
     })
     // filter out lunation after the end date
-    .filter((lunation) => {
+    .filter((lunation: Lunation) => {
       return new Date(lunation.date) <= endDate;
     })
-    .sort((a, b) => {
+    .sort((a: Lunation, b: Lunation) => {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
     });
 
@@ -525,6 +528,7 @@ export const getSolarEclipses = (date: Date): Eclipse[] => {
         getJulianDayFromDate(currentDate).data[0],
         sweph.constants.SEFLG_SWIEPH,
         eclipseType,
+        // ignore error here
         false,
       );
 
@@ -709,4 +713,31 @@ export const getMercuryRetrogradePeriods = (date: Date): RetrogradePeriod[] => {
   });
 
   return filteredRetrogradePeriods;
+};
+
+export const getAllPlanetZeroDegreeIngresses = () => {
+  const planets = [
+    "Venus",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+    "Uranus",
+    "Neptune",
+    "Pluto",
+  ];
+
+  return planets.map((planet) => {
+    const ingresses = sharedConstants.SIGNS.map((sign) => {
+      return getPlanetaryIngressByDegree(planet, {
+        sign,
+        degree: 0,
+        minute: 0,
+      });
+    });
+
+    return {
+      planet,
+      ingresses: ingresses.filter((ingress) => ingress.matchesFound > 0),
+    };
+  });
 };

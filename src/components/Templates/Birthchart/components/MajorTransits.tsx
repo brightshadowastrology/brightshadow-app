@@ -8,6 +8,7 @@ import {
 import MonthEclipse from "./MonthEclipse";
 import MonthLunation from "./MonthLunation";
 import MonthRetrograde from "./MonthRetrograde";
+import MonthIngress, { type IngressEntry } from "./MonthIngress";
 import LoadingIndicator from "./LoadingIndicator";
 
 function getNext12Months(): { month: number; year: number; label: string }[] {
@@ -63,6 +64,31 @@ function getLunationsForMonth(
   });
 }
 
+function getIngressesForMonth(
+  ingresses: { planet: string; ingresses: { targetPosition: { sign: string }; dates: { date: string }[] }[] }[],
+  month: number,
+  year: number,
+): IngressEntry[] {
+  const entries: IngressEntry[] = [];
+  for (const planetData of ingresses) {
+    for (const ingress of planetData.ingresses) {
+      for (const d of ingress.dates) {
+        const date = new Date(d.date);
+        if (date.getMonth() === month && date.getFullYear() === year) {
+          entries.push({
+            date: d.date,
+            planet: planetData.planet,
+            sign: ingress.targetPosition.sign,
+          });
+        }
+      }
+    }
+  }
+  return entries.sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+  );
+}
+
 export default function MajorTransits() {
   const months = getNext12Months();
 
@@ -78,6 +104,11 @@ export default function MajorTransits() {
 
   const { data: lunations, isLoading: lunationsLoading } = trpc.useQuery([
     "astro.getLunations",
+    { date: new Date().toISOString() },
+  ]);
+
+  const { data: ingresses } = trpc.useQuery([
+    "astro.getAllPlanetZeroDegreeIngresses",
     { date: new Date().toISOString() },
   ]);
 
@@ -99,6 +130,9 @@ export default function MajorTransits() {
         const monthLunations = lunations
           ? getLunationsForMonth(lunations, month, year)
           : [];
+        const monthIngresses = ingresses
+          ? getIngressesForMonth(ingresses, month, year)
+          : [];
 
         return (
           <section
@@ -111,7 +145,8 @@ export default function MajorTransits() {
 
             {(monthEclipses.length > 0 ||
               monthRetrogrades.length > 0 ||
-              monthLunations.length > 0) && (
+              monthLunations.length > 0 ||
+              monthIngresses.length > 0) && (
               <div className="mt-4 space-y-3">
                 {monthEclipses.map((eclipse) => (
                   <MonthEclipse
@@ -136,6 +171,15 @@ export default function MajorTransits() {
                     key={retrograde.start.date}
                     retrograde={retrograde}
                     month={month}
+                    year={year}
+                  />
+                ))}
+
+                {monthIngresses.map((ingress) => (
+                  <MonthIngress
+                    key={`${ingress.date}-${ingress.planet}`}
+                    ingress={ingress}
+                    monthLabel={label}
                     year={year}
                   />
                 ))}
