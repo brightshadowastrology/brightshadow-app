@@ -1,5 +1,5 @@
 import { type Eclipse } from "@/shared/types";
-import { formatDegree } from "@/shared/lib/textHelpers";
+import { formatDegree, titleCase } from "@/shared/lib/textHelpers";
 
 export default function MonthEclipse({
   eclipse,
@@ -16,7 +16,9 @@ export default function MonthEclipse({
   return (
     <div className="p-4 bg-gray-700 rounded-md border border-gray-600">
       <div className="flex justify-between items-start">
-        <h4 className="text-lg font-medium text-white">{eclipse.type}</h4>
+        <h4 className="text-lg font-medium text-white">
+          {titleCase(eclipse.type)}
+        </h4>
         <span className="text-gray-400 text-sm">
           {monthLabel} {day}, {year}
         </span>
