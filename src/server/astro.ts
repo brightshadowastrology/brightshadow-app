@@ -136,65 +136,94 @@ export const getPlanetaryIngressByDegree = (
     exactMatch: boolean;
   }> = [];
 
-  // Start from current date, calculate for one year from current date
   const startDate = new Date();
   const endDate = new Date();
   endDate.setFullYear(startDate.getFullYear() + 1);
 
-  // Search day by day
-  let currentDate = new Date(startDate);
+  // Target longitude in absolute degrees (0-360)
+  const targetLon = signIndex * 30 + position.degree + position.minute / 60;
 
-  while (currentDate <= endDate) {
-    // Convert to Julian day
-    const julday = sweph.utc_to_jd(
-      currentDate.getUTCFullYear(),
-      currentDate.getUTCMonth() + 1,
-      currentDate.getUTCDate(),
+  // Planet longitude at a given Julian day
+  const getLon = (jd: number): number =>
+    sweph.calc_ut(jd, bodyNumber, sweph.constants.SEFLG_SPEED).data[0];
+
+  // Signed angular difference from target, normalized to [-180, 180]
+  const diff = (jd: number): number =>
+    ((getLon(jd) - targetLon + 540) % 360) - 180;
+
+  // Date to Julian day (midnight UTC)
+  const toJd = (d: Date): number =>
+    sweph.utc_to_jd(
+      d.getUTCFullYear(),
+      d.getUTCMonth() + 1,
+      d.getUTCDate(),
       0,
       0,
       0,
       sweph.constants.SE_GREG_CAL,
-    );
+    ).data[0];
 
-    const [jd_ut] = julday.data;
+  // Julian day to YYYY-MM-DD string
+  const jdToDateStr = (jd: number): string => {
+    const utc = sweph.jdut1_to_utc(jd, sweph.constants.SE_GREG_CAL);
+    return new Date(
+      Date.UTC(
+        utc.year,
+        utc.month - 1,
+        utc.day,
+        utc.hour,
+        utc.minute,
+        utc.second,
+      ),
+    )
+      .toISOString()
+      .split("T")[0];
+  };
 
-    // Calculate planet position
-    const calc_ut = sweph.calc_ut(
-      jd_ut,
-      bodyNumber,
-      sweph.constants.SEFLG_SPEED,
-    );
-
-    const [longitude] = calc_ut.data;
-
-    // Split degrees to get sign, degree, and minute
-    const split_deg = sweph.split_deg(
-      longitude,
-      sweph.constants.SE_SPLIT_DEG_ZODIACAL,
-    );
-
-    // TODO: add location for transit
-    if (split_deg.sign === signIndex && split_deg.degree == position.degree) {
-      const dateStr = currentDate.toISOString().split("T")[0];
-      const isDuplicate = results.some(
-        (result) => result.position.sign === getPlanetSign(split_deg.sign),
-      );
-
-      if (!isDuplicate) {
-        results.push({
-          date: dateStr,
-          position: {
-            sign: getPlanetSign(split_deg.sign),
-            degree: split_deg.degree,
-            minute: split_deg.minute,
-          },
-          exactMatch: true,
-        });
+  // Bisect an interval to find the JD where diff crosses zero
+  const bisect = (lo: number, hi: number): number => {
+    let loDiff = diff(lo);
+    for (let i = 0; i < 30; i++) {
+      const mid = (lo + hi) / 2;
+      const midDiff = diff(mid);
+      if (loDiff * midDiff <= 0) {
+        hi = mid;
+      } else {
+        lo = mid;
+        loDiff = midDiff;
       }
     }
+    return (lo + hi) / 2;
+  };
 
-    // Move to next day
-    currentDate.setDate(currentDate.getDate() + 1);
+  // Scan in half-day steps (catches fast movers like Venus)
+  const startJd = toJd(startDate);
+  const endJd = toJd(endDate);
+  const step = 0.5;
+
+  let prevJd = startJd;
+  let prevDiff = diff(startJd);
+
+  for (let jd = startJd + step; jd <= endJd; jd += step) {
+    const curDiff = diff(jd);
+
+    // Zero crossing detected (sign change), filter out 360° wrap artifacts
+    if (prevDiff * curDiff <= 0 && Math.abs(prevDiff - curDiff) < 180) {
+      const foundJd = bisect(prevJd, jd);
+
+      results.push({
+        date: jdToDateStr(foundJd),
+        position: {
+          sign: position.sign,
+          degree: position.degree,
+          minute: position.minute,
+        },
+        exactMatch: true,
+      });
+    }
+
+    prevJd = jd;
+    prevDiff = curDiff;
   }
 
   return {

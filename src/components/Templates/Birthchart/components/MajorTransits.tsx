@@ -38,9 +38,7 @@ function getEclipsesForMonth(
       const date = new Date(eclipse.date);
       return date.getMonth() === month && date.getFullYear() === year;
     })
-    .sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-    );
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 }
 
 export type RetrogradeEvent = {
@@ -61,10 +59,18 @@ function getRetrogradesForMonth(
     const end = new Date(r.end.date);
 
     if (start.getMonth() === month && start.getFullYear() === year) {
-      events.push({ date: r.start.date, position: r.start.position, isStarting: true });
+      events.push({
+        date: r.start.date,
+        position: r.start.position,
+        isStarting: true,
+      });
     }
     if (end.getMonth() === month && end.getFullYear() === year) {
-      events.push({ date: r.end.date, position: r.end.position, isStarting: false });
+      events.push({
+        date: r.end.date,
+        position: r.end.position,
+        isStarting: false,
+      });
     }
   }
 
@@ -83,9 +89,7 @@ function getLunationsForMonth(
       const date = new Date(lunation.date);
       return date.getMonth() === month && date.getFullYear() === year;
     })
-    .sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-    );
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 }
 
 function getIngressesForMonth(
@@ -165,11 +169,29 @@ export default function MajorTransits() {
           : [];
 
         const allEvents = [
-          ...monthEclipses.map((e) => ({ type: "eclipse" as const, date: e.date, data: e })),
-          ...monthLunations.map((l) => ({ type: "lunation" as const, date: l.date, data: l })),
-          ...monthRetrogrades.map((r) => ({ type: "retrograde" as const, date: r.date, data: r })),
-          ...monthIngresses.map((i) => ({ type: "ingress" as const, date: i.date, data: i })),
-        ].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+          ...monthEclipses.map((e) => ({
+            type: "eclipse" as const,
+            date: e.date,
+            data: e,
+          })),
+          ...monthLunations.map((l) => ({
+            type: "lunation" as const,
+            date: l.date,
+            data: l,
+          })),
+          ...monthRetrogrades.map((r) => ({
+            type: "retrograde" as const,
+            date: r.date,
+            data: r,
+          })),
+          ...monthIngresses.map((i) => ({
+            type: "ingress" as const,
+            date: i.date,
+            data: i,
+          })),
+        ].sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+        );
 
         return (
           <section
