@@ -3,6 +3,7 @@ import { trpc } from "@/shared/lib/trpc";
 import {
   type Eclipse,
   type Lunation,
+  type Position,
   type RetrogradePeriod,
 } from "@/shared/types";
 import MonthEclipse from "./MonthEclipse";
@@ -32,25 +33,44 @@ function getEclipsesForMonth(
   month: number,
   year: number,
 ): Eclipse[] {
-  return eclipses.filter((eclipse) => {
-    const date = new Date(eclipse.date);
-    return date.getMonth() === month && date.getFullYear() === year;
-  });
+  return eclipses
+    .filter((eclipse) => {
+      const date = new Date(eclipse.date);
+      return date.getMonth() === month && date.getFullYear() === year;
+    })
+    .sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
 }
+
+export type RetrogradeEvent = {
+  date: string;
+  position: Position;
+  isStarting: boolean;
+};
 
 function getRetrogradesForMonth(
   retrogrades: RetrogradePeriod[],
   month: number,
   year: number,
-): RetrogradePeriod[] {
-  const monthStart = new Date(year, month, 1);
-  const monthEnd = new Date(year, month + 1, 0, 23, 59, 59);
+): RetrogradeEvent[] {
+  const events: RetrogradeEvent[] = [];
 
-  return retrogrades.filter((r) => {
+  for (const r of retrogrades) {
     const start = new Date(r.start.date);
     const end = new Date(r.end.date);
-    return start <= monthEnd && end >= monthStart;
-  });
+
+    if (start.getMonth() === month && start.getFullYear() === year) {
+      events.push({ date: r.start.date, position: r.start.position, isStarting: true });
+    }
+    if (end.getMonth() === month && end.getFullYear() === year) {
+      events.push({ date: r.end.date, position: r.end.position, isStarting: false });
+    }
+  }
+
+  return events.sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+  );
 }
 
 function getLunationsForMonth(
@@ -58,14 +78,24 @@ function getLunationsForMonth(
   month: number,
   year: number,
 ): Lunation[] {
-  return lunations.filter((lunation) => {
-    const date = new Date(lunation.date);
-    return date.getMonth() === month && date.getFullYear() === year;
-  });
+  return lunations
+    .filter((lunation) => {
+      const date = new Date(lunation.date);
+      return date.getMonth() === month && date.getFullYear() === year;
+    })
+    .sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
 }
 
 function getIngressesForMonth(
-  ingresses: { planet: string; ingresses: { targetPosition: { sign: string }; dates: { date: string }[] }[] }[],
+  ingresses: {
+    planet: string;
+    ingresses: {
+      targetPosition: { sign: string };
+      dates: { date: string }[];
+    }[];
+  }[],
   month: number,
   year: number,
 ): IngressEntry[] {
@@ -134,6 +164,13 @@ export default function MajorTransits() {
           ? getIngressesForMonth(ingresses, month, year)
           : [];
 
+        const allEvents = [
+          ...monthEclipses.map((e) => ({ type: "eclipse" as const, date: e.date, data: e })),
+          ...monthLunations.map((l) => ({ type: "lunation" as const, date: l.date, data: l })),
+          ...monthRetrogrades.map((r) => ({ type: "retrograde" as const, date: r.date, data: r })),
+          ...monthIngresses.map((i) => ({ type: "ingress" as const, date: i.date, data: i })),
+        ].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
         return (
           <section
             key={`${label}-${year}`}
@@ -143,46 +180,48 @@ export default function MajorTransits() {
               {label} {year}
             </h3>
 
-            {(monthEclipses.length > 0 ||
-              monthRetrogrades.length > 0 ||
-              monthLunations.length > 0 ||
-              monthIngresses.length > 0) && (
+            {allEvents.length > 0 && (
               <div className="mt-4 space-y-3">
-                {monthEclipses.map((eclipse) => (
-                  <MonthEclipse
-                    key={eclipse.date}
-                    eclipse={eclipse}
-                    monthLabel={label}
-                    year={year}
-                  />
-                ))}
-
-                {monthLunations.map((lunation) => (
-                  <MonthLunation
-                    key={lunation.date}
-                    lunation={lunation}
-                    monthLabel={label}
-                    year={year}
-                  />
-                ))}
-
-                {monthRetrogrades.map((retrograde) => (
-                  <MonthRetrograde
-                    key={retrograde.start.date}
-                    retrograde={retrograde}
-                    month={month}
-                    year={year}
-                  />
-                ))}
-
-                {monthIngresses.map((ingress) => (
-                  <MonthIngress
-                    key={`${ingress.date}-${ingress.planet}`}
-                    ingress={ingress}
-                    monthLabel={label}
-                    year={year}
-                  />
-                ))}
+                {allEvents.map((event) => {
+                  switch (event.type) {
+                    case "eclipse":
+                      return (
+                        <MonthEclipse
+                          key={`eclipse-${event.data.date}`}
+                          eclipse={event.data}
+                          monthLabel={label}
+                          year={year}
+                        />
+                      );
+                    case "lunation":
+                      return (
+                        <MonthLunation
+                          key={`lunation-${event.data.date}`}
+                          lunation={event.data}
+                          monthLabel={label}
+                          year={year}
+                        />
+                      );
+                    case "retrograde":
+                      return (
+                        <MonthRetrograde
+                          key={`retrograde-${event.data.date}`}
+                          retrograde={event.data}
+                          monthLabel={label}
+                          year={year}
+                        />
+                      );
+                    case "ingress":
+                      return (
+                        <MonthIngress
+                          key={`ingress-${event.data.date}-${event.data.planet}`}
+                          ingress={event.data}
+                          monthLabel={label}
+                          year={year}
+                        />
+                      );
+                  }
+                })}
               </div>
             )}
           </section>
