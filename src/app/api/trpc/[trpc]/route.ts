@@ -15,42 +15,43 @@ async function handler(req: NextRequest) {
   }
 
   const input = searchParams.get("input");
+  const isBatched = searchParams.get("batch") === "1";
+  const caller = appRouter.createCaller({});
 
-  // tRPC v9 batched format: { "0": { actualInput } }
-  let parsedInput: any;
+  // Handle batched requests with multiple procedures (e.g. "proc1,proc2")
+  const procedures = path.split(",");
+
+  const parsedInputs: Record<string, any> = {};
   if (input) {
     const parsed = JSON.parse(input);
-    // Extract from batched format - input is directly under "0", not "0".json
-    const rawInput = parsed?.["0"] ?? parsed;
-    // Deserialize with superjson to handle Date and other complex types
-    parsedInput = superjson.deserialize(rawInput);
-    console.log("Parsed input:", parsedInput);
+    for (const key of Object.keys(parsed)) {
+      parsedInputs[key] = superjson.deserialize(parsed[key]);
+    }
   }
 
   try {
-    const caller = appRouter.createCaller({});
+    const responses = await Promise.all(
+      procedures.map(async (procedurePath, index) => {
+        const procedureInput =
+          parsedInputs[String(index)] ?? parsedInputs["0"] ?? undefined;
 
-    // tRPC v9 createCaller uses caller.query(path, input) pattern
-    const result = await caller.query(path as any, parsedInput);
+        const result = await caller.query(
+          procedurePath as any,
+          procedureInput,
+        );
+        const serializedResult = superjson.serialize(result);
 
-    // Serialize with superjson to handle Date and other complex types
-    const serializedResult = superjson.serialize(result);
+        return {
+          id: null,
+          result: {
+            type: "data",
+            data: serializedResult,
+          },
+        };
+      }),
+    );
 
-    // tRPC v9 expects: { id: null, result: { type: "data", data: ... } }
-    const response = {
-      id: null,
-      result: {
-        type: "data",
-        data: serializedResult,
-      },
-    };
-
-    console.log("tRPC result:", result);
-    console.log("Response to be sent:", response);
-
-    // Batched requests (batch=1) expect an array response
-    const isBatched = searchParams.get("batch") === "1";
-    return NextResponse.json(isBatched ? [response] : response);
+    return NextResponse.json(isBatched ? responses : responses[0]);
   } catch (error) {
     console.error("tRPC error:", error);
     const errorResponse = {
