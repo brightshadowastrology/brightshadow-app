@@ -1,22 +1,6 @@
 import sweph from "sweph";
 import { type Location, type ProfectionYearData } from "@/shared/types";
 
-const bodySymbol = ["☉", "☽", "☿", "♀", "♂", "♃", "♄", "♅", "♆", "♇"];
-const signSymbol = [
-  "♈︎",
-  "♉︎",
-  "♊︎",
-  "♋︎",
-  "♌︎",
-  "♍︎",
-  "♎︎",
-  "♏︎",
-  "♐︎",
-  "♑︎",
-  "♒︎",
-  "♓︎",
-];
-
 const bodies = [
   sweph.constants.SE_SUN,
   sweph.constants.SE_MOON,
@@ -774,4 +758,27 @@ export const getSolarEclipses = (date: Date, location: Location) => {
   );
 
   return eclipses.data;
+};
+
+export const getAllPlanetZeroDegreeIngresses = (date: Date) => {
+  const planets = [
+    "Venus",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+    "Uranus",
+    "Neptune",
+    "Pluto",
+  ];
+
+  return planets.map((planet) => {
+    const ingresses = signs.map((sign) => {
+      return getPlanetaryIngressByDegree(planet, sign, 0, 0);
+    });
+
+    return {
+      planet,
+      ingresses: ingresses.filter((ingress) => ingress.matchesFound > 0).flat(),
+    };
+  });
 };
