@@ -8,6 +8,7 @@ import {
 import MonthEclipse from "./MonthEclipse";
 import MonthLunation from "./MonthLunation";
 import MonthRetrograde from "./MonthRetrograde";
+import LoadingIndicator from "./LoadingIndicator";
 
 function getNext12Months(): { month: number; year: number; label: string }[] {
   const now = new Date();
@@ -65,20 +66,26 @@ function getLunationsForMonth(
 export default function MajorTransits() {
   const months = getNext12Months();
 
-  const { data: eclipses } = trpc.useQuery([
+  const { data: eclipses, isLoading: eclipsesLoading } = trpc.useQuery([
     "astro.getEclipses",
     { date: new Date().toISOString() },
   ]);
 
-  const { data: retrogrades } = trpc.useQuery([
+  const { data: retrogrades, isLoading: retrogradesLoading } = trpc.useQuery([
     "astro.getMercuryRetrogradePeriods",
     { date: new Date().toISOString() },
   ]);
 
-  const { data: lunations } = trpc.useQuery([
+  const { data: lunations, isLoading: lunationsLoading } = trpc.useQuery([
     "astro.getLunations",
     { date: new Date().toISOString() },
   ]);
+
+  const isLoading = eclipsesLoading || retrogradesLoading || lunationsLoading;
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <div className="space-y-6 w-full">

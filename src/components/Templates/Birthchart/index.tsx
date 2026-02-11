@@ -224,7 +224,11 @@ export default function Birthchart() {
           </div>
         )}
 
-        <MajorTransits />
+        {birthChartData && (
+          <div className="mt-8 w-full">
+            <MajorTransits />
+          </div>
+        )}
       </main>
     </div>
   );
