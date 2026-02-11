@@ -10,6 +10,12 @@ export const formatDegree = (degree: number, minute: number): string => {
   return `${degree}°${minute.toString().padStart(2, "0")}'`;
 };
 
+export const formatDate = (dateStr: string): string => {
+  const date = new Date(dateStr);
+  const month = constants.MONTHS[date.getMonth()].label;
+  return `${month} ${date.getDate()}`;
+};
+
 export const randomArrayIndex = <T>(arrLength: number): number => {
   return Math.floor(Math.random() * arrLength);
 };
