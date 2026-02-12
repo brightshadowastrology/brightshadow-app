@@ -4,6 +4,7 @@ import {
   getHouseFromSign,
   getFormattedHouseText,
   getFormattedHouseRulersText,
+  getFormattedHouseDescriptionText,
   getFormattedHouseTopicsText,
 } from "@/shared/lib/textHelpers";
 export type IngressEntry = { date: string; planet: string; sign: string };
@@ -30,7 +31,14 @@ export default function MonthIngress({
       "Aries",
     ingress.sign,
   );
-  const placementText = `Natally, ${ingress.planet} rules your ${getFormattedHouseRulersText(natalPlacement.rulerOf || [])}. This brings themes of ${getFormattedHouseTopicsText(natalPlacement.rulerOf || [])}, into your ${getFormattedHouseTopicsText([houseIngressedInto])}.`;
+  const isTraditionalPlanet = [
+    "Mercury",
+    "Venus",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+  ].includes(ingress.planet);
+  const placementText = `Natally, ${ingress.planet} rules your ${getFormattedHouseRulersText(natalPlacement.rulerOf || [])}. During this transit, your ${getFormattedHouseDescriptionText(natalPlacement.rulerOf || [])}, will be brought up in your ${getFormattedHouseDescriptionText([houseIngressedInto])}.`;
 
   const date = new Date(ingress.date);
   const day = date.getDate();
@@ -46,7 +54,9 @@ export default function MonthIngress({
           {monthLabel} {day}, {year}
         </span>
       </div>
-      <p className="text-gray-300 text-sm mt-1">{placementText}</p>
+      <p className="text-gray-300 text-sm mt-1">
+        {isTraditionalPlanet && placementText}
+      </p>
     </div>
   );
 }

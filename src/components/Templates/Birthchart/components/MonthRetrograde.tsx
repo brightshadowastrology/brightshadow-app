@@ -1,3 +1,4 @@
+import { houseTopics } from "@/shared/lib/text";
 import { useBirthChart } from "../BirthChartContext";
 import { type RetrogradeEvent } from "./MajorTransits";
 import {
@@ -5,6 +6,7 @@ import {
   getHouseFromSign,
   getFormattedHouseText,
   getFormattedHouseRulersText,
+  getFormattedHouseDescriptionText,
   getFormattedHouseTopicsText,
 } from "@/shared/lib/textHelpers";
 
@@ -33,6 +35,8 @@ export default function MonthRetrograde({
 
   const retrogradeText = `${phase} | ${retrograde.position.sign} ${formatDegree(retrograde.position.degree, retrograde.position.minute)} `;
   const interpretationText = `This ${phase} in your ${getFormattedHouseText(houseIngressedInto)}.`;
+  const recommendationText = `This is a time when you may miscommunicate or experience delays around your ${getFormattedHouseTopicsText(houseIngressedInto)}. For these same reasons however, it's an excellent time to slow down, review, and reconsider these areas of life.`;
+
   return (
     <div className="p-4 bg-gray-700 rounded-md border border-gray-600">
       <div className="flex justify-between items-start">
@@ -42,6 +46,7 @@ export default function MonthRetrograde({
         </span>
       </div>
       <p className="text-gray-300 text-sm mt-1">{interpretationText}</p>
+      <p className="text-gray-300 text-sm mt-1">{recommendationText}</p>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import {
   formatDegree,
   getHouseFromSign,
   getFormattedHouseText,
+  getFormattedHouseDescriptionText,
   getFormattedHouseTopicsText,
 } from "@/shared/lib/textHelpers";
 
@@ -29,7 +30,11 @@ export default function MonthLunation({
     lunation.position.sign,
   );
   const lunationText = `${titleCase(lunation.lunationType)} in ${lunation.position.sign} | ${formatDegree(lunation.position.degree, lunation.position.minute)}`;
-  const interpretationText = `This ${lunation.lunationType} occurs in your ${getFormattedHouseText(lunationHouse)} of ${getFormattedHouseTopicsText([lunationHouse])}.`;
+  const interpretationText = `This ${lunation.lunationType} occurs in your ${getFormattedHouseText(lunationHouse)} of ${getFormattedHouseDescriptionText([lunationHouse])}.`;
+  const recommendationText =
+    lunation.lunationType === "new moon"
+      ? `This is a good time to set new intensions around your ${getFormattedHouseTopicsText(lunationHouse)}.`
+      : `This full moon marks the completion of efforts over the last sixth months in your ${getFormattedHouseTopicsText(lunationHouse)}.`;
 
   return (
     <div className="p-4 bg-gray-700 rounded-md border border-gray-600">
@@ -39,7 +44,7 @@ export default function MonthLunation({
           {monthLabel} {day}, {year}
         </span>
       </div>
-      <p className="text-gray-300 text-sm mt-1">{interpretationText}</p>
+      <p className="text-gray-300 text-sm mt-1">{`${interpretationText} ${recommendationText}`}</p>
     </div>
   );
 }

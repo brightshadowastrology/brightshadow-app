@@ -5,7 +5,7 @@ import {
   formatDegree,
   getHouseFromSign,
   getFormattedHouseText,
-  getFormattedHouseTopicsText,
+  getFormattedHouseDescriptionText,
 } from "@/shared/lib/textHelpers";
 
 export default function MonthEclipse({
@@ -29,7 +29,7 @@ export default function MonthEclipse({
     eclipse.position.sign,
   );
   const lunationText = `${titleCase(eclipse.type)} | ${eclipse.position.sign} ${formatDegree(eclipse.position.degree, eclipse.position.minute)}`;
-  const interpretationText = `This ${titleCase(eclipse.type)} occurs in your ${getFormattedHouseText(lunationHouse)} of ${getFormattedHouseTopicsText([lunationHouse])}.`;
+  const interpretationText = `This ${titleCase(eclipse.type)} occurs in your ${getFormattedHouseText(lunationHouse)} of ${getFormattedHouseDescriptionText([lunationHouse])}.`;
 
   return (
     <div className="p-4 bg-gray-700 rounded-md border border-gray-600">

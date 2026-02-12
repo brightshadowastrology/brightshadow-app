@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import * as constants from "@/shared/lib/constants";
 import { trpc } from "@/shared/lib/trpc";
 import {
@@ -17,7 +18,7 @@ function getNext12Months(): { month: number; year: number; label: string }[] {
   const currentMonth = now.getMonth();
   const currentYear = now.getFullYear();
 
-  return Array.from({ length: 12 }, (_, i) => {
+  return Array.from({ length: 13 }, (_, i) => {
     const monthIndex = (currentMonth + i) % 12;
     const year = currentYear + Math.floor((currentMonth + i) / 12);
     return {
@@ -125,28 +126,33 @@ function getIngressesForMonth(
 
 export default function MajorTransits() {
   const months = getNext12Months();
+  const dateParam = useMemo(() => new Date().toISOString(), []);
 
   const { data: eclipses, isLoading: eclipsesLoading } = trpc.useQuery([
     "astro.getEclipses",
-    { date: new Date().toISOString() },
+    { date: dateParam },
   ]);
 
   const { data: retrogrades, isLoading: retrogradesLoading } = trpc.useQuery([
     "astro.getMercuryRetrogradePeriods",
-    { date: new Date().toISOString() },
+    { date: dateParam },
   ]);
 
   const { data: lunations, isLoading: lunationsLoading } = trpc.useQuery([
     "astro.getLunations",
-    { date: new Date().toISOString() },
+    { date: dateParam },
   ]);
 
-  const { data: ingresses } = trpc.useQuery([
+  const { data: ingresses, isLoading: ingressesLoading } = trpc.useQuery([
     "astro.getAllPlanetZeroDegreeIngresses",
-    { date: new Date().toISOString() },
+    { date: dateParam },
   ]);
 
-  const isLoading = eclipsesLoading || retrogradesLoading || lunationsLoading;
+  const isLoading =
+    eclipsesLoading ||
+    retrogradesLoading ||
+    lunationsLoading ||
+    ingressesLoading;
 
   if (isLoading) {
     return <LoadingIndicator />;

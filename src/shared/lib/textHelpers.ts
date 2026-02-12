@@ -1,5 +1,5 @@
 import * as constants from "@/shared/lib/constants";
-import { houseDescriptions } from "@/shared/lib/text";
+import { houseDescriptions, houseTopics } from "@/shared/lib/text";
 
 export const getOrdinal = (n: number): string => {
   const suffixes = ["th", "st", "nd", "rd"];
@@ -62,10 +62,16 @@ export const getFormattedHouseRulersText = (housesRuledByPlanet: number[]) => {
   return `${housesFormatted.join(", ").replace(/, ([^,]*)$/, " and $1")} ${housesRuledByPlanet.length === 1 ? "house" : "houses"}`;
 };
 
-export const getFormattedHouseTopicsText = (housesRuledByPlanet: number[]) => {
+export const getFormattedHouseDescriptionText = (
+  housesRuledByPlanet: number[],
+) => {
   return housesRuledByPlanet
     .map((house) => {
       return houseDescriptions[house];
     })
-    .join(", as well as ");
+    .join(", as well as your ");
+};
+
+export const getFormattedHouseTopicsText = (house: number) => {
+  return houseTopics[house].join(", ").replace(/, ([^,]*)$/, " and $1");
 };

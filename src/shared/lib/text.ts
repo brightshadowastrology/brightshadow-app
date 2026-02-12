@@ -58,18 +58,18 @@ export const planetDescriptions: Record<
 };
 
 export const houseDescriptions: Record<number, string> = {
-  1: "self",
-  2: "money",
+  1: "life direction and sense of self",
+  2: "personal resources",
   3: "communication",
-  4: "home and family",
-  5: "fun",
-  6: "health and daily routines",
+  4: "emotional foundations",
+  5: "creativity",
+  6: "service and daily routines",
   7: "partnerships",
   8: "shared resources",
-  9: "personal philosophy",
+  9: "worldview",
   10: "career",
   11: "friendships",
-  12: "spirituality",
+  12: "solitude and spirituality",
 };
 
 export const signDescriptions: Record<string, string[]> = {
@@ -89,27 +89,15 @@ export const signDescriptions: Record<string, string[]> = {
 
 export const houseTopics: { [key: number]: string[] } = {
   1: ["self-presentation", "body", "identity", "life direction"],
-  2: ["money", "assets", "self esteem"],
-  3: ["learning", "local travel", "communication", "siblings"],
-  4: ["home", "family", "emotional foundations", "ancestry", "property"],
+  2: ["earned income", "assets", "personal values", "self esteem"],
+  3: ["learning", "local travel", "siblings"],
+  4: ["home", "family", "ancestry", "property"],
   5: ["creativity", "children", "fun", "romance", "pleasure"],
-  6: ["daily habits", "being of service", "health", "pets", "coworkers"],
-  7: [
-    "partnerships",
-    "marriage",
-    "one-to-one relationships",
-    "contracts",
-    "open enemies",
-  ],
+  6: ["health", "work", "daily habits", "pets", "coworkers"],
+  7: ["marriage", "one-to-one relationships", "contracts"],
   8: ["debt", "taxes", "shared resources", "subconscious material"],
-  9: [
-    "worldview",
-    "higher education",
-    "religion",
-    "long distance travel",
-    "legal matters",
-  ],
-  10: ["career", "vocation", "public reputation", "authority figures"],
+  9: ["beliefs", "higher education", "travel", "legal matters"],
+  10: ["career", "vocation", "public reputation", "authority"],
   11: [
     "friendships",
     "professional networks",
@@ -117,5 +105,5 @@ export const houseTopics: { [key: number]: string[] } = {
     "community",
     "aspirations",
   ],
-  12: ["solitude", "rest", "self-undoing", "hidden enemies", "spirituality"],
+  12: ["solitude", "rest", "spirituality", "spirituality"],
 };
