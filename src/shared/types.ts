@@ -79,6 +79,12 @@ export type RetrogradePeriod = {
   end: { date: string; position: Position };
 };
 
+export type RetrogradeEvent = {
+  date: string;
+  position: Position;
+  isStarting: boolean;
+};
+
 export type Aspect = {
   planet: string;
   aspect: string;

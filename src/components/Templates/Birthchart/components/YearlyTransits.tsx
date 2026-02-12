@@ -4,7 +4,7 @@ import { trpc } from "@/shared/lib/trpc";
 import {
   type Eclipse,
   type Lunation,
-  type Position,
+  type RetrogradeEvent,
   type RetrogradePeriod,
 } from "@/shared/types";
 import MonthEclipse from "./MonthEclipse";
@@ -41,12 +41,6 @@ function getEclipsesForMonth(
     })
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 }
-
-export type RetrogradeEvent = {
-  date: string;
-  position: Position;
-  isStarting: boolean;
-};
 
 function getRetrogradesForMonth(
   retrogrades: RetrogradePeriod[],
@@ -124,7 +118,7 @@ function getIngressesForMonth(
   );
 }
 
-export default function MajorTransits() {
+export const YearlyTransits = () => {
   const months = getNext12Months();
   const dateParam = useMemo(() => new Date().toISOString(), []);
 
@@ -257,4 +251,6 @@ export default function MajorTransits() {
       })}
     </div>
   );
-}
+};
+
+export default YearlyTransits;

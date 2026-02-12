@@ -18,7 +18,7 @@ import { type PlanetPoint, type ProfectionYearData } from "@/shared/types";
 import BirthchartData from "./components/BirthchartData";
 import ProfectionYear from "./components/ProfectionYear";
 import moment from "moment-timezone";
-import MajorTransits from "./components/MajorTransits";
+import YearlyTransits from "./components/YearlyTransits";
 import { BirthChartProvider } from "../../Providers/BirthChartContext";
 
 type BirthchartFormData = {
@@ -228,7 +228,7 @@ export default function Birthchart() {
 
           {birthChartData && (
             <div className="mt-8 w-full">
-              <MajorTransits />
+              <YearlyTransits />
             </div>
           )}
         </BirthChartProvider>

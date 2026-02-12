@@ -1,11 +1,9 @@
 import { useBirthChart } from "@/components/Providers/BirthChartContext";
-import { type RetrogradeEvent } from "./MajorTransits";
+import { type RetrogradeEvent } from "@/shared/types";
 import {
   formatDegree,
   getHouseFromSign,
   getFormattedHouseText,
-  getFormattedHouseRulersText,
-  getFormattedHouseDescriptionText,
   getFormattedHouseTopicsText,
 } from "@/shared/lib/textHelpers";
 
