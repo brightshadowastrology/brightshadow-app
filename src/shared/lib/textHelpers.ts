@@ -1,4 +1,5 @@
 import * as constants from "@/shared/lib/constants";
+import { houseDescriptions } from "@/shared/lib/text";
 
 export const getOrdinal = (n: number): string => {
   const suffixes = ["th", "st", "nd", "rd"];
@@ -42,4 +43,29 @@ export const getHouseFromSign = (
   const targetIndex = zodiac.indexOf(sign);
   const houseNumber = ((targetIndex - startIndex + 12) % 12) + 1;
   return houseNumber;
+};
+
+export const getFormattedPlanetText = (planetName: string) => {
+  return planetName === "Sun" || planetName === "Moon"
+    ? `The ${planetName}`
+    : planetName;
+};
+
+export const getFormattedHouseText = (house: number) => {
+  return `${getOrdinal(house)} house`;
+};
+
+export const getFormattedHouseRulersText = (housesRuledByPlanet: number[]) => {
+  const housesFormatted = housesRuledByPlanet.map((house) => {
+    return getOrdinal(house);
+  });
+  return `${housesFormatted.join(", ").replace(/, ([^,]*)$/, " and $1")} ${housesRuledByPlanet.length === 1 ? "house" : "houses"}`;
+};
+
+export const getFormattedHouseTopicsText = (housesRuledByPlanet: number[]) => {
+  return housesRuledByPlanet
+    .map((house) => {
+      return houseDescriptions[house];
+    })
+    .join(", as well as ");
 };

@@ -19,6 +19,7 @@ import BirthchartData from "./components/BirthchartData";
 import ProfectionYear from "./components/ProfectionYear";
 import moment from "moment-timezone";
 import MajorTransits from "./components/MajorTransits";
+import { BirthChartProvider } from "./BirthChartContext";
 
 type BirthchartFormData = {
   day: string;
@@ -212,23 +213,25 @@ export default function Birthchart() {
           </Button>
         </Form.Root>
 
-        {birthChartData && (
-          <div className="mt-8 w-full">
-            <BirthchartData data={birthChartData} />
-          </div>
-        )}
+        <BirthChartProvider value={birthChartData}>
+          {birthChartData && (
+            <div className="mt-8 w-full">
+              <BirthchartData data={birthChartData} />
+            </div>
+          )}
 
-        {profectionYear && (
-          <div className="mt-8 w-full">
-            <ProfectionYear data={profectionYear} />
-          </div>
-        )}
+          {profectionYear && (
+            <div className="mt-8 w-full">
+              <ProfectionYear data={profectionYear} />
+            </div>
+          )}
 
-        {birthChartData && (
-          <div className="mt-8 w-full">
-            <MajorTransits />
-          </div>
-        )}
+          {birthChartData && (
+            <div className="mt-8 w-full">
+              <MajorTransits />
+            </div>
+          )}
+        </BirthChartProvider>
       </main>
     </div>
   );

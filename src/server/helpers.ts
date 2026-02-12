@@ -77,6 +77,7 @@ export const getAngle = (
       degree: convertValuetoDegrees(houseData.houses[angleIndex]).degree,
       minute: convertValuetoDegrees(houseData.houses[angleIndex]).minute,
     },
+    rulerOf: undefined,
   };
 };
 

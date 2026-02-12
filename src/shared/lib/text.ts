@@ -58,18 +58,18 @@ export const planetDescriptions: Record<
 };
 
 export const houseDescriptions: Record<number, string> = {
-  1: "self and identity",
-  2: "money and possessions",
-  3: "communication and siblings",
+  1: "self",
+  2: "money",
+  3: "communication",
   4: "home and family",
-  5: "creativity and romance",
+  5: "fun",
   6: "health and daily routines",
-  7: "partnerships and marriage",
-  8: "transformation and shared resources",
-  9: "worldview and education",
-  10: "career and public standing",
-  11: "friendships and aspirations",
-  12: "spirituality and the unconscious",
+  7: "partnerships",
+  8: "shared resources",
+  9: "personal philosophy",
+  10: "career",
+  11: "friendships",
+  12: "spirituality",
 };
 
 export const signDescriptions: Record<string, string[]> = {

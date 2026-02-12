@@ -1,3 +1,11 @@
+import { useBirthChart } from "../BirthChartContext";
+import { type PlanetPoint } from "@/shared/types";
+import {
+  getHouseFromSign,
+  getFormattedHouseText,
+  getFormattedHouseRulersText,
+  getFormattedHouseTopicsText,
+} from "@/shared/lib/textHelpers";
 export type IngressEntry = { date: string; planet: string; sign: string };
 
 export default function MonthIngress({
@@ -9,6 +17,21 @@ export default function MonthIngress({
   monthLabel: string;
   year: number;
 }) {
+  const { birthChartData } = useBirthChart();
+
+  const natalPlacement: PlanetPoint | undefined = birthChartData?.find(
+    (element) => element.planet === ingress.planet,
+  );
+
+  if (!birthChartData || !natalPlacement) return;
+
+  const houseIngressedInto: number = getHouseFromSign(
+    birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ||
+      "Aries",
+    ingress.sign,
+  );
+  const placementText = `Natally, ${ingress.planet} rules your ${getFormattedHouseRulersText(natalPlacement.rulerOf || [])}. This brings themes of ${getFormattedHouseTopicsText(natalPlacement.rulerOf || [])}, into your ${getFormattedHouseTopicsText([houseIngressedInto])}.`;
+
   const date = new Date(ingress.date);
   const day = date.getDate();
 
@@ -16,12 +39,14 @@ export default function MonthIngress({
     <div className="p-4 bg-gray-700 rounded-md border border-gray-600">
       <div className="flex justify-between items-start">
         <h4 className="text-lg font-medium text-white">
-          {ingress.planet} enters {ingress.sign}
+          {ingress.planet} enters your {ingress.sign}{" "}
+          {getFormattedHouseText(houseIngressedInto)}
         </h4>
         <span className="text-gray-400 text-sm">
           {monthLabel} {day}, {year}
         </span>
       </div>
+      <p className="text-gray-300 text-sm mt-1">{placementText}</p>
     </div>
   );
 }

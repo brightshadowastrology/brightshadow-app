@@ -25,6 +25,7 @@ import {
   type RetrogradePeriod,
   type ProfectionYearData,
 } from "@/shared/types";
+import { getHouseFromSign } from "@/shared/lib/textHelpers";
 
 export const getBirthChartData = (
   date: Date,
@@ -37,19 +38,27 @@ export const getBirthChartData = (
   const houses = getHousePositions(julday.data[0], latitude, longitude);
   const houseDegrees = convertValuetoDegrees(houses.houses[0]);
 
-  let result = placements.map((placement) => {
-    const house = getPlanetHouse(placement.position.sign, houseDegrees.sign);
-    return {
-      ...placement,
-      house,
-    };
-  });
-
   // Angles
   const ascendant = getAngle(houses, houseDegrees.sign, "Ascendant", 0);
   const descendant = getAngle(houses, houseDegrees.sign, "Descendant", 6);
   const midheaven = getAngle(houses, houseDegrees.sign, "Midheaven", 9);
   const ic = getAngle(houses, houseDegrees.sign, "IC", 3);
+
+  let result: PlanetPoint[] = placements.map((placement) => {
+    const house = getPlanetHouse(placement.position.sign, houseDegrees.sign);
+    const signsRuledByPlanet = sharedConstants.RULERSHIPS[placement.planet];
+    let housesRuledByPlanet: number[] = [];
+    if (signsRuledByPlanet) {
+      housesRuledByPlanet = signsRuledByPlanet.map((sign) => {
+        return getHouseFromSign(ascendant.position.sign || "Aries", sign);
+      });
+    }
+    return {
+      ...placement,
+      house,
+      rulerOf: housesRuledByPlanet || [],
+    };
+  });
 
   // Push angle data
   result.push(ascendant);

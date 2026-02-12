@@ -15,6 +15,7 @@ export type PlanetPoint = {
   modality: string;
   position: Position;
   house: number;
+  rulerOf?: number[] | undefined;
 };
 
 export type LunationType = "new moon" | "full moon";
