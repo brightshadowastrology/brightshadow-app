@@ -1,11 +1,13 @@
 import { useBirthChart } from "@/components/Providers/BirthChartContext";
 import { type Eclipse } from "@/shared/types";
+import { getAspectsToNatalPlanets } from "../helpers";
 import {
   titleCase,
   formatDegree,
   getHouseFromSign,
   getFormattedHouseText,
   getFormattedHouseDescriptionText,
+  getFormattedAspectText,
 } from "@/shared/lib/textHelpers";
 
 export default function MonthEclipse({
@@ -30,6 +32,7 @@ export default function MonthEclipse({
   );
   const lunationText = `${titleCase(eclipse.type)} | ${eclipse.position.sign} ${formatDegree(eclipse.position.degree, eclipse.position.minute)}`;
   const interpretationText = `This ${titleCase(eclipse.type)} occurs in your ${getFormattedHouseText(lunationHouse)} of ${getFormattedHouseDescriptionText([lunationHouse])}.`;
+  const aspects = getAspectsToNatalPlanets(eclipse.position, birthChartData);
 
   return (
     <div className="p-4 bg-gray-700 rounded-md border border-gray-600">
@@ -40,6 +43,9 @@ export default function MonthEclipse({
         </span>
       </div>
       <p className="text-gray-300 text-sm mt-1">{interpretationText}</p>
+      <p className="text-gray-300 text-sm mt-1">
+        {aspects.length > 0 && getFormattedAspectText(aspects, eclipse.type)}
+      </p>
     </div>
   );
 }

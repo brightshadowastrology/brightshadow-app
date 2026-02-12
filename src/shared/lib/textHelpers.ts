@@ -1,4 +1,5 @@
 import * as constants from "@/shared/lib/constants";
+import { type Aspect } from "@/shared/types";
 import { houseDescriptions, houseTopics } from "@/shared/lib/text";
 
 export const getOrdinal = (n: number): string => {
@@ -74,4 +75,19 @@ export const getFormattedHouseDescriptionText = (
 
 export const getFormattedHouseTopicsText = (house: number) => {
   return houseTopics[house].join(", ").replace(/, ([^,]*)$/, ", and $1");
+};
+
+export const getFormattedAspectText = (
+  aspects: Aspect[],
+  transitText?: string,
+) => {
+  const text = aspects.map((aspect) => {
+    const a = aspect.aspect.startsWith("s") ? "a" : "an";
+    return `${a} ${aspect.aspect
+      .split(/(?=[A-Z])/)
+      .join(" ")
+      .toLowerCase()} to your natal ${aspect.planet}`;
+  });
+
+  return `This ${transitText || "transit"} is in ${text.join(", ").replace(/, ([^,]*)$/, ", and $1")}.`;
 };
