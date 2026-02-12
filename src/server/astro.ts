@@ -290,7 +290,15 @@ export const getMajorTransitsForAPlanet = (
       position.sign as keyof typeof sharedConstants.ASPECTS_MAP
     ].inferiorSextile;
 
-  const transitingPlanet = ["Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"];
+  const transitingPlanet = [
+    "Venus",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+    "Uranus",
+    "Neptune",
+    "Pluto",
+  ];
 
   const result: Transits[] = transitingPlanet.map((planet) => {
     const conjunctTransits = getPlanetaryIngressByDegree(planet, {
@@ -792,6 +800,8 @@ export const getAllPlanetZeroDegreeIngresses = () => {
 
 export const getMajorTransitsAllPlanets = (natalPlacements: PlanetPoint[]) => {
   const traditionalPlanets = [
+    "Ascendant",
+    "Midheaven",
     "Sun",
     "Moon",
     "Mercury",
