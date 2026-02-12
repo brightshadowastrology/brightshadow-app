@@ -1,5 +1,4 @@
-import { houseTopics } from "@/shared/lib/text";
-import { useBirthChart } from "../BirthChartContext";
+import { useBirthChart } from "@/components/Providers/BirthChartContext";
 import { type RetrogradeEvent } from "./MajorTransits";
 import {
   formatDegree,

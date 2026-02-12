@@ -59,7 +59,7 @@ export const getFormattedHouseRulersText = (housesRuledByPlanet: number[]) => {
   const housesFormatted = housesRuledByPlanet.map((house) => {
     return getOrdinal(house);
   });
-  return `${housesFormatted.join(", ").replace(/, ([^,]*)$/, " and $1")} ${housesRuledByPlanet.length === 1 ? "house" : "houses"}`;
+  return `${housesFormatted.join(", ").replace(/, ([^,]*)$/, ", and $1")} ${housesRuledByPlanet.length === 1 ? "house" : "houses"}`;
 };
 
 export const getFormattedHouseDescriptionText = (
@@ -73,5 +73,5 @@ export const getFormattedHouseDescriptionText = (
 };
 
 export const getFormattedHouseTopicsText = (house: number) => {
-  return houseTopics[house].join(", ").replace(/, ([^,]*)$/, " and $1");
+  return houseTopics[house].join(", ").replace(/, ([^,]*)$/, ", and $1");
 };

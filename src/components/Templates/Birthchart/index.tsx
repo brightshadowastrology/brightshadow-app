@@ -19,7 +19,7 @@ import BirthchartData from "./components/BirthchartData";
 import ProfectionYear from "./components/ProfectionYear";
 import moment from "moment-timezone";
 import MajorTransits from "./components/MajorTransits";
-import { BirthChartProvider } from "./BirthChartContext";
+import { BirthChartProvider } from "../../Providers/BirthChartContext";
 
 type BirthchartFormData = {
   day: string;

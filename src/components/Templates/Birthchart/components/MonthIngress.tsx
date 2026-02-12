@@ -1,4 +1,4 @@
-import { useBirthChart } from "../BirthChartContext";
+import { useBirthChart } from "@/components/Providers/BirthChartContext";
 import { type PlanetPoint } from "@/shared/types";
 import {
   getHouseFromSign,
