@@ -12,12 +12,21 @@ import {
   getEclipses,
   getMercuryRetrogradePeriods,
   getAllPlanetZeroDegreeIngresses,
+  getMajorTransitsAllPlanets,
 } from "../astro";
 
 const positionSchema = z.object({
   sign: z.string(),
   degree: z.number(),
   minute: z.number(),
+});
+
+const planetPositionSchema = z.object({
+  planet: z.string(),
+  modality: z.string(),
+  position: positionSchema,
+  house: z.number(),
+  rulerOf: z.array(z.number()).optional(),
 });
 
 export const astroRouter = trpc
@@ -115,5 +124,13 @@ export const astroRouter = trpc
     }),
     resolve() {
       return getAllPlanetZeroDegreeIngresses();
+    },
+  })
+  .query("getMajorTransitsAllPlanets", {
+    input: z.object({
+      natalPlacements: z.array(planetPositionSchema),
+    }),
+    resolve({ input }) {
+      return getMajorTransitsAllPlanets(input.natalPlacements);
     },
   });

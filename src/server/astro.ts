@@ -257,6 +257,10 @@ export const getMajorTransitsForAPlanet = (
 ): MajorTransits => {
   const modality = getPlanetModality(natalPlanet);
 
+  const conjunctSign =
+    sharedConstants.ASPECTS_MAP[
+      position.sign as keyof typeof sharedConstants.ASPECTS_MAP
+    ].conjunct;
   const oppositionSign =
     sharedConstants.ASPECTS_MAP[
       position.sign as keyof typeof sharedConstants.ASPECTS_MAP
@@ -289,6 +293,11 @@ export const getMajorTransitsForAPlanet = (
   const transitingPlanet = ["Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"];
 
   const result: Transits[] = transitingPlanet.map((planet) => {
+    const conjunctTransits = getPlanetaryIngressByDegree(planet, {
+      sign: conjunctSign,
+      degree: position.degree,
+      minute: position.minute || 0,
+    });
     const oppositionTransits = getPlanetaryIngressByDegree(planet, {
       sign: oppositionSign,
       degree: position.degree,
@@ -327,6 +336,7 @@ export const getMajorTransitsForAPlanet = (
 
     return {
       planet,
+      conjunct: conjunctTransits.matchesFound > 0 ? conjunctTransits : null,
       opposition:
         oppositionTransits.matchesFound > 0 ? oppositionTransits : null,
       superiorSquare:
@@ -777,5 +787,25 @@ export const getAllPlanetZeroDegreeIngresses = () => {
       planet,
       ingresses: ingresses.filter((ingress) => ingress.matchesFound > 0),
     };
+  });
+};
+
+export const getMajorTransitsAllPlanets = (natalPlacements: PlanetPoint[]) => {
+  const traditionalPlanets = [
+    "Sun",
+    "Moon",
+    "Mercury",
+    "Venus",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+  ];
+  // Get only traditional planets
+  const traditionalPlacements = natalPlacements.filter((placement) =>
+    traditionalPlanets.includes(placement.planet),
+  );
+
+  return traditionalPlacements.map((placement) => {
+    return getMajorTransitsForAPlanet(placement.planet, placement.position);
   });
 };

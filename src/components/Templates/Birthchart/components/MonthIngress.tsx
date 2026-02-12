@@ -1,5 +1,5 @@
 import { useBirthChart } from "@/components/Providers/BirthChartContext";
-import { type PlanetPoint } from "@/shared/types";
+import { type PlanetPoint, type IngressEntry } from "@/shared/types";
 import {
   getHouseFromSign,
   getFormattedHouseText,
@@ -7,7 +7,6 @@ import {
   getFormattedHouseDescriptionText,
   getFormattedHouseTopicsText,
 } from "@/shared/lib/textHelpers";
-export type IngressEntry = { date: string; planet: string; sign: string };
 
 export default function MonthIngress({
   ingress,

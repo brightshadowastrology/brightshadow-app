@@ -104,7 +104,6 @@ export default function Birthchart() {
             birthdate: utcDate.toISOString(),
           },
         ]);
-        console.log("Profection Year:", profectionResult);
         setProfectionYear(profectionResult);
       }
     } catch (error) {

@@ -38,6 +38,18 @@ export type ProfectionYearData = {
   lordOfYear: string;
 };
 
+export type IngressEntry = { date: string; planet: string; sign: string };
+
+export type TransitEntry = {
+  date: string;
+  transitingPlanet: string;
+  natalPlanet: string;
+  aspect: string;
+  position: Position;
+  natalPosition: Position;
+  exactMatch: boolean;
+};
+
 export type PlanetaryIngress = {
   planet: string;
   targetPosition: Position;
@@ -51,6 +63,7 @@ export type PlanetaryIngress = {
 
 export type Transits = {
   planet: string;
+  conjunct: PlanetaryIngress | null;
   opposition: PlanetaryIngress | null;
   superiorSquare: PlanetaryIngress | null;
   inferiorSquare: PlanetaryIngress | null;

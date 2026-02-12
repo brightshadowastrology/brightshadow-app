@@ -1,16 +1,21 @@
 import { useMemo } from "react";
 import * as constants from "@/shared/lib/constants";
 import { trpc } from "@/shared/lib/trpc";
+import { useBirthChart } from "@/components/Providers/BirthChartContext";
 import {
   type Eclipse,
   type Lunation,
+  type MajorTransits,
   type RetrogradeEvent,
   type RetrogradePeriod,
+  type IngressEntry,
+  type TransitEntry,
 } from "@/shared/types";
 import MonthEclipse from "./MonthEclipse";
 import MonthLunation from "./MonthLunation";
 import MonthRetrograde from "./MonthRetrograde";
-import MonthIngress, { type IngressEntry } from "./MonthIngress";
+import MonthIngress from "./MonthIngress";
+import MonthTransit from "./MonthTransit";
 import LoadingIndicator from "./LoadingIndicator";
 
 function getNext12Months(): { month: number; year: number; label: string }[] {
@@ -118,9 +123,66 @@ function getIngressesForMonth(
   );
 }
 
+const ASPECT_KEYS = [
+  "conjunct",
+  "opposition",
+  "superiorSquare",
+  "inferiorSquare",
+  "superiorTrine",
+  "inferiorTrine",
+  "superiorSextile",
+  "inferiorSextile",
+] as const;
+
+function getTransitsForMonth(
+  majorTransits: MajorTransits[],
+  month: number,
+  year: number,
+): TransitEntry[] {
+  const entries: TransitEntry[] = [];
+
+  for (const mt of majorTransits) {
+    for (const transit of mt.transits) {
+      for (const aspectKey of ASPECT_KEYS) {
+        const ingress = transit[aspectKey];
+        if (!ingress) continue;
+
+        for (const d of ingress.dates) {
+          const date = new Date(d.date);
+          if (date.getMonth() === month && date.getFullYear() === year) {
+            entries.push({
+              date: d.date,
+              transitingPlanet: transit.planet,
+              natalPlanet: mt.natalPlanet,
+              aspect: aspectKey,
+              position: d.position,
+              natalPosition: mt.natalPosition,
+              exactMatch: d.exactMatch,
+            });
+          }
+        }
+      }
+    }
+  }
+
+  return entries.sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+  );
+}
+
 export const YearlyTransits = () => {
   const months = getNext12Months();
   const dateParam = useMemo(() => new Date().toISOString(), []);
+  const { birthChartData } = useBirthChart();
+
+  const { data: majorTransits, isLoading: majorTransitsLoading } =
+    trpc.useQuery(
+      [
+        "astro.getMajorTransitsAllPlanets",
+        { natalPlacements: birthChartData! },
+      ],
+      { enabled: !!birthChartData },
+    );
 
   const { data: eclipses, isLoading: eclipsesLoading } = trpc.useQuery([
     "astro.getEclipses",
@@ -146,7 +208,8 @@ export const YearlyTransits = () => {
     eclipsesLoading ||
     retrogradesLoading ||
     lunationsLoading ||
-    ingressesLoading;
+    ingressesLoading ||
+    majorTransitsLoading;
 
   if (isLoading) {
     return <LoadingIndicator />;
@@ -166,6 +229,9 @@ export const YearlyTransits = () => {
           : [];
         const monthIngresses = ingresses
           ? getIngressesForMonth(ingresses, month, year)
+          : [];
+        const monthTransits = majorTransits
+          ? getTransitsForMonth(majorTransits, month, year)
           : [];
 
         const allEvents = [
@@ -188,6 +254,11 @@ export const YearlyTransits = () => {
             type: "ingress" as const,
             date: i.date,
             data: i,
+          })),
+          ...monthTransits.map((t) => ({
+            type: "transit" as const,
+            date: t.date,
+            data: t,
           })),
         ].sort(
           (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
@@ -238,6 +309,15 @@ export const YearlyTransits = () => {
                         <MonthIngress
                           key={`ingress-${event.data.date}-${event.data.planet}`}
                           ingress={event.data}
+                          monthLabel={label}
+                          year={year}
+                        />
+                      );
+                    case "transit":
+                      return (
+                        <MonthTransit
+                          key={`transit-${event.data.date}-${event.data.transitingPlanet}-${event.data.natalPlanet}-${event.data.aspect}`}
+                          transit={event.data}
                           monthLabel={label}
                           year={year}
                         />
