@@ -6,6 +6,7 @@ import {
   getFormattedHouseText,
   getFormattedHouseRulersText,
   getFormattedHouseDescriptionText,
+  getFormattedTransitText,
 } from "@/shared/lib/textHelpers";
 
 const ASPECT_LABELS: Record<string, string> = {
@@ -36,9 +37,9 @@ export default function MonthTransit({
     birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ||
     "Aries";
 
-  const natalPlanetData = birthChartData.find(
-    (p) => p.planet === transit.natalPlanet,
-  );
+  const natalPlanetData =
+    birthChartData.find((p) => p.planet === transit.natalPlanet) ||
+    birthChartData[0];
 
   const transitHouse = getHouseFromSign(ascendantSign, transit.position.sign);
   const aspectLabel = ASPECT_LABELS[transit.aspect] || transit.aspect;
@@ -49,13 +50,12 @@ export default function MonthTransit({
   const title = `${transit.transitingPlanet} ${aspectLabel} natal ${transit.natalPlanet}`;
   const positionText = `${transit.position.sign} ${formatDegree(transit.position.degree, transit.position.minute)}`;
 
-  const rulerOfText =
-    natalPlanetData?.rulerOf && natalPlanetData.rulerOf.length > 0
-      ? ` Natal ${transit.natalPlanet} rules your ${getFormattedHouseRulersText(natalPlanetData.rulerOf)}, your ${getFormattedHouseDescriptionText(natalPlanetData.rulerOf)}.`
-      : "";
-
-  const interpretationText = `Transiting ${transit.transitingPlanet} at ${positionText} in your ${getFormattedHouseText(transitHouse)} forms a ${aspectLabel} to your natal ${transit.natalPlanet} at ${transit.natalPosition.sign} ${formatDegree(transit.natalPosition.degree, transit.natalPosition.minute)}.${rulerOfText}`;
-
+  const interpretationText = `Transiting ${transit.transitingPlanet} at ${positionText} in your ${getFormattedHouseText(transitHouse)} forms a ${aspectLabel} to your natal ${transit.natalPlanet} at ${transit.natalPosition.sign} ${formatDegree(transit.natalPosition.degree, transit.natalPosition.minute)}.`;
+  const transitInterpretation = getFormattedTransitText(
+    transit.transitingPlanet,
+    natalPlanetData,
+    aspectLabel,
+  );
   return (
     <div className="p-4 bg-gray-700 rounded-md border border-gray-600">
       <div className="flex justify-between items-start">
@@ -65,6 +65,7 @@ export default function MonthTransit({
         </span>
       </div>
       <p className="text-gray-300 text-sm mt-1">{interpretationText}</p>
+      <p className="text-gray-300 text-sm mt-1">{transitInterpretation}</p>
     </div>
   );
 }

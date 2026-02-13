@@ -1,6 +1,19 @@
 import * as constants from "@/shared/lib/constants";
-import { type Aspect } from "@/shared/types";
+import {
+  type PlanetPoint,
+  type Aspect,
+  type TransitInterpretations,
+} from "@/shared/types";
 import { houseDescriptions, houseTopics } from "@/shared/lib/text";
+import {
+  venusTransitInterpretations,
+  marsTransitInterpretations,
+  jupiterTransitInterpretations,
+  saturnTransitInterpretations,
+  uranusTransitInterpretations,
+  neptuneTransitInterpretations,
+  plutoTransitInterpretations,
+} from "@/shared/lib/text";
 
 export const getOrdinal = (n: number): string => {
   const suffixes = ["th", "st", "nd", "rd"];
@@ -90,4 +103,51 @@ export const getFormattedAspectText = (
   });
 
   return `This ${transitText || "transit"} is in ${text.join(", ").replace(/, ([^,]*)$/, ", and $1")}.`;
+};
+
+export const getFormattedTransitText = (
+  transitingPlanet: string,
+  natalPlanet: PlanetPoint,
+  aspectLabel: string,
+) => {
+  let transitTextCollection: TransitInterpretations = {};
+  const aspect =
+    aspectLabel === "conjunct"
+      ? "conjunct"
+      : aspectLabel === "square" || aspectLabel === "opposition"
+        ? "squareOrOpposition"
+        : "trineOrSextile";
+
+  switch (transitingPlanet) {
+    case "Venus":
+      transitTextCollection = venusTransitInterpretations;
+      break;
+    case "Mars":
+      transitTextCollection = marsTransitInterpretations;
+      break;
+    case "Jupiter":
+      transitTextCollection = jupiterTransitInterpretations;
+      break;
+    case "Saturn":
+      transitTextCollection = saturnTransitInterpretations;
+    case "Uranus":
+      transitTextCollection = uranusTransitInterpretations;
+      break;
+    case "Neptune":
+      transitTextCollection = neptuneTransitInterpretations;
+      break;
+    case "Pluto":
+      transitTextCollection = plutoTransitInterpretations;
+      break;
+    default:
+      console.log("Not found");
+  }
+
+  return natalPlanet.rulerOf
+    ?.map((house) => {
+      return (
+        transitTextCollection?.[natalPlanet.planet]?.[aspect]?.[house] || ""
+      );
+    })
+    .join(" ");
 };

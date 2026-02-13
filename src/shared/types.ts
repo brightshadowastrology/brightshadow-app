@@ -102,3 +102,11 @@ export type Aspect = {
   planet: string;
   aspect: string;
 };
+
+export type TransitInterpretations = {
+  [key: string]: {
+    conjunct: { [key: number]: string };
+    trineOrSextile: { [key: number]: string };
+    squareOrOpposition: { [key: number]: string };
+  };
+};
