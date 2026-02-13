@@ -224,8 +224,13 @@ export const YearlyTransits = () => {
         const monthRetrogrades = retrogrades
           ? getRetrogradesForMonth(retrogrades, month, year)
           : [];
+        const eclipseSigns = new Set(
+          monthEclipses.map((e) => e.position.sign),
+        );
         const monthLunations = lunations
-          ? getLunationsForMonth(lunations, month, year)
+          ? getLunationsForMonth(lunations, month, year).filter(
+              (l) => !eclipseSigns.has(l.position.sign),
+            )
           : [];
         const monthIngresses = ingresses
           ? getIngressesForMonth(ingresses, month, year)
