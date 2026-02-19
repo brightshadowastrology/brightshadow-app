@@ -1,4 +1,9 @@
-import { type Position, type PlanetPoint, type Aspect } from "@/shared/types";
+import {
+  type Position,
+  type PlanetPoint,
+  type Aspect,
+  type SectPlanets,
+} from "@/shared/types";
 import { ASPECTS_MAP } from "@/shared/lib/constants";
 
 export const getAspectsToNatalPlanets = (
@@ -30,4 +35,65 @@ export const getAspectsToNatalPlanets = (
     });
 
   return aspects.length > 0 ? aspects : [];
+};
+
+export const getSectPlanets = (
+  isDayChart: boolean,
+  birthchartData: PlanetPoint[],
+): SectPlanets => {
+  const inSectBenefic: PlanetPoint = birthchartData.find((p) =>
+    isDayChart ? p.planet === "Jupiter" : p.planet === "Venus",
+  ) || {
+    planet: "Jupiter",
+    modality: "Fixed",
+    position: {
+      sign: "Leo",
+      degree: 0,
+      minute: 0,
+    },
+    house: 1,
+  };
+  const outOfSectBenefic = birthchartData.find((p) =>
+    isDayChart ? p.planet === "Venus" : p.planet === "Jupiter",
+  ) || {
+    planet: "Venus",
+    modality: "Fixed",
+    position: {
+      sign: "Leo",
+      degree: 0,
+      minute: 0,
+    },
+    house: 1,
+  };
+  const inSectMalefic = birthchartData.find((p) =>
+    isDayChart ? p.planet === "Saturn" : p.planet === "Mars",
+  ) || {
+    planet: "Saturn",
+    modality: "Fixed",
+    position: {
+      sign: "Leo",
+      degree: 0,
+      minute: 0,
+    },
+    house: 1,
+  };
+  const outOfSectMalefic = birthchartData.find((p) =>
+    isDayChart ? p.planet === "Mars" : p.planet === "Saturn",
+  ) || {
+    planet: "Mars",
+    modality: "Fixed",
+    position: {
+      sign: "Leo",
+      degree: 0,
+      minute: 0,
+    },
+    house: 1,
+  };
+
+  return {
+    inSectBenefic,
+    inSectMalefic,
+    outOfSectBenefic,
+    outOfSectMalefic,
+  };
 };

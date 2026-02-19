@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, type ReactNode } from "react";
-import { type PlanetPoint, type ProfectionYearData } from "@/shared/types";
+import { type PlanetPoint, type ProfectionYearData, type SectPlanets } from "@/shared/types";
 
 export type BirthInfo = {
   birthDate: string;
@@ -14,6 +14,7 @@ type BirthChartContextValue = {
   birthInfo: BirthInfo | null;
   profectionYear: ProfectionYearData | null;
   isDayChart: boolean | null;
+  sectPlanets: SectPlanets | null;
 };
 
 const BirthChartContext = createContext<BirthChartContextValue | null>(null);
@@ -23,17 +24,19 @@ export function BirthChartProvider({
   birthInfo,
   profectionYear,
   isDayChart,
+  sectPlanets,
   children,
 }: {
   value: PlanetPoint[] | null;
   birthInfo: BirthInfo | null;
   profectionYear: ProfectionYearData | null;
   isDayChart: boolean | null;
+  sectPlanets: SectPlanets | null;
   children: ReactNode;
 }) {
   return (
     <BirthChartContext.Provider
-      value={{ birthChartData: value, birthInfo, profectionYear, isDayChart }}
+      value={{ birthChartData: value, birthInfo, profectionYear, isDayChart, sectPlanets }}
     >
       {children}
     </BirthChartContext.Provider>

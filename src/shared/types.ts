@@ -110,3 +110,10 @@ export type TransitInterpretations = {
     squareOrOpposition: { [key: number]: string };
   };
 };
+
+export type SectPlanets = {
+  inSectBenefic: PlanetPoint;
+  outOfSectBenefic: PlanetPoint;
+  inSectMalefic: PlanetPoint;
+  outOfSectMalefic: PlanetPoint;
+};

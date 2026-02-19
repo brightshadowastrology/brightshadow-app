@@ -14,13 +14,18 @@ import PlacesAutocomplete, {
   type PlaceDetails,
 } from "@/components/UI/PlacesAutocomplete";
 import { trpc } from "@/shared/lib/trpc";
-import { type PlanetPoint, type ProfectionYearData } from "@/shared/types";
+import {
+  type PlanetPoint,
+  type ProfectionYearData,
+  type SectPlanets,
+} from "@/shared/types";
 import { type BirthInfo } from "../../Providers/BirthChartContext";
 import BirthchartData from "./components/BirthchartData";
 import ProfectionYear from "./components/ProfectionYear";
 import moment from "moment-timezone";
 import YearlyTransits from "./components/YearlyTransits";
-import { BirthChartProvider } from "../../Providers/BirthChartContext";
+import { BirthChartProvider } from "@/components/Providers/BirthChartContext";
+import { getSectPlanets } from "./helpers";
 
 type BirthchartFormData = {
   day: string;
@@ -39,6 +44,7 @@ export default function Birthchart() {
     useState<ProfectionYearData | null>(null);
   const [birthInfo, setBirthInfo] = useState<BirthInfo | null>(null);
   const [isDayChart, setIsDayChart] = useState<boolean | null>(null);
+  const [sectPlanets, setSectPlanets] = useState<SectPlanets | null>(null);
 
   const {
     register,
@@ -124,6 +130,8 @@ export default function Birthchart() {
           },
         ]);
         setIsDayChart(isDayChartResult);
+        const sectPlanetsResult = getSectPlanets(isDayChartResult, result);
+        setSectPlanets(sectPlanetsResult);
       }
     } catch (error) {
       console.error("tRPC fetchQuery error:", error);
@@ -231,10 +239,20 @@ export default function Birthchart() {
           </Button>
         </Form.Root>
 
-        <BirthChartProvider value={birthChartData} birthInfo={birthInfo} profectionYear={profectionYear} isDayChart={isDayChart}>
-          {birthChartData && (
+        <BirthChartProvider
+          value={birthChartData}
+          birthInfo={birthInfo}
+          profectionYear={profectionYear}
+          isDayChart={isDayChart}
+          sectPlanets={sectPlanets}
+        >
+          {birthChartData && sectPlanets && (
             <div className="mt-8 w-full">
-              <BirthchartData data={birthChartData} isDayChart={isDayChart} />
+              <BirthchartData
+                data={birthChartData}
+                isDayChart={isDayChart}
+                sectPlanets={sectPlanets}
+              />
             </div>
           )}
 

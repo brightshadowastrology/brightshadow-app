@@ -1,4 +1,4 @@
-import type { PlanetPoint } from "@/shared/types";
+import { type PlanetPoint, type SectPlanets } from "@/shared/types";
 import {
   planetDescriptions,
   signDescriptions,
@@ -13,11 +13,13 @@ import {
 } from "@/shared/lib/textHelpers";
 type BirthchartDataProps = {
   data: PlanetPoint[];
+  sectPlanets: SectPlanets;
   isDayChart: boolean | null;
 };
 
 export default function BirthchartData({
   data,
+  sectPlanets,
   isDayChart,
 }: BirthchartDataProps) {
   const planets = data.filter(
@@ -26,18 +28,8 @@ export default function BirthchartData({
   const angles = data.filter((p) =>
     ["Ascendant", "Descendant", "Midheaven", "IC"].includes(p.planet),
   );
-  const inSectBenefic = data.find((p) =>
-    isDayChart ? p.planet === "Jupiter" : p.planet === "Venus",
-  );
-  const outOfSectBenefic = data.find((p) =>
-    isDayChart ? p.planet === "Venus" : p.planet === "Jupiter",
-  );
-  const inSectMalefic = data.find((p) =>
-    isDayChart ? p.planet === "Saturn" : p.planet === "Mars",
-  );
-  const outOfSectMalefic = data.find((p) =>
-    isDayChart ? p.planet === "Mars" : p.planet === "Saturn",
-  );
+  const { inSectBenefic, outOfSectBenefic, inSectMalefic, outOfSectMalefic } =
+    sectPlanets;
 
   const interpretPosition = (placement: PlanetPoint): string => {
     const tagline = planetDescriptions[placement.planet]?.tagline || "";
