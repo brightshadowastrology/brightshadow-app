@@ -42,7 +42,7 @@ function getEclipsesForMonth(
   return eclipses
     .filter((eclipse) => {
       const date = new Date(eclipse.date);
-      return date.getMonth() === month && date.getFullYear() === year;
+      return date.getUTCMonth() === month && date.getUTCFullYear() === year;
     })
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 }
@@ -58,14 +58,14 @@ function getRetrogradesForMonth(
     const start = new Date(r.start.date);
     const end = new Date(r.end.date);
 
-    if (start.getMonth() === month && start.getFullYear() === year) {
+    if (start.getUTCMonth() === month && start.getUTCFullYear() === year) {
       events.push({
         date: r.start.date,
         position: r.start.position,
         isStarting: true,
       });
     }
-    if (end.getMonth() === month && end.getFullYear() === year) {
+    if (end.getUTCMonth() === month && end.getUTCFullYear() === year) {
       events.push({
         date: r.end.date,
         position: r.end.position,
@@ -87,7 +87,7 @@ function getLunationsForMonth(
   return lunations
     .filter((lunation) => {
       const date = new Date(lunation.date);
-      return date.getMonth() === month && date.getFullYear() === year;
+      return date.getUTCMonth() === month && date.getUTCFullYear() === year;
     })
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 }
@@ -108,7 +108,7 @@ function getIngressesForMonth(
     for (const ingress of planetData.ingresses) {
       for (const d of ingress.dates) {
         const date = new Date(d.date);
-        if (date.getMonth() === month && date.getFullYear() === year) {
+        if (date.getUTCMonth() === month && date.getUTCFullYear() === year) {
           entries.push({
             date: d.date,
             planet: planetData.planet,
@@ -149,7 +149,7 @@ function getTransitsForMonth(
 
         for (const d of ingress.dates) {
           const date = new Date(d.date);
-          if (date.getMonth() === month && date.getFullYear() === year) {
+          if (date.getUTCMonth() === month && date.getUTCFullYear() === year) {
             entries.push({
               date: d.date,
               transitingPlanet: transit.planet,
