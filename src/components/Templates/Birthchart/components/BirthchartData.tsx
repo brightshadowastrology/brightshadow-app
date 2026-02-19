@@ -11,17 +11,32 @@ import {
   randomArrayIndex,
   getHouseFromSign,
 } from "@/shared/lib/textHelpers";
-
 type BirthchartDataProps = {
   data: PlanetPoint[];
+  isDayChart: boolean | null;
 };
 
-export default function BirthchartData({ data }: BirthchartDataProps) {
+export default function BirthchartData({
+  data,
+  isDayChart,
+}: BirthchartDataProps) {
   const planets = data.filter(
     (p) => !["Ascendant", "Descendant", "Midheaven", "IC"].includes(p.planet),
   );
   const angles = data.filter((p) =>
     ["Ascendant", "Descendant", "Midheaven", "IC"].includes(p.planet),
+  );
+  const inSectBenefic = data.find((p) =>
+    isDayChart ? p.planet === "Jupiter" : p.planet === "Venus",
+  );
+  const outOfSectBenefic = data.find((p) =>
+    isDayChart ? p.planet === "Venus" : p.planet === "Jupiter",
+  );
+  const inSectMalefic = data.find((p) =>
+    isDayChart ? p.planet === "Saturn" : p.planet === "Mars",
+  );
+  const outOfSectMalefic = data.find((p) =>
+    isDayChart ? p.planet === "Mars" : p.planet === "Saturn",
   );
 
   const interpretPosition = (placement: PlanetPoint): string => {
@@ -156,6 +171,90 @@ export default function BirthchartData({ data }: BirthchartDataProps) {
           ))}
         </div>
       </section>
+
+      {isDayChart !== null &&
+        inSectBenefic &&
+        inSectMalefic &&
+        outOfSectBenefic &&
+        outOfSectMalefic && (
+          <section>
+            <h3 className="text-xl font-semibold mb-4">Sect</h3>
+            <div className="p-4 bg-gray-800 rounded-lg border border-gray-700 p-2">
+              <p className="text-gray-300 text-sm">
+                You have a {isDayChart ? "day" : "night"} chart.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="py-4 pr-4 border-r border-b border-gray-700">
+                  <div className="flex justify-between items-start mb-2">
+                    <h4 className="text-lg font-medium text-white">
+                      {`In-Sect Benefic: ${inSectBenefic.planet}`}
+                    </h4>
+                    <span className="text-gray-400 text-sm">
+                      {`${inSectBenefic.position.sign} ${formatDegree(
+                        inSectBenefic.position.degree,
+                        inSectBenefic.position.minute,
+                      )}`}
+                    </span>
+                  </div>
+                  <span className="text-gray-400 text-sm">
+                    {`Your in-sect benefit is ${inSectBenefic.planet}.`}
+                  </span>
+                </div>
+
+                <div className="py-4 pl-4 border-b border-gray-700">
+                  <div className="flex justify-between items-start mb-2">
+                    <h4 className="text-lg font-medium text-white">
+                      {`Out-of-Sect Benefic: ${outOfSectBenefic.planet}`}
+                    </h4>
+                    <span className="text-gray-400 text-sm">
+                      {`${outOfSectBenefic.position.sign} ${formatDegree(
+                        outOfSectBenefic.position.degree,
+                        outOfSectBenefic.position.minute,
+                      )}`}
+                    </span>
+                  </div>
+                  <span className="text-gray-400 text-sm">
+                    {`Your in-sect benefit is ${outOfSectBenefic.planet}.`}
+                  </span>
+                </div>
+
+                <div className="py-4 pr-4 border-r border-gray-700">
+                  <div className="flex justify-between items-start mb-2">
+                    <h4 className="text-lg font-medium text-white">
+                      {`In-Sect Malefic: ${inSectMalefic.planet}`}
+                    </h4>
+                    <span className="text-gray-400 text-sm">
+                      {`${inSectMalefic.position.sign} ${formatDegree(
+                        inSectMalefic.position.degree,
+                        inSectMalefic.position.minute,
+                      )}`}
+                    </span>
+                  </div>
+                  <span className="text-gray-400 text-sm">
+                    {`Your in-sect benefit is ${inSectMalefic.planet}.`}
+                  </span>
+                </div>
+
+                <div className="py-4 pl-4">
+                  <div className="flex justify-between items-start mb-2">
+                    <h4 className="text-lg font-medium text-white">
+                      {`Out-of-Sect Malefic: ${outOfSectMalefic.planet}`}
+                    </h4>
+                    <span className="text-gray-400 text-sm">
+                      {`${outOfSectMalefic.position.sign} ${formatDegree(
+                        outOfSectMalefic.position.degree,
+                        outOfSectMalefic.position.minute,
+                      )}`}
+                    </span>
+                  </div>
+                  <span className="text-gray-400 text-sm">
+                    {`Your in-sect benefit is ${outOfSectMalefic.planet}.`}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
     </div>
   );
 }

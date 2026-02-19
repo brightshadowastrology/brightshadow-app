@@ -13,6 +13,7 @@ import {
   getMercuryRetrogradePeriods,
   getAllPlanetZeroDegreeIngresses,
   getMajorTransitsAllPlanets,
+  getIsDayChart,
 } from "../astro";
 
 const positionSchema = z.object({
@@ -132,5 +133,14 @@ export const astroRouter = trpc
     }),
     resolve({ input }) {
       return getMajorTransitsAllPlanets(input.natalPlacements);
+    },
+  })
+  .query("getIsDayChart", {
+    input: z.object({
+      sunPlacement: positionSchema,
+      ascendant: positionSchema,
+    }),
+    resolve({ input }) {
+      return getIsDayChart(input.sunPlacement, input.ascendant);
     },
   });

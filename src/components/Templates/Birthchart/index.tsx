@@ -38,6 +38,7 @@ export default function Birthchart() {
   const [profectionYear, setProfectionYear] =
     useState<ProfectionYearData | null>(null);
   const [birthInfo, setBirthInfo] = useState<BirthInfo | null>(null);
+  const [isDayChart, setIsDayChart] = useState<boolean | null>(null);
 
   const {
     register,
@@ -103,6 +104,7 @@ export default function Birthchart() {
 
       // Get ascendant sign from birth chart and call getProfectionYear
       const ascendant = result.find((p) => p.planet === "Ascendant");
+      const sun = result.find((p) => p.planet === "Sun");
       if (ascendant) {
         const profectionResult = await trpcContext.fetchQuery([
           "astro.getProfectionYear",
@@ -112,6 +114,16 @@ export default function Birthchart() {
           },
         ]);
         setProfectionYear(profectionResult);
+      }
+      if (sun && ascendant) {
+        const isDayChartResult = await trpcContext.fetchQuery([
+          "astro.getIsDayChart",
+          {
+            sunPlacement: sun.position,
+            ascendant: ascendant.position,
+          },
+        ]);
+        setIsDayChart(isDayChartResult);
       }
     } catch (error) {
       console.error("tRPC fetchQuery error:", error);
@@ -219,10 +231,10 @@ export default function Birthchart() {
           </Button>
         </Form.Root>
 
-        <BirthChartProvider value={birthChartData} birthInfo={birthInfo} profectionYear={profectionYear}>
+        <BirthChartProvider value={birthChartData} birthInfo={birthInfo} profectionYear={profectionYear} isDayChart={isDayChart}>
           {birthChartData && (
             <div className="mt-8 w-full">
-              <BirthchartData data={birthChartData} />
+              <BirthchartData data={birthChartData} isDayChart={isDayChart} />
             </div>
           )}
 

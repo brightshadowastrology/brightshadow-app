@@ -13,6 +13,7 @@ type BirthChartContextValue = {
   birthChartData: PlanetPoint[] | null;
   birthInfo: BirthInfo | null;
   profectionYear: ProfectionYearData | null;
+  isDayChart: boolean | null;
 };
 
 const BirthChartContext = createContext<BirthChartContextValue | null>(null);
@@ -21,16 +22,18 @@ export function BirthChartProvider({
   value,
   birthInfo,
   profectionYear,
+  isDayChart,
   children,
 }: {
   value: PlanetPoint[] | null;
   birthInfo: BirthInfo | null;
   profectionYear: ProfectionYearData | null;
+  isDayChart: boolean | null;
   children: ReactNode;
 }) {
   return (
     <BirthChartContext.Provider
-      value={{ birthChartData: value, birthInfo, profectionYear }}
+      value={{ birthChartData: value, birthInfo, profectionYear, isDayChart }}
     >
       {children}
     </BirthChartContext.Provider>
