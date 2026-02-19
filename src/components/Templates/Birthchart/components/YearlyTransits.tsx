@@ -16,6 +16,7 @@ import MonthLunation from "./MonthLunation";
 import MonthRetrograde from "./MonthRetrograde";
 import MonthIngress from "./MonthIngress";
 import MonthTransit from "./MonthTransit";
+import MonthBirthday from "./MonthBirthday";
 import LoadingIndicator from "./LoadingIndicator";
 
 function getNext12Months(): { month: number; year: number; label: string }[] {
@@ -173,7 +174,7 @@ function getTransitsForMonth(
 export const YearlyTransits = () => {
   const months = getNext12Months();
   const dateParam = useMemo(() => new Date().toISOString(), []);
-  const { birthChartData } = useBirthChart();
+  const { birthChartData, birthInfo } = useBirthChart();
 
   const { data: majorTransits, isLoading: majorTransitsLoading } =
     trpc.useQuery(
@@ -263,6 +264,16 @@ export const YearlyTransits = () => {
             date: t.date,
             data: t,
           })),
+          ...(birthInfo &&
+          parseInt(birthInfo.birthDate.slice(5, 7), 10) - 1 === month
+            ? [
+                {
+                  type: "birthday" as const,
+                  date: `${year}-${birthInfo.birthDate.slice(5, 10)}T00:00:00Z`,
+                  data: null,
+                },
+              ]
+            : []),
         ].sort(
           (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
         );
@@ -331,6 +342,10 @@ export const YearlyTransits = () => {
                               key={`transit-${event.data.date}-${event.data.transitingPlanet}-${event.data.natalPlanet}-${event.data.aspect}`}
                               transit={event.data}
                             />
+                          );
+                        case "birthday":
+                          return (
+                            <MonthBirthday key={`birthday-${event.date}`} />
                           );
                       }
                     })}

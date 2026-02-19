@@ -15,6 +15,7 @@ import PlacesAutocomplete, {
 } from "@/components/UI/PlacesAutocomplete";
 import { trpc } from "@/shared/lib/trpc";
 import { type PlanetPoint, type ProfectionYearData } from "@/shared/types";
+import { type BirthInfo } from "../../Providers/BirthChartContext";
 import BirthchartData from "./components/BirthchartData";
 import ProfectionYear from "./components/ProfectionYear";
 import moment from "moment-timezone";
@@ -36,6 +37,7 @@ export default function Birthchart() {
   );
   const [profectionYear, setProfectionYear] =
     useState<ProfectionYearData | null>(null);
+  const [birthInfo, setBirthInfo] = useState<BirthInfo | null>(null);
 
   const {
     register,
@@ -93,6 +95,11 @@ export default function Birthchart() {
       ]);
 
       setBirthChartData(result);
+      setBirthInfo({
+        birthDate: dateString.split(" ")[0],
+        birthTime: `${String(data.time.hour).padStart(2, "0")}:${String(data.time.minute).padStart(2, "0")}`,
+        location: data.place.displayName,
+      });
 
       // Get ascendant sign from birth chart and call getProfectionYear
       const ascendant = result.find((p) => p.planet === "Ascendant");
@@ -212,7 +219,7 @@ export default function Birthchart() {
           </Button>
         </Form.Root>
 
-        <BirthChartProvider value={birthChartData}>
+        <BirthChartProvider value={birthChartData} birthInfo={birthInfo} profectionYear={profectionYear}>
           {birthChartData && (
             <div className="mt-8 w-full">
               <BirthchartData data={birthChartData} />

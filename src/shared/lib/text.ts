@@ -110,6 +110,26 @@ export const houseTopics: { [key: number]: string[] } = {
   12: ["solitude", "rest", "spirituality", "spirituality"],
 };
 
+export const lordDescriptions: Record<string, string> = {
+  Mars: "Take bold action and pursue your goals with courage. Watch for conflicts but use your drive productively.",
+  Venus:
+    "Focus on relationships, creativity, and enjoying life's pleasures. A year for harmony and beauty.",
+  Mercury:
+    "Communication and learning take center stage. Great for studies, writing, and making connections.",
+  Moon: "Emotional growth and domestic matters are highlighted. Trust your intuition and nurture yourself.",
+  Sun: "Step into the spotlight and express your authentic self. A year for leadership and vitality.",
+  Jupiter:
+    "Expansion and opportunities abound. Say yes to growth, travel, and broadening your horizons.",
+  Saturn:
+    "A year of hard work and building foundations. Embrace discipline for lasting achievements.",
+  Uranus:
+    "Expect the unexpected. Embrace change and innovation, even if it feels disruptive.",
+  Neptune:
+    "Spiritual and creative pursuits flourish. Stay grounded while exploring your dreams.",
+  Pluto:
+    "Deep transformation awaits. Let go of what no longer serves you and embrace rebirth.",
+};
+
 // Done
 export const venusTransitInterpretations: TransitInterpretations = {
   Sun: {
