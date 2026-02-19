@@ -224,9 +224,7 @@ export const YearlyTransits = () => {
         const monthRetrogrades = retrogrades
           ? getRetrogradesForMonth(retrogrades, month, year)
           : [];
-        const eclipseSigns = new Set(
-          monthEclipses.map((e) => e.position.sign),
-        );
+        const eclipseSigns = new Set(monthEclipses.map((e) => e.position.sign));
         const monthLunations = lunations
           ? getLunationsForMonth(lunations, month, year).filter(
               (l) => !eclipseSigns.has(l.position.sign),
@@ -280,55 +278,64 @@ export const YearlyTransits = () => {
 
             {allEvents.length > 0 && (
               <div className="mt-4 space-y-3">
-                {allEvents.map((event) => {
-                  switch (event.type) {
-                    case "eclipse":
-                      return (
-                        <MonthEclipse
-                          key={`eclipse-${event.data.date}`}
-                          eclipse={event.data}
-                          monthLabel={label}
-                          year={year}
-                        />
-                      );
-                    case "lunation":
-                      return (
-                        <MonthLunation
-                          key={`lunation-${event.data.date}`}
-                          lunation={event.data}
-                          monthLabel={label}
-                          year={year}
-                        />
-                      );
-                    case "retrograde":
-                      return (
-                        <MonthRetrograde
-                          key={`retrograde-${event.data.date}`}
-                          retrograde={event.data}
-                          monthLabel={label}
-                          year={year}
-                        />
-                      );
-                    case "ingress":
-                      return (
-                        <MonthIngress
-                          key={`ingress-${event.data.date}-${event.data.planet}`}
-                          ingress={event.data}
-                          monthLabel={label}
-                          year={year}
-                        />
-                      );
-                    case "transit":
-                      return (
-                        <MonthTransit
-                          key={`transit-${event.data.date}-${event.data.transitingPlanet}-${event.data.natalPlanet}-${event.data.aspect}`}
-                          transit={event.data}
-                          monthLabel={label}
-                          year={year}
-                        />
-                      );
-                  }
-                })}
+                {Object.entries(
+                  allEvents.reduce<Record<string, typeof allEvents>>(
+                    (groups, event) => {
+                      const dateKey = event.date.slice(0, 10);
+                      (groups[dateKey] ??= []).push(event);
+                      return groups;
+                    },
+                    {},
+                  ),
+                ).map(([dateKey, events]) => (
+                  <div
+                    key={dateKey}
+                    className="p-4 bg-gray-700 rounded-md border border-gray-800 space-y-3"
+                  >
+                    <p className="text-gray-400 text-sm">
+                      {label} {parseInt(dateKey.slice(8, 10), 10)}, {year}
+                    </p>
+                    {events.map((event) => {
+                      switch (event.type) {
+                        case "eclipse":
+                          return (
+                            <MonthEclipse
+                              key={`eclipse-${event.data.date}`}
+                              eclipse={event.data}
+                            />
+                          );
+                        case "lunation":
+                          return (
+                            <MonthLunation
+                              key={`lunation-${event.data.date}`}
+                              lunation={event.data}
+                            />
+                          );
+                        case "retrograde":
+                          return (
+                            <MonthRetrograde
+                              key={`retrograde-${event.data.date}`}
+                              retrograde={event.data}
+                            />
+                          );
+                        case "ingress":
+                          return (
+                            <MonthIngress
+                              key={`ingress-${event.data.date}-${event.data.planet}`}
+                              ingress={event.data}
+                            />
+                          );
+                        case "transit":
+                          return (
+                            <MonthTransit
+                              key={`transit-${event.data.date}-${event.data.transitingPlanet}-${event.data.natalPlanet}-${event.data.aspect}`}
+                              transit={event.data}
+                            />
+                          );
+                      }
+                    })}
+                  </div>
+                ))}
               </div>
             )}
           </section>

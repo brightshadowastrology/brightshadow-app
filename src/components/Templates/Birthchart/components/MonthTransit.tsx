@@ -20,15 +20,7 @@ const ASPECT_LABELS: Record<string, string> = {
   inferiorSextile: "sextile",
 };
 
-export default function MonthTransit({
-  transit,
-  monthLabel,
-  year,
-}: {
-  transit: TransitEntry;
-  monthLabel: string;
-  year: number;
-}) {
+export default function MonthTransit({ transit }: { transit: TransitEntry }) {
   const { birthChartData } = useBirthChart();
 
   if (!birthChartData) return;
@@ -44,9 +36,6 @@ export default function MonthTransit({
   const transitHouse = getHouseFromSign(ascendantSign, transit.position.sign);
   const aspectLabel = ASPECT_LABELS[transit.aspect] || transit.aspect;
 
-  const date = new Date(transit.date);
-  const day = date.getDate();
-
   const title = `${transit.transitingPlanet} ${aspectLabel} natal ${transit.natalPlanet}`;
   const positionText = `${transit.position.sign} ${formatDegree(transit.position.degree, transit.position.minute)}`;
 
@@ -57,12 +46,9 @@ export default function MonthTransit({
     aspectLabel,
   );
   return (
-    <div className="p-4 bg-gray-700 rounded-md border border-gray-600">
+    <div className={"border-t border-gray-600 pt-3"}>
       <div className="flex justify-between items-start">
         <h4 className="text-lg font-medium text-white">{title}</h4>
-        <span className="text-gray-400 text-sm">
-          {monthLabel} {day}, {year}
-        </span>
       </div>
       <p className="text-gray-300 text-sm mt-1">{interpretationText}</p>
       <p className="text-gray-300 text-sm mt-1">{transitInterpretation}</p>

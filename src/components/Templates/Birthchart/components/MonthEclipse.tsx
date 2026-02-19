@@ -12,19 +12,15 @@ import {
 
 export default function MonthEclipse({
   eclipse,
-  monthLabel,
-  year,
+  showDate = true,
 }: {
   eclipse: Eclipse;
-  monthLabel: string;
-  year: number;
+  showDate?: boolean;
 }) {
   const { birthChartData } = useBirthChart();
 
   if (!birthChartData) return;
 
-  const date = new Date(eclipse.date);
-  const day = date.getDate();
   const lunationHouse: number = getHouseFromSign(
     birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ||
       "Aries",
@@ -35,12 +31,9 @@ export default function MonthEclipse({
   const aspects = getAspectsToNatalPlanets(eclipse.position, birthChartData);
 
   return (
-    <div className="p-4 bg-gray-700 rounded-md border border-gray-600">
+    <div className={`${!showDate ? "border-t border-gray-600 pt-3" : ""}`}>
       <div className="flex justify-between items-start">
         <h4 className="text-lg font-medium text-white">{lunationText}</h4>
-        <span className="text-gray-400 text-sm">
-          {monthLabel} {day}, {year}
-        </span>
       </div>
       <p className="text-gray-300 text-sm mt-1">{interpretationText}</p>
       <p className="text-gray-300 text-sm mt-1">

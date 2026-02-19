@@ -5,18 +5,9 @@ import {
   getFormattedHouseText,
   getFormattedHouseRulersText,
   getFormattedHouseDescriptionText,
-  getFormattedHouseTopicsText,
 } from "@/shared/lib/textHelpers";
 
-export default function MonthIngress({
-  ingress,
-  monthLabel,
-  year,
-}: {
-  ingress: IngressEntry;
-  monthLabel: string;
-  year: number;
-}) {
+export default function MonthIngress({ ingress }: { ingress: IngressEntry }) {
   const { birthChartData } = useBirthChart();
 
   const natalPlacement: PlanetPoint | undefined = birthChartData?.find(
@@ -40,18 +31,14 @@ export default function MonthIngress({
   const placementText = `Natally, ${ingress.planet} rules your ${getFormattedHouseRulersText(natalPlacement.rulerOf || [])}. During this transit, your ${getFormattedHouseDescriptionText(natalPlacement.rulerOf || [])}, will be brought up in your ${getFormattedHouseDescriptionText([houseIngressedInto])}.`;
 
   const date = new Date(ingress.date);
-  const day = date.getDate();
 
   return (
-    <div className="p-4 bg-gray-700 rounded-md border border-gray-600">
+    <div className={"border-t border-gray-600 pt-3"}>
       <div className="flex justify-between items-start">
         <h4 className="text-lg font-medium text-white">
           {ingress.planet} enters your {ingress.sign}{" "}
           {getFormattedHouseText(houseIngressedInto)}
         </h4>
-        <span className="text-gray-400 text-sm">
-          {monthLabel} {day}, {year}
-        </span>
       </div>
       <p className="text-gray-300 text-sm mt-1">
         {isTraditionalPlanet && placementText}

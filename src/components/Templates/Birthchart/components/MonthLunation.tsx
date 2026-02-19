@@ -11,21 +11,11 @@ import {
 } from "@/shared/lib/textHelpers";
 import { getAspectsToNatalPlanets } from "../helpers";
 
-export default function MonthLunation({
-  lunation,
-  monthLabel,
-  year,
-}: {
-  lunation: Lunation;
-  monthLabel: string;
-  year: number;
-}) {
+export default function MonthLunation({ lunation }: { lunation: Lunation }) {
   const { birthChartData } = useBirthChart();
 
   if (!birthChartData) return;
 
-  const date = new Date(lunation.date);
-  const day = date.getDate();
   const lunationHouse: number = getHouseFromSign(
     birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ||
       "Aries",
@@ -40,12 +30,9 @@ export default function MonthLunation({
   const aspects = getAspectsToNatalPlanets(lunation.position, birthChartData);
 
   return (
-    <div className="p-4 bg-gray-700 rounded-md border border-gray-600">
+    <div className={"border-t border-gray-600 pt-3"}>
       <div className="flex justify-between items-start">
         <h4 className="text-lg font-medium text-white">{lunationText}</h4>
-        <span className="text-gray-400 text-sm">
-          {monthLabel} {day}, {year}
-        </span>
       </div>
       <p className="text-gray-300 text-sm mt-1">{`${interpretationText} ${recommendationText}`}</p>
       <p className="text-gray-300 text-sm mt-1">
