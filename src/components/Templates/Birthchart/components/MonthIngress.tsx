@@ -30,8 +30,6 @@ export default function MonthIngress({ ingress }: { ingress: IngressEntry }) {
   ].includes(ingress.planet);
   const placementText = `Natally, ${ingress.planet} rules your ${getFormattedHouseRulersText(natalPlacement.rulerOf || [])}. During this transit, your ${getFormattedHouseDescriptionText(natalPlacement.rulerOf || [])}, will be brought up in your ${getFormattedHouseDescriptionText([houseIngressedInto])}.`;
 
-  const date = new Date(ingress.date);
-
   return (
     <div className={"border-t border-gray-600 pt-3"}>
       <div className="flex justify-between items-start">
