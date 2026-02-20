@@ -25,7 +25,7 @@ import ProfectionYear from "./components/ProfectionYear";
 import moment from "moment-timezone";
 import YearlyTransits from "./components/YearlyTransits";
 import { BirthChartProvider } from "@/components/Providers/BirthChartContext";
-import { getSectPlanets } from "./helpers";
+import { getIsDayChart, getSectPlanets } from "./helpers";
 
 type BirthchartFormData = {
   day: string;
@@ -110,8 +110,9 @@ export default function Birthchart() {
 
       // Get ascendant sign from birth chart and call getProfectionYear
       const ascendant = result.find((p) => p.planet === "Ascendant");
+      const descendant = result.find((p) => p.planet === "Descendant");
       const sun = result.find((p) => p.planet === "Sun");
-      if (ascendant) {
+      if (ascendant && descendant && sun) {
         const profectionResult = await trpcContext.fetchQuery([
           "astro.getProfectionYear",
           {
@@ -120,17 +121,9 @@ export default function Birthchart() {
           },
         ]);
         setProfectionYear(profectionResult);
-      }
-      if (sun && ascendant) {
-        const isDayChartResult = await trpcContext.fetchQuery([
-          "astro.getIsDayChart",
-          {
-            sunPlacement: sun.position,
-            ascendant: ascendant.position,
-          },
-        ]);
-        setIsDayChart(isDayChartResult);
-        const sectPlanetsResult = getSectPlanets(isDayChartResult, result);
+        const isDayChart = getIsDayChart(sun, ascendant, descendant);
+        setIsDayChart(isDayChart);
+        const sectPlanetsResult = getSectPlanets(isDayChart, result);
         setSectPlanets(sectPlanetsResult);
       }
     } catch (error) {

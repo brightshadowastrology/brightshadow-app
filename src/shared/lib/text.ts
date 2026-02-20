@@ -2315,3 +2315,46 @@ export const plutoTransitInterpretations: TransitInterpretations = {
     },
   },
 };
+
+export const sectInterpretations: any = {
+  Jupiter: {
+    inSectBenefic: {
+      easy: "As your benefic of sect, this is your most positive planet, and you can expect the transit to be particularly positive for you.",
+      hard: "Given that Jupiter is your benefic of sect, this transit should leave you feeling very bouyant, but watch out for excess.",
+    },
+    outOfSectBenefic: {
+      easy: "As your benefic out of sect, this should be a fun transit, though its energies may be more of a background influence.",
+      hard: "Given that Jupiter is your benefic out of sect, you may be slightly prone to going over board in the aforementioned areas of life at this time.",
+    },
+  },
+  Venus: {
+    inSectBenefic: {
+      easy: "As your benefic of sect, this is your most positive planet, and you should expect the transit to be particularly positive for you.",
+      hard: "Given that Venus is your benefic of sect, you might feel particularly well-resourced at this time, but watch out for superficiality.",
+    },
+    outOfSectBenefic: {
+      easy: "As your benefic out of sect, this should be a pleasant transit, though its energies may be more of a background influence.",
+      hard: "Given that Venus is your benefic out of sect, you slightly prone to vanity or superficiality in the aforementioned areas of life at this time.",
+    },
+  },
+  Mars: {
+    inSectMalefic: {
+      easy: "Given that Mars is your malefic of sect, you might feel particularly invigorated and ready to tackle the issues at hand.",
+      hard: "As your malefic of sect, you may experience frustrations at this time, but rest assured, these are surmountable challenges.",
+    },
+    outOfSectMalefic: {
+      easy: "As your malefic out of sect, transits of Mars present a fair bit of challenge. For now, however, you will be experiencing greater vigor and a sharpening of your skills in this area of life.",
+      hard: "As your malefic out of sect, this can be a challenging time for you in this area of life. You may experience conflicts or frustrations, so try to let cooler heads prevail.",
+    },
+  },
+  Saturn: {
+    inSectMalefic: {
+      easy: "Given that Saturn is your malefic of sect, you might feel particularly serious and ready to tackle the issues at hand.",
+      hard: "As your malefic of sect, you may experience delays and difficulty at this time, but rest assured, these are surmountable challenges.",
+    },
+    outOfSectMalefic: {
+      easy: "As your malefic out of sect, transits of Saturn present a fair bit of challenge. For now, however, you will be experiencing greater determination and gravitas around these issues.",
+      hard: "As your malefic out of sect, this can feel like a time of scarcity in these aresas of life, and restraint and maturity are demanded of you.",
+    },
+  },
+};

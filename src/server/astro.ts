@@ -819,17 +819,3 @@ export const getMajorTransitsAllPlanets = (natalPlacements: PlanetPoint[]) => {
     return getMajorTransitsForAPlanet(placement.planet, placement.position);
   });
 };
-
-export const getIsDayChart = (sunPlacement: Position, ascendant: Position) => {
-  const sunIndex = sharedConstants.SIGNS.indexOf(sunPlacement.sign);
-  const ascIndex = sharedConstants.SIGNS.indexOf(ascendant.sign);
-
-  const sunLongitude =
-    sunIndex * 30 + sunPlacement.degree + sunPlacement.minute / 60;
-  const ascLongitude =
-    ascIndex * 30 + ascendant.degree + ascendant.minute / 60;
-
-  // Day chart = Sun is above the horizon (between ASC and DSC counter-clockwise)
-  const diff = ((sunLongitude - ascLongitude) % 360 + 360) % 360;
-  return diff > 0 && diff < 180;
-};

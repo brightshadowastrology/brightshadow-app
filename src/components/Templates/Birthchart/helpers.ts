@@ -37,6 +37,31 @@ export const getAspectsToNatalPlanets = (
   return aspects.length > 0 ? aspects : [];
 };
 
+export const getIsDayChart = (
+  sun: PlanetPoint,
+  ascendant: PlanetPoint,
+  descendant: PlanetPoint,
+) => {
+  const dayHouses = [12, 11, 10, 9, 8];
+
+  if (dayHouses.includes(sun.house)) {
+    return true;
+  }
+
+  if (sun.house === 1 || sun.house === 7) {
+    if (
+      (sun.position.sign === ascendant.position.sign &&
+        ascendant.position.degree > sun.position.degree) ||
+      (sun.position.sign === descendant.position.sign &&
+        descendant.position.degree < sun.position.degree)
+    ) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
 export const getSectPlanets = (
   isDayChart: boolean,
   birthchartData: PlanetPoint[],

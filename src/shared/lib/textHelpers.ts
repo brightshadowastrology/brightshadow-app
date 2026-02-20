@@ -3,6 +3,8 @@ import {
   type PlanetPoint,
   type Aspect,
   type TransitInterpretations,
+  SectPlanets,
+  TransitEntry,
 } from "@/shared/types";
 import { houseDescriptions, houseTopics } from "@/shared/lib/text";
 import {
@@ -13,6 +15,7 @@ import {
   uranusTransitInterpretations,
   neptuneTransitInterpretations,
   plutoTransitInterpretations,
+  sectInterpretations,
 } from "@/shared/lib/text";
 
 export const getOrdinal = (n: number): string => {
@@ -150,4 +153,40 @@ export const getFormattedTransitText = (
       );
     })
     .join(" ");
+};
+
+export const isSectPlanet = (planet: string) => {
+  const sectPlanets = ["Jupiter", "Venus", "Mars", "Saturn"];
+  return sectPlanets.includes(planet);
+};
+
+export const getFormattedSectInterpretation = (
+  sectPlanets: SectPlanets,
+  transit: TransitEntry,
+) => {
+  const transitingPlanetName = transit.transitingPlanet;
+
+  if (!isSectPlanet(transitingPlanetName)) return null;
+
+  const split = transit.aspect.split(/(?=[A-Z])/);
+  const transitingPlanetAspect =
+    split.length > 1 ? split[1].toLowerCase() : split[0];
+  const isBenefic =
+    transitingPlanetName === "Jupiter" || transitingPlanetName === "Venus";
+  const sect = isBenefic
+    ? sectPlanets.inSectBenefic.planet === transitingPlanetName
+      ? "inSectBenefic"
+      : "outOfSectBenefic"
+    : sectPlanets.inSectMalefic.planet === transitingPlanetName
+      ? "inSectMalefic"
+      : "outOfSectMalefic";
+
+  let transitAspect =
+    transitingPlanetAspect === "conjunct" ||
+    transitingPlanetAspect === "trine" ||
+    transitingPlanetAspect === "sextile"
+      ? "easy"
+      : "hard";
+
+  return sectInterpretations[transitingPlanetName][sect][transitAspect];
 };

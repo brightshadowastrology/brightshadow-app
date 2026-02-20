@@ -4,9 +4,8 @@ import {
   formatDegree,
   getHouseFromSign,
   getFormattedHouseText,
-  getFormattedHouseRulersText,
-  getFormattedHouseDescriptionText,
   getFormattedTransitText,
+  getFormattedSectInterpretation,
 } from "@/shared/lib/textHelpers";
 
 const ASPECT_LABELS: Record<string, string> = {
@@ -21,9 +20,9 @@ const ASPECT_LABELS: Record<string, string> = {
 };
 
 export default function MonthTransit({ transit }: { transit: TransitEntry }) {
-  const { birthChartData } = useBirthChart();
+  const { birthChartData, sectPlanets } = useBirthChart();
 
-  if (!birthChartData) return;
+  if (!birthChartData || !sectPlanets) return;
 
   const ascendantSign =
     birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ||
@@ -45,6 +44,11 @@ export default function MonthTransit({ transit }: { transit: TransitEntry }) {
     natalPlanetData,
     aspectLabel,
   );
+  const sectInterpretation = getFormattedSectInterpretation(
+    sectPlanets,
+    transit,
+  );
+
   return (
     <div className={"border-t border-gray-600 pt-3"}>
       <div className="flex justify-between items-start">
@@ -52,6 +56,7 @@ export default function MonthTransit({ transit }: { transit: TransitEntry }) {
       </div>
       <p className="text-gray-300 text-sm mt-1">{interpretationText}</p>
       <p className="text-gray-300 text-sm mt-1">{transitInterpretation}</p>
+      <p className="text-gray-300 text-sm mt-1">{sectInterpretation}</p>
     </div>
   );
 }
