@@ -125,6 +125,7 @@ export type Pill = {
     | "productive"
     | "challenging"
     | "significant"
-    | "lifeDefining";
+    | "lifeDefining"
+    | "fastMoving";
   toolTip: string;
 };

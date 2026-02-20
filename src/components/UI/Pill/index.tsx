@@ -1,6 +1,10 @@
 import * as React from "react";
 
 const PILL_CONFIG = {
+  fastMoving: {
+    colors: "bg-blue-100 text-blue-800 border-blue-300",
+    text: "Fast-moving",
+  },
   joyous: {
     colors: "bg-green-100 text-green-800 border-green-300",
     text: "Joyous",
@@ -18,7 +22,7 @@ const PILL_CONFIG = {
     text: "Challenging",
   },
   significant: {
-    colors: "bg-blue-100 text-blue-800 border-blue-300",
+    colors: "bg-indigo-100 text-indigo-800 border-indigo-300",
     text: "Significant",
   },
   lifeDefining: {

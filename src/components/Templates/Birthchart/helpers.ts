@@ -65,6 +65,10 @@ export const getIsDayChart = (
   return false;
 };
 
+export const isFastMoving = (planet: string) => {
+  return ["Mars", "Venus"].includes(planet);
+};
+
 export const isBeneficPlanet = (planet: string) => {
   return ["Jupiter", "Venus"].includes(planet);
 };
@@ -237,6 +241,15 @@ export const getPills = (
       type: "lifeDefining",
       toolTip:
         "These hard transits of the social planets (Jupiter and Saturn) mark significant turning points in life.",
+    });
+  }
+
+  if (isFastMoving(transitingPlanetName)) {
+    // Life defining - Transits of outer planets to angles or angle rulers
+    pills.push({
+      type: "fastMoving",
+      toolTip:
+        "This is a brief transit, so it's effects will be felt only briefly.",
     });
   }
 
