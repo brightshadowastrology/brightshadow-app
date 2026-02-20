@@ -117,3 +117,14 @@ export type SectPlanets = {
   inSectMalefic: PlanetPoint;
   outOfSectMalefic: PlanetPoint;
 };
+
+export type Pill = {
+  type:
+    | "joyous"
+    | "excessive"
+    | "productive"
+    | "challenging"
+    | "significant"
+    | "lifeDefining";
+  toolTip: string;
+};

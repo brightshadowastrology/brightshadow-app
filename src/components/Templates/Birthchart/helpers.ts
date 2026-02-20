@@ -3,7 +3,10 @@ import {
   type PlanetPoint,
   type Aspect,
   type SectPlanets,
+  type TransitEntry,
+  type Pill,
 } from "@/shared/types";
+import { sectInterpretations } from "@/shared/lib/text";
 import { ASPECTS_MAP } from "@/shared/lib/constants";
 
 export const getAspectsToNatalPlanets = (
@@ -60,6 +63,30 @@ export const getIsDayChart = (
   }
 
   return false;
+};
+
+export const isBeneficPlanet = (planet: string) => {
+  return ["Jupiter", "Venus"].includes(planet);
+};
+
+export const isPlacementAngle = (placement: string) => {
+  return ["Midheaven", "IC", "Ascendant", "Descendant"].includes(placement);
+};
+
+export const isAngleRuler = (rulerOf: number[]) => {
+  return rulerOf.some((house) => [1, 4, 7, 10].includes(house));
+};
+
+export const isSectPlanet = (planet: string) => {
+  return ["Jupiter", "Venus", "Mars", "Saturn"].includes(planet);
+};
+
+export const isSocialPlanet = (planet: string) => {
+  return ["Jupiter", "Saturn"].includes(planet);
+};
+
+export const isOuterPlanet = (planet: string) => {
+  return ["Uranus", "Neptune", "Pluto"].includes(planet);
 };
 
 export const getSectPlanets = (
@@ -121,4 +148,97 @@ export const getSectPlanets = (
     outOfSectBenefic,
     outOfSectMalefic,
   };
+};
+
+export const getPills = (
+  birthchartData: PlanetPoint[],
+  sectPlanets: SectPlanets,
+  transit: TransitEntry,
+): Pill[] => {
+  const pills: Pill[] = [];
+
+  const natalPlanet =
+    birthchartData.find((p) => p.planet === transit.natalPlanet) ||
+    birthchartData[0];
+  const transitingPlanetName = transit.transitingPlanet;
+  const split = transit.aspect.split(/(?=[A-Z])/);
+  const transitingPlanetAspect =
+    split.length > 1 ? split[1].toLowerCase() : split[0];
+  const transitAspect =
+    transitingPlanetAspect === "conjunct" ||
+    transitingPlanetAspect === "trine" ||
+    transitingPlanetAspect === "sextile"
+      ? "easy"
+      : "hard";
+
+  if (isSectPlanet(transitingPlanetName)) {
+    const isBenefic = isBeneficPlanet(transitingPlanetName);
+    const sect = isBenefic
+      ? sectPlanets.inSectBenefic.planet === transitingPlanetName
+        ? "inSectBenefic"
+        : "outOfSectBenefic"
+      : sectPlanets.inSectMalefic.planet === transitingPlanetName
+        ? "inSectMalefic"
+        : "outOfSectMalefic";
+    const text = sectInterpretations[transitingPlanetName][sect][transitAspect];
+
+    // Joyous transits - Easy Transits from benefic
+    if (isBenefic && transitAspect === "easy") {
+      pills.push({
+        type: "joyous",
+        toolTip: text,
+      });
+    }
+    // Excessive transit - Hard transits from benefics
+    if (isBenefic && transitAspect === "hard") {
+      pills.push({
+        type: "excessive",
+        toolTip: text,
+      });
+    }
+    // Productive - Easy transits from malefics
+    if (!isBenefic && transitAspect === "easy") {
+      pills.push({
+        type: "productive",
+        toolTip: text,
+      });
+    }
+    // Challening - Hard transits from malefics
+    if (!isBenefic && transitAspect === "hard") {
+      pills.push({
+        type: "challenging",
+        toolTip: text,
+      });
+    }
+  }
+
+  if (
+    transitAspect === "hard" &&
+    isSocialPlanet(transitingPlanetName) &&
+    (isPlacementAngle(transit.natalPlanet) ||
+      isAngleRuler(natalPlanet.rulerOf || []))
+  ) {
+    // Significant - Transits of social planets angles or angle rulers
+    pills.push({
+      type: "significant",
+      toolTip:
+        "These hard transits of the social planets (Jupiter and Saturn) mark significant turning points in life.",
+    });
+  }
+
+  if (
+    transitAspect === "hard" &&
+    isOuterPlanet(transitingPlanetName) &&
+    (isPlacementAngle(transit.natalPlanet) ||
+      isAngleRuler(natalPlanet.rulerOf || []))
+  ) {
+    // Life defining - Transits of outer planets to angles or angle rulers
+    pills.push({
+      type: "lifeDefining",
+      toolTip:
+        "These hard transits of the social planets (Jupiter and Saturn) mark significant turning points in life.",
+    });
+  }
+
+  return pills;
 };
