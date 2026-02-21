@@ -1,7 +1,6 @@
 import * as constants from "@/shared/lib/constants";
 import {
   type PlanetPoint,
-  type Aspect,
   type TransitInterpretations,
   SectPlanets,
   TransitEntry,
@@ -94,15 +93,20 @@ export const getFormattedHouseTopicsText = (house: number) => {
 };
 
 export const getFormattedAspectText = (
-  aspects: Aspect[],
+  aspects: TransitEntry[],
   transitText?: string,
 ) => {
   const text = aspects.map((aspect) => {
-    const a = aspect.aspect.startsWith("s") ? "a" : "an";
+    const a =
+      aspect.aspect === "conjunct"
+        ? ""
+        : aspect.aspect.startsWith("s")
+          ? "a"
+          : "an";
     return `${a} ${aspect.aspect
       .split(/(?=[A-Z])/)
       .join(" ")
-      .toLowerCase()} to your natal ${aspect.planet}`;
+      .toLowerCase()} to your natal ${aspect.natalPlanet}`;
   });
 
   return `This ${transitText || "transit"} is in ${text.join(", ").replace(/, ([^,]*)$/, ", and $1")}.`;
@@ -153,40 +157,4 @@ export const getFormattedTransitText = (
       );
     })
     .join(" ");
-};
-
-export const isSectPlanet = (planet: string) => {
-  const sectPlanets = ["Jupiter", "Venus", "Mars", "Saturn"];
-  return sectPlanets.includes(planet);
-};
-
-export const getFormattedSectInterpretation = (
-  sectPlanets: SectPlanets,
-  transit: TransitEntry,
-) => {
-  const transitingPlanetName = transit.transitingPlanet;
-
-  if (!isSectPlanet(transitingPlanetName)) return null;
-
-  const split = transit.aspect.split(/(?=[A-Z])/);
-  const transitingPlanetAspect =
-    split.length > 1 ? split[1].toLowerCase() : split[0];
-  const isBenefic =
-    transitingPlanetName === "Jupiter" || transitingPlanetName === "Venus";
-  const sect = isBenefic
-    ? sectPlanets.inSectBenefic.planet === transitingPlanetName
-      ? "inSectBenefic"
-      : "outOfSectBenefic"
-    : sectPlanets.inSectMalefic.planet === transitingPlanetName
-      ? "inSectMalefic"
-      : "outOfSectMalefic";
-
-  let transitAspect =
-    transitingPlanetAspect === "conjunct" ||
-    transitingPlanetAspect === "trine" ||
-    transitingPlanetAspect === "sextile"
-      ? "easy"
-      : "hard";
-
-  return sectInterpretations[transitingPlanetName][sect][transitAspect];
 };
