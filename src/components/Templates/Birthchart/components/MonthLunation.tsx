@@ -34,9 +34,12 @@ export default function MonthLunation({ lunation }: { lunation: Lunation }) {
     lunation.lunationType,
     lunation.date,
   );
-  const pills = aspects.flatMap((aspect) =>
-    getPills(birthChartData, sectPlanets, aspect),
-  );
+  const pills = aspects
+    .flatMap((aspect) => getPills(birthChartData, sectPlanets, aspect))
+    .filter(
+      (pill, index, self) =>
+        index === self.findIndex((p) => p.type === pill.type),
+    );
 
   return (
     <div className={"border-t border-gray-600 pt-3"}>
