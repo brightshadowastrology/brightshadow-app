@@ -607,15 +607,6 @@ const getExactLunationDate = (targetDate: Date, isNewMoon: boolean) => {
     if (isNewMoon) {
       // New Moon when angle difference is close to 0
       if (angleDiff < 0.1 || angleDiff > 359.9) {
-        console.log(
-          exactDate.toISOString(),
-          `Sun Degree: ${sunSplitDeg.degree}`,
-          getPlanetSign(sunSplitDeg.sign),
-          `Moon Degree: ${moonSplitDeg.degree}`,
-          getPlanetSign(moonSplitDeg.sign),
-          `angleDif: ${angleDiff}`,
-        );
-
         found = true;
       } else {
         // Increment by 1 hour

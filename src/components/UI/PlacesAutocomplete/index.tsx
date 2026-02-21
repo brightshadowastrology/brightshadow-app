@@ -90,7 +90,7 @@ async function fetchPlaceDetails(
   if (!res.ok) return null;
 
   const data = await res.json();
-  console.log("Place Details Response:", data);
+
   return {
     placeId: data.id,
     formattedAddress: data.formattedAddress ?? "",
