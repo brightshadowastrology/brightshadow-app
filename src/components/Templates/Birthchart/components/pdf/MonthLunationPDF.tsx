@@ -48,7 +48,7 @@ export function MonthLunationPDF({
   return (
     <View style={s.eventContainer}>
       <View style={s.eventHeader}>
-        <Text style={s.eventTitle}>{lunationText}</Text>
+        <Text style={s.eventTitleInRow}>{lunationText}</Text>
         <View style={s.pillRow}>
           {pills.map((pill) => (
             <PillPDF key={pill.type} type={pill.type} />

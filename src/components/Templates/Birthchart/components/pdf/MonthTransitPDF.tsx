@@ -53,7 +53,7 @@ export function MonthTransitPDF({
   return (
     <View style={s.eventContainer}>
       <View style={s.eventHeader}>
-        <Text style={s.eventTitle}>{title}</Text>
+        <Text style={s.eventTitleInRow}>{title}</Text>
         <View style={s.pillRow}>
           {pills.map((pill) => (
             <PillPDF key={pill.type} type={pill.type} />

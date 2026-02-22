@@ -27,6 +27,12 @@ export const eventStyles = StyleSheet.create({
     fontSize: 11,
     fontWeight: "bold",
     color: colors.textPrimary,
+  },
+  // Use this variant when the title is inside an eventHeader row alongside pills
+  eventTitleInRow: {
+    fontSize: 11,
+    fontWeight: "bold",
+    color: colors.textPrimary,
     flex: 1,
     flexShrink: 1,
   },
