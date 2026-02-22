@@ -48,7 +48,7 @@ export default function MonthEclipse({
         <h4 className="text-lg font-medium text-white">{lunationText}</h4>
         <div className="flex gap-2">
           {pills.map((pill) => {
-            return <Pill type={pill.type} toolTip={pill.toolTip} />;
+            return <Pill key={pill.type} type={pill.type} toolTip={pill.toolTip} />;
           })}
         </div>
       </div>

@@ -18,6 +18,7 @@ import MonthIngress from "./MonthIngress";
 import MonthTransit from "./MonthTransit";
 import MonthBirthday from "./MonthBirthday";
 import LoadingIndicator from "./LoadingIndicator";
+import YearlyTransitsPDFDownload from "./pdf/YearlyTransitsPDFDownload";
 
 function getNext12Months(): { month: number; year: number; label: string }[] {
   const now = new Date();
@@ -281,7 +282,7 @@ export const YearlyTransits = () => {
         return (
           <section
             key={`${label}-${year}`}
-            className="w-full p-6 bg-gray-800 rounded-lg border border-gray-700"
+            className="mb-4 w-full p-6 bg-gray-800 rounded-lg border border-gray-700"
           >
             <h3 className="text-xl font-semibold text-white">
               {label} {year}
