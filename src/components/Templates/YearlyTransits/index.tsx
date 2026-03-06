@@ -11,12 +11,11 @@ import {
   type SectPlanets,
 } from "@/shared/types";
 import { type BirthInfo } from "../../Providers/BirthChartContext";
-import BirthchartDataForm from "../BirthchartDataForm";
-import BirthchartData from "./components/BirthchartData";
-import ProfectionYear from "./components/ProfectionYear";
 import moment from "moment-timezone";
+import BirthchartDataForm from "../BirthchartDataForm";
 import { BirthChartProvider } from "@/components/Providers/BirthChartContext";
 import { getIsDayChart, getSectPlanets } from "../helpers";
+import YearlyTransitsPDFDownload from "./components/pdf/YearlyTransitsPDFDownload";
 
 type BirthchartFormData = {
   day: string;
@@ -109,19 +108,10 @@ export default function Birthchart() {
           isDayChart={isDayChart}
           sectPlanets={sectPlanets}
         >
-          {birthChartData && sectPlanets && (
+          {birthChartData && (
             <div className="mt-8 w-full">
-              <BirthchartData
-                data={birthChartData}
-                isDayChart={isDayChart}
-                sectPlanets={sectPlanets}
-              />
-            </div>
-          )}
-
-          {profectionYear && (
-            <div className="mt-8 w-full">
-              <ProfectionYear data={profectionYear} />
+              {/* <YearlyTransits /> */}
+              <YearlyTransitsPDFDownload />
             </div>
           )}
         </BirthChartProvider>

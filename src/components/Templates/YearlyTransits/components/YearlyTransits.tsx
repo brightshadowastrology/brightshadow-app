@@ -17,8 +17,7 @@ import MonthRetrograde from "./MonthRetrograde";
 import MonthIngress from "./MonthIngress";
 import MonthTransit from "./MonthTransit";
 import MonthBirthday from "./MonthBirthday";
-import LoadingIndicator from "./LoadingIndicator";
-import YearlyTransitsPDFDownload from "./pdf/YearlyTransitsPDFDownload";
+import LoadingIndicator from "@/components/UI/LoadingIndicator";
 
 function getNext12Months(): { month: number; year: number; label: string }[] {
   const now = new Date();

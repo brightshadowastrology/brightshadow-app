@@ -1,5 +1,9 @@
 import { Text, View } from "@react-pdf/renderer";
-import { type Lunation, type PlanetPoint, type SectPlanets } from "@/shared/types";
+import {
+  type Lunation,
+  type PlanetPoint,
+  type SectPlanets,
+} from "@/shared/types";
 import {
   titleCase,
   formatDegree,
@@ -9,7 +13,7 @@ import {
   getFormattedHouseTopicsText,
   getFormattedAspectText,
 } from "@/shared/lib/textHelpers";
-import { getAspectsToNatalPlanets, getPills } from "../../helpers";
+import { getAspectsToNatalPlanets, getPills } from "../../../helpers";
 import { PillPDF } from "./PillPDF";
 import { eventStyles as s } from "./styles";
 
@@ -23,7 +27,8 @@ export function MonthLunationPDF({
   sectPlanets: SectPlanets;
 }) {
   const lunationHouse = getHouseFromSign(
-    birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ?? "Aries",
+    birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ??
+      "Aries",
     lunation.position.sign,
   );
   const lunationText = `${titleCase(lunation.lunationType)} in ${lunation.position.sign} | ${formatDegree(lunation.position.degree, lunation.position.minute)}`;
@@ -55,7 +60,9 @@ export function MonthLunationPDF({
           ))}
         </View>
       </View>
-      <Text style={s.eventBody}>{`${interpretationText} ${recommendationText}`}</Text>
+      <Text
+        style={s.eventBody}
+      >{`${interpretationText} ${recommendationText}`}</Text>
       {aspects.length > 0 && (
         <Text style={s.eventBody}>
           {getFormattedAspectText(aspects, lunation.lunationType)}

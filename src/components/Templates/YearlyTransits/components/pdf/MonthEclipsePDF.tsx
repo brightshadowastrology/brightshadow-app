@@ -1,5 +1,9 @@
 import { Text, View } from "@react-pdf/renderer";
-import { type Eclipse, type PlanetPoint, type SectPlanets } from "@/shared/types";
+import {
+  type Eclipse,
+  type PlanetPoint,
+  type SectPlanets,
+} from "@/shared/types";
 import {
   titleCase,
   formatDegree,
@@ -8,7 +12,7 @@ import {
   getFormattedHouseDescriptionText,
   getFormattedAspectText,
 } from "@/shared/lib/textHelpers";
-import { getAspectsToNatalPlanets, getPills } from "../../helpers";
+import { getAspectsToNatalPlanets, getPills } from "../../../helpers";
 import { PillPDF } from "./PillPDF";
 import { eventStyles as s } from "./styles";
 
@@ -22,7 +26,8 @@ export function MonthEclipsePDF({
   sectPlanets: SectPlanets;
 }) {
   const lunationHouse = getHouseFromSign(
-    birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ?? "Aries",
+    birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ??
+      "Aries",
     eclipse.position.sign,
   );
   const lunationText = `${titleCase(eclipse.type)} | ${eclipse.position.sign} ${formatDegree(eclipse.position.degree, eclipse.position.minute)}`;

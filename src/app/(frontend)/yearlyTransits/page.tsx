@@ -1,10 +1,10 @@
 import AppProvider from "@/components/Providers/AppProvider";
-import Birthchart from "@/components/Templates/Birthchart";
+import YearlyTransits from "@/components/Templates/YearlyTransits";
 
 export default function BirthchartPage() {
   return (
     <AppProvider>
-      <Birthchart />
+      <YearlyTransits />
     </AppProvider>
   );
 }

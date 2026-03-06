@@ -9,7 +9,7 @@ import {
   getFormattedHouseTopicsText,
   getFormattedAspectText,
 } from "@/shared/lib/textHelpers";
-import { getAspectsToNatalPlanets, getPills } from "../helpers";
+import { getAspectsToNatalPlanets, getPills } from "../../helpers";
 import Pill from "@/components/UI/Pill";
 
 export default function MonthLunation({ lunation }: { lunation: Lunation }) {
@@ -47,7 +47,9 @@ export default function MonthLunation({ lunation }: { lunation: Lunation }) {
         <h4 className="text-lg font-medium text-white">{lunationText}</h4>
         <div className="flex gap-2">
           {pills.map((pill) => {
-            return <Pill key={pill.type} type={pill.type} toolTip={pill.toolTip} />;
+            return (
+              <Pill key={pill.type} type={pill.type} toolTip={pill.toolTip} />
+            );
           })}
         </div>
       </div>
