@@ -78,7 +78,6 @@ export default function BirthchartDataForm({
 
         {/* Month */}
         <div>
-          <label className="block mb-2 text-gray-400">Month</label>
           <Controller
             name="month"
             control={control}

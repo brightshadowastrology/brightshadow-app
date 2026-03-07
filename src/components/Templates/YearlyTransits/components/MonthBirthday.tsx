@@ -25,11 +25,11 @@ export default function MonthBirthday() {
   return (
     <div className={"border-t border-gray-600 pt-3"}>
       <h4 className="text-lg font-medium text-white">Happy Birthday!</h4>
-      <p className="text-gray-300 text-sm mt-1">
+      <p className="text-secondary-200 mt-1">
         You are now entering a {getOrdinal(nextYear)} house profection year.
         This year highlights your {nextHouseThemes}.
       </p>
-      <p className="text-gray-300 text-sm mt-1">
+      <p className="text-secondary-200 mt-1">
         Your Lord of the Year is {nextLord}.{" "}
         {lordDescriptions[nextLord] ||
           `${nextLord} guides your year with its unique energy.`}

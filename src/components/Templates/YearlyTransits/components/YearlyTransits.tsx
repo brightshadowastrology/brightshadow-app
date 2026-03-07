@@ -281,7 +281,7 @@ export const YearlyTransits = () => {
         return (
           <section
             key={`${label}-${year}`}
-            className="mb-4 w-full p-6 bg-gray-800 rounded-lg border border-gray-700"
+            className="mb-4 w-full p-6 bg-secondary-500 rounded-lg border border-secondary-400"
           >
             <h3 className="text-xl font-semibold text-white">
               {label} {year}
@@ -303,7 +303,7 @@ export const YearlyTransits = () => {
                     key={dateKey}
                     className="p-4 bg-gray-700 rounded-md border border-gray-800 space-y-3"
                   >
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-secondary-400 text-sm">
                       {label} {parseInt(dateKey.slice(8, 10), 10)}, {year}
                     </p>
                     {events.map((event) => {

@@ -54,8 +54,8 @@ export default function MonthEclipse({
           })}
         </div>
       </div>
-      <p className="text-gray-300 text-sm mt-1">{interpretationText}</p>
-      <p className="text-gray-300 text-sm mt-1">
+      <p className="text-secondary-200 mt-1">{interpretationText}</p>
+      <p className="text-secondary-200 mt-1">
         {aspects.length > 0 && getFormattedAspectText(aspects, eclipse.type)}
       </p>
     </div>

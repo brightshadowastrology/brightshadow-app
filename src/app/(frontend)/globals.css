@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #e4dccf;
   --foreground: #171717;
 }
 
@@ -11,33 +11,33 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --font-family-sans: "Inter", sans-serif;
+  --font-family-sans: var(--font-crimson-text), "Crimson Text", serif;
 
-  --color-primary-50: rgb(240, 247, 250);
-  --color-primary-100: rgb(224, 242, 248);
-  --color-primary-200: rgb(186, 227, 239);
-  --color-primary-300: rgb(147, 211, 229);
-  --color-primary-400: rgb(90, 179, 204);
-  --color-primary-500: rgb(35, 144, 174);
-  --color-primary-600: rgb(30, 128, 154);
-  --color-primary-700: rgb(25, 112, 134);
-  --color-primary-800: rgb(20, 96, 114);
-  --color-primary-900: rgb(15, 80, 94);
-  --color-primary-950: rgb(10, 64, 74);
+  --color-primary-50: rgb(241, 240, 238);
+  --color-primary-100: rgb(221, 221, 214);
+  --color-primary-200: rgb(192, 192, 182);
+  --color-primary-300: rgb(161, 160, 145);
+  --color-primary-400: rgb(129, 129, 108);
+  --color-primary-500: rgb(98, 97, 71);
+  --color-primary-600: rgb(78, 78, 57);
+  --color-primary-700: rgb(59, 58, 43);
+  --color-primary-800: rgb(41, 41, 30);
+  --color-primary-900: rgb(25, 25, 18);
+  --color-primary-950: rgb(16, 16, 11);
 
   /* color secondary purple */
 
-  --color-secondary-50: rgb(245, 243, 255);
-  --color-secondary-100: rgb(235, 231, 255);
-  --color-secondary-200: rgb(224, 218, 255);
-  --color-secondary-300: rgb(204, 192, 255);
-  --color-secondary-400: rgb(170, 153, 255);
-  --color-secondary-500: rgb(40, 48, 102);
-  --color-secondary-600: rgb(35, 43, 90);
-  --color-secondary-700: rgb(30, 38, 78);
-  --color-secondary-800: rgb(25, 33, 66);
-  --color-secondary-900: rgb(20, 28, 54);
-  --color-secondary-950: rgb(15, 23, 42);
+  --color-secondary-50: rgb(235, 234, 234);
+  --color-secondary-100: rgb(211, 208, 209);
+  --color-secondary-200: rgb(175, 171, 171);
+  --color-secondary-300: rgb(136, 128, 130);
+  --color-secondary-400: rgb(96, 86, 88);
+  --color-secondary-500: rgb(56, 44, 46);
+  --color-secondary-600: rgb(45, 35, 37);
+  --color-secondary-700: rgb(34, 26, 28);
+  --color-secondary-800: rgb(24, 18, 19);
+  --color-secondary-900: rgb(15, 11, 12);
+  --color-secondary-950: rgb(9, 7, 7);
 
   --color-danger-50: rgb(254, 242, 242);
   --color-danger-100: rgb(254, 226, 226);
@@ -74,5 +74,14 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), "Inter", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-dm-serif-display), "DM Serif Display", serif;
 }

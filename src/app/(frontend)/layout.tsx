@@ -1,6 +1,18 @@
 import type { Metadata } from "next";
+import { Inter, DM_Serif_Display } from "next/font/google";
 import { TRPCProvider } from "@/components/Providers/TRPCProvider";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const dmSerifDisplay = DM_Serif_Display({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-dm-serif-display",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>
+      <body className={`${inter.variable} ${dmSerifDisplay.variable} antialiased`}>
         <TRPCProvider>{children}</TRPCProvider>
       </body>
     </html>

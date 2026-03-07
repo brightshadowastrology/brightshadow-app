@@ -97,7 +97,9 @@ export default function Birthchart() {
   return (
     <div className="flex min-h-screen items-center justify-center font-sansk">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-start py-32 px-16 sm:items-start">
-        <h2>Enter Birthchart Data</h2>
+        <div className="w-full flex justify-center">
+          <h1 className="text-3xl">Yearly Transits Report</h1>
+        </div>
 
         <BirthchartDataForm onSubmit={onSubmit} />
 

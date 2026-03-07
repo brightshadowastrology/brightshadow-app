@@ -39,7 +39,7 @@ export default function InputTimePicker({
   return (
     <div className={cn("flex flex-col gap-2", containerClassName)}>
       {label && (
-        <span className="text-gray-400">
+        <span className="text-primary-400">
           {label}
           {props.isRequired && <span className="text-danger-400">*</span>}
         </span>
@@ -49,8 +49,8 @@ export default function InputTimePicker({
         <AriaTimeField {...props}>
           <DateInput
             className={cn(
-              "flex w-full rounded-md border-1 border-black px-0.5 py-(--custom-xs)",
-              "focus-within:border-black focus-within:ring-1 focus-within:ring-primary-400",
+              "flex w-full rounded-md border border-primary-500 px-0.5 py-(--custom-xs)",
+              "focus-within:border-primary-500 focus-within:ring-1 focus-within:ring-primary-400",
               "hover:border-gray-400",
               className,
             )}
@@ -61,8 +61,8 @@ export default function InputTimePicker({
                 className={cn(
                   "rounded pr-0.5 tabular-nums outline-none",
                   "focus:bg-primary-100 focus:text-primary-900",
-                  "placeholder-shown:text-gray-400",
-                  segment.isPlaceholder && "text-gray-400",
+                  "placeholder-shown:text-secondary-400",
+                  segment.isPlaceholder && "text-secondary-400",
                 )}
               />
             )}
@@ -71,12 +71,12 @@ export default function InputTimePicker({
       ) : (
         <div
           className={cn(
-            "flex w-full rounded-md border-1 border-gray-300",
+            "flex w-full rounded-md border border-gray-300",
             "hover:border-gray-400",
             className,
           )}
         >
-          <span className="rounded px-1 py-1 tabular-nums text-gray-400">
+          <span className="rounded px-1 py-1 tabular-nums text-secondary-400">
             --:--
           </span>
         </div>

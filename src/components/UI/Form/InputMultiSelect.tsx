@@ -1,5 +1,5 @@
-import * as Form from '@radix-ui/react-form';
-import { useController, type UseControllerProps } from 'react-hook-form';
+import * as Form from "@radix-ui/react-form";
+import { useController, type UseControllerProps } from "react-hook-form";
 import {
   ComboBox,
   Input,
@@ -7,41 +7,41 @@ import {
   ListBox,
   ListBoxItem,
   Popover,
-  type ComboBoxProps
-} from 'react-aria-components';
-import { cn } from '@/shared/lib/css';
-import { MagnifyingGlassIcon, Cross2Icon } from '@radix-ui/react-icons';
-import { useState } from 'react';
+  type ComboBoxProps,
+} from "react-aria-components";
+import { cn } from "@/shared/lib/css";
+import { MagnifyingGlassIcon, Cross2Icon } from "@radix-ui/react-icons";
+import { useState } from "react";
 
 type Item = {
   id: number;
   name: string;
 };
 
-const SELECT_ALL_KEY = '__select_all__';
+const SELECT_ALL_KEY = "__select_all__";
 
 type InputMultiSelectProps<
   T extends Item,
   // This any is expected because it's a generic type for form values
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TFormValues extends Record<string, any>
+  TFormValues extends Record<string, any>,
 > = Omit<
   ComboBoxProps<T>,
-  'children' | 'defaultItems' | 'selectedKey' | 'onSelectionChange'
+  "children" | "defaultItems" | "selectedKey" | "onSelectionChange"
 > &
   Omit<
     React.DetailedHTMLProps<
       React.InputHTMLAttributes<HTMLInputElement>,
       HTMLInputElement
     >,
-    'name' | 'value' | 'onChange'
+    "name" | "value" | "onChange"
   > &
-  Omit<UseControllerProps<TFormValues>, 'control' | 'defaultValue'> & {
+  Omit<UseControllerProps<TFormValues>, "control" | "defaultValue"> & {
     name: string;
     label?: string;
     containerClassName?: string;
     items: T[];
-    control: NonNullable<UseControllerProps<TFormValues>['control']>;
+    control: NonNullable<UseControllerProps<TFormValues>["control"]>;
     renderItem?: (item: T) => React.ReactNode;
     allowSelectAll?: boolean;
     selectAllLabel?: string;
@@ -52,7 +52,7 @@ const InputMultiSelect = <
   T extends Item,
   // This any is expected because it's a generic type for form values
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TFormValues extends Record<string, any>
+  TFormValues extends Record<string, any>,
 >({
   label,
   className,
@@ -60,17 +60,17 @@ const InputMultiSelect = <
   items,
   defaultValue = [],
   allowSelectAll = false,
-  selectAllLabel = 'Select all',
+  selectAllLabel = "Select all",
   hint,
 
   renderItem,
   ...props
 }: InputMultiSelectProps<T, TFormValues>) => {
   const { required } = props;
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const {
     field: { onChange, name, value = [] as number[] },
-    fieldState: { error }
+    fieldState: { error },
   } = useController(props);
 
   const shouldShowSelectAll = allowSelectAll && items.length > 0;
@@ -81,7 +81,7 @@ const InputMultiSelect = <
     ? items.filter(
         (item) =>
           !value.includes(item.id) &&
-          item.name.toLowerCase().includes(inputValue.toLowerCase())
+          item.name.toLowerCase().includes(inputValue.toLowerCase()),
       )
     : [];
 
@@ -100,12 +100,12 @@ const InputMultiSelect = <
         onChange(allIds);
       }
 
-      setInputValue('');
+      setInputValue("");
       return;
     }
 
     const numericKey =
-      typeof selectedKey === 'string' ? Number(selectedKey) : selectedKey;
+      typeof selectedKey === "string" ? Number(selectedKey) : selectedKey;
 
     if (!Number.isFinite(numericKey)) {
       return;
@@ -113,7 +113,7 @@ const InputMultiSelect = <
 
     if (!value.includes(numericKey)) {
       onChange([...value, numericKey]);
-      setInputValue('');
+      setInputValue("");
     }
   };
 
@@ -124,8 +124,8 @@ const InputMultiSelect = <
   return (
     <Form.Field className="mb-(--custom-md)" name={name}>
       <div className="flex items-center">
-        <Form.Label className="pb-[5px]">
-          <Label className="text-gray-400">{label}</Label>
+        <Form.Label className="pb-2">
+          <Label className="text-primary-400">{label}</Label>
           {required && <span className="text-danger-400">*</span>}
         </Form.Label>
       </div>
@@ -135,7 +135,7 @@ const InputMultiSelect = <
         onInputChange={setInputValue}
         onSelectionChange={handleSelect}
       >
-        <div className={cn('relative', containerClassName)}>
+        <div className={cn("relative", containerClassName)}>
           <span className="absolute top-0 bottom-0 left-2 flex h-full items-center justify-center">
             <MagnifyingGlassIcon className="pointer-none text-primary-300 w-6" />
           </span>
@@ -143,18 +143,20 @@ const InputMultiSelect = <
             <Input
               value={inputValue}
               className={cn(
-                'focus:border-primary-400 focus:ring-primary-400 w-full rounded-md border-1 border-gray-300 bg-white px-(--custom-xs) py-(--custom-xs) pr-[32px] pl-[32px]',
-                className
+                "focus:border-primary-400 focus:ring-primary-400 w-full rounded-md border border-gray-300 bg-white px-(--custom-xs) py-(--custom-xs) pr-[32px] pl-[32px]",
+                className,
               )}
               placeholder={
                 selectedItems.length > 0
                   ? `${selectedItems.length} sélectionné(s)`
-                  : 'Rechercher...'
+                  : "Rechercher..."
               }
               onChange={(e) => setInputValue(e.target.value)}
             />
           </Form.Control>
-          {hint && <div className="mt-2 text-sm text-gray-400">{hint}</div>}
+          {hint && (
+            <div className="mt-2 text-sm text-secondary-400">{hint}</div>
+          )}
           {error && (
             <div className="text-danger-400 flex items-center py-1 text-sm">
               <Form.Message>{error.message}</Form.Message>

@@ -223,7 +223,7 @@ export const PlacesAutocomplete: React.FC<PlacesAutocompleteProps> = ({
         onKeyDown={handleKeyDown}
         {...props}
         className={cn(
-          "focus:border-primary-500 focus:ring-primary-500 w-full rounded-md border-1 border-gray-300 px-(--custom-xs) py-(--custom-xs) pl-8",
+          "focus:border-primary-500 focus:ring-primary-500 w-full rounded-md border border-primary-500 px-(--custom-xs) py-(--custom-xs) pl-8",
           className,
         )}
       >
@@ -250,7 +250,7 @@ export const PlacesAutocomplete: React.FC<PlacesAutocompleteProps> = ({
             >
               <span className="font-medium">{prediction.mainText}</span>
               {prediction.secondaryText && (
-                <span className="text-gray-400">
+                <span className="text-secondary-400">
                   {" "}
                   {prediction.secondaryText}
                 </span>

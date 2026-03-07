@@ -60,8 +60,8 @@ export default function MonthTransit({ transit }: { transit: TransitEntry }) {
           })}
         </div>
       </div>
-      <p className="text-gray-300 text-sm mt-1">{interpretationText}</p>
-      <p className="text-gray-300 text-sm mt-1">{transitInterpretation}</p>
+      <p className="text-secondary-200 mt-1">{interpretationText}</p>
+      <p className="text-secondary-200 mt-1">{transitInterpretation}</p>
     </div>
   );
 }

@@ -53,8 +53,8 @@ export default function MonthLunation({ lunation }: { lunation: Lunation }) {
           })}
         </div>
       </div>
-      <p className="text-gray-300 text-sm mt-1">{`${interpretationText} ${recommendationText}`}</p>
-      <p className="text-gray-300 text-sm mt-1">
+      <p className="text-secondary-200 mt-1">{`${interpretationText} ${recommendationText}`}</p>
+      <p className="text-secondary-200 mt-1">
         {aspects.length > 0 &&
           getFormattedAspectText(aspects, lunation.lunationType)}
       </p>

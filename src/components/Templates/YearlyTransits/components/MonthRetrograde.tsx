@@ -34,8 +34,8 @@ export default function MonthRetrograde({
       <div className="flex justify-between items-start">
         <h4 className="text-lg font-medium text-white">{retrogradeText}</h4>
       </div>
-      <p className="text-gray-300 text-sm mt-1">{interpretationText}</p>
-      <p className="text-gray-300 text-sm mt-1">{recommendationText}</p>
+      <p className="text-secondary-200 mt-1">{interpretationText}</p>
+      <p className="text-secondary-200 mt-1">{recommendationText}</p>
     </div>
   );
 }

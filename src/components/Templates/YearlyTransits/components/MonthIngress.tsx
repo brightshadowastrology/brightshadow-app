@@ -38,7 +38,7 @@ export default function MonthIngress({ ingress }: { ingress: IngressEntry }) {
           {getFormattedHouseText(houseIngressedInto)}
         </h4>
       </div>
-      <p className="text-gray-300 text-sm mt-1">
+      <p className="text-secondary-200 mt-1">
         {isTraditionalPlanet && placementText}
       </p>
     </div>

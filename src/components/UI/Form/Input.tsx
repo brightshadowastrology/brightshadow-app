@@ -29,7 +29,7 @@ const Input: React.FC<PropsWithChildren<InputProps>> = ({
     <Form.Field className={cn("mb-2", containerClassName)} name={name}>
       <div className="flex items-center">
         <Form.Label className="pb-2">
-          <span className="text-gray-400">{label}</span>
+          <span className="text-primary-400">{label}</span>
           {required && <span className="text-danger-400">*</span>}
         </Form.Label>
       </div>
@@ -38,8 +38,8 @@ const Input: React.FC<PropsWithChildren<InputProps>> = ({
         <Form.Control asChild>
           <input
             className={cn(
-              "w-full rounded-md border-1 border-black px-(--custom-xs) py-(--custom-xs)",
-              "focus:border-primary-400 focus:ring-1 focus:ring-primary-400 data-highlighted:bg-primary-100 focus:bg-primary-100",
+              "w-full rounded-md border border-primary-500 px-(--custom-xs) py-(--custom-xs)",
+              "focus:border-secondary-400 focus:ring-1 focus:ring-secondary-400 data-highlighted:bg-primary-100 focus:bg-primary-100",
               className,
             )}
             {...props}

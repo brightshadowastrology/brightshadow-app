@@ -1,4 +1,4 @@
-import AppProvider from "@/components/Providers/AppProvider";
+import AppProvider from "@/components/Providers/AppProvider/Index";
 import Birthchart from "@/components/Templates/Birthchart";
 
 export default function BirthchartPage() {

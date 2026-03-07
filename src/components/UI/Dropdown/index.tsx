@@ -74,64 +74,67 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   return (
-    <Select.Root
-      disabled={disabled}
-      value={internalValue || placeholder}
-      onValueChange={handleValueChange}
-    >
-      <Select.Trigger
-        aria-label={resolvedPlaceholder}
-        className={cn(
-          "border-1 border-black inline-flex min-w-fit cursor-pointer items-center justify-between rounded-md text-black  min-w-32 px-(--custom-xs) py-(--custom-xs)",
-          "focus:border-primary-400 focus:ring-1 focus:ring-primary-400 focus:bg-primary-100",
-          triggerClassName,
-        )}
+    <>
+      <label className="block mb-2 text-primary-400">Month</label>
+      <Select.Root
+        disabled={disabled}
+        value={internalValue || placeholder}
+        onValueChange={handleValueChange}
       >
-        {triggerPrefix ? (
-          <span className="flex items-center">{triggerPrefix}</span>
-        ) : null}
-        <Select.Value
-          className={cn("text-left", valueClassName)}
-          placeholder={resolvedPlaceholder}
-          suppressHydrationWarning
-        />
-        <Select.Icon className={cn("mt-0.5 ml-2", iconClassName)}>
-          {caretIcon ?? <ChevronDownIcon />}
-        </Select.Icon>
-      </Select.Trigger>
-      <Select.Portal>
-        <Select.Content
-          align={align}
-          position="popper"
-          side={position}
-          sideOffset={sideOffset}
-          style={{ maxHeight }}
+        <Select.Trigger
+          aria-label={resolvedPlaceholder}
           className={cn(
-            "z-50 overflow-hidden rounded-sm p-4 [box-shadow:0px_10px_38px_-10px_rgba(22,23,24,0.35),0px_10px_20px_-15px_rgba(22,23,24,0.2)] bg-white",
-            contentClassName,
+            "border border-primary-500 inline-flex min-w-fit cursor-pointer items-center justify-between rounded-md text-black px-(--custom-xs) py-(--custom-xs)",
+            "focus:border-primary-400 focus:ring-1 focus:ring-primary-400 focus:bg-primary-100",
+            triggerClassName,
           )}
         >
-          <Select.Viewport
-            className="[&::-webkit-scrollbar-thumb]:bg-black [&::-webkit-scrollbar-thumb:hover]:bg-grey [&::-webkit-scrollbar-track]:bg-grey overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full"
-            style={{
-              maxHeight,
-              scrollbarWidth: "thin",
-              scrollbarColor: "#d1d5db #f3f4f6",
-            }}
+          {triggerPrefix ? (
+            <span className="flex items-center">{triggerPrefix}</span>
+          ) : null}
+          <Select.Value
+            className={cn("text-left", valueClassName)}
+            placeholder={resolvedPlaceholder}
+            suppressHydrationWarning
+          />
+          <Select.Icon className={cn("mt-0.5 ml-2", iconClassName)}>
+            {caretIcon ?? <ChevronDownIcon />}
+          </Select.Icon>
+        </Select.Trigger>
+        <Select.Portal>
+          <Select.Content
+            align={align}
+            position="popper"
+            side={position}
+            sideOffset={sideOffset}
+            style={{ maxHeight }}
+            className={cn(
+              "z-50 overflow-hidden rounded-sm p-4 [box-shadow:0px_10px_38px_-10px_rgba(22,23,24,0.35),0px_10px_20px_-15px_rgba(22,23,24,0.2)] bg-white",
+              contentClassName,
+            )}
           >
-            {options.map((option) => (
-              <Select.Item
-                key={option.value}
-                className="data-highlighted:bg-primary-100 text-md focus:border-primary-400 relative flex h-6 items-center rounded-sm py-0 pr-8 pl-2.5 leading-none select-none focus-visible:outline-none data-[state=checked]:font-semibold"
-                value={option.value}
-              >
-                <Select.ItemText>{option.label}</Select.ItemText>
-              </Select.Item>
-            ))}
-          </Select.Viewport>
-        </Select.Content>
-      </Select.Portal>
-    </Select.Root>
+            <Select.Viewport
+              className="[&::-webkit-scrollbar-thumb]:bg-black [&::-webkit-scrollbar-thumb:hover]:bg-grey [&::-webkit-scrollbar-track]:bg-grey overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full"
+              style={{
+                maxHeight,
+                scrollbarWidth: "thin",
+                scrollbarColor: "#d1d5db #f3f4f6",
+              }}
+            >
+              {options.map((option) => (
+                <Select.Item
+                  key={option.value}
+                  className="data-highlighted:bg-primary-100 text-md focus:border-primary-400 relative flex h-6 items-center rounded-sm py-0 pr-8 pl-2.5 leading-none select-none focus-visible:outline-none data-[state=checked]:font-semibold"
+                  value={option.value}
+                >
+                  <Select.ItemText>{option.label}</Select.ItemText>
+                </Select.Item>
+              ))}
+            </Select.Viewport>
+          </Select.Content>
+        </Select.Portal>
+      </Select.Root>
+    </>
   );
 };
 
