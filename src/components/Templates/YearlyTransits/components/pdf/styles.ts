@@ -1,14 +1,14 @@
 import { StyleSheet } from "@react-pdf/renderer";
 
 export const colors = {
-  pageBg: "#ffffff",
-  sectionBg: "#f9fafb",
-  cardBg: "#f3f4f6",
-  sectionBorder: "#e5e7eb",
-  divider: "#d1d5db",
+  pageBg: "#f9f7f3",
+  sectionBg: "#f0ece4",
+  cardBg: "#e4dccf",
+  sectionBorder: "#b79e80",
+  divider: "#9b765b",
   textPrimary: "#111827",
   textSecondary: "#374151",
-  textMuted: "#6b7280",
+  textMuted: "#a9a67e",
 } as const;
 
 export const eventStyles = StyleSheet.create({
@@ -27,6 +27,7 @@ export const eventStyles = StyleSheet.create({
     fontSize: 11,
     fontWeight: "bold",
     color: colors.textPrimary,
+    fontFamily: "DM Serif Display",
   },
   // Use this variant when the title is inside an eventHeader row alongside pills
   eventTitleInRow: {

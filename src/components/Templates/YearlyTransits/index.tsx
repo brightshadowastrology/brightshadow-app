@@ -15,6 +15,7 @@ import moment from "moment-timezone";
 import BirthchartDataForm from "../BirthchartDataForm";
 import { BirthChartProvider } from "@/components/Providers/BirthChartContext";
 import { getIsDayChart, getSectPlanets } from "../helpers";
+import YearlyTransits from "./components/YearlyTransits";
 import YearlyTransitsPDFDownload from "./components/pdf/YearlyTransitsPDFDownload";
 
 type BirthchartFormData = {
@@ -112,7 +113,7 @@ export default function Birthchart() {
         >
           {birthChartData && (
             <div className="mt-8 w-full">
-              {/* <YearlyTransits /> */}
+              <YearlyTransits />
               <YearlyTransitsPDFDownload />
             </div>
           )}

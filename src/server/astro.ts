@@ -44,7 +44,7 @@ export const getBirthChartData = (
   const midheaven = getAngle(houses, houseDegrees.sign, "Midheaven", 9);
   const ic = getAngle(houses, houseDegrees.sign, "IC", 3);
 
-  let result: PlanetPoint[] = placements.map((placement) => {
+  const result: PlanetPoint[] = placements.map((placement) => {
     const house = getPlanetHouse(placement.position.sign, houseDegrees.sign);
     const signsRuledByPlanet = sharedConstants.RULERSHIPS[placement.planet];
     let housesRuledByPlanet: number[] = [];
@@ -291,8 +291,8 @@ export const getMajorTransitsForAPlanet = (
     ].inferiorSextile;
 
   const transitingPlanet = [
-    "Venus",
-    "Mars",
+    // "Venus",
+    // "Mars",
     "Jupiter",
     "Saturn",
     "Uranus",

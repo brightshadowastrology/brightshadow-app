@@ -1,10 +1,24 @@
 import {
   Document,
+  Font,
   Page,
   View,
   Text,
   StyleSheet,
 } from "@react-pdf/renderer";
+
+Font.register({
+  family: "Inter",
+  fonts: [
+    { src: "/fonts/Inter-VariableFont_opsz,wght.ttf" },
+    { src: "/fonts/Inter-VariableFont_opsz,wght.ttf", fontWeight: "bold" },
+  ],
+});
+
+Font.register({
+  family: "DM Serif Display",
+  src: "/fonts/DMSerifDisplay-Regular.ttf",
+});
 import {
   type Eclipse,
   type Lunation,
@@ -53,11 +67,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.pageBg,
     paddingVertical: 36,
     paddingHorizontal: 40,
-    fontFamily: "Helvetica",
+    fontFamily: "Inter",
   },
   pageTitle: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: "DM Serif Display",
     color: colors.textPrimary,
     marginBottom: 20,
   },
@@ -72,7 +86,7 @@ const styles = StyleSheet.create({
   },
   monthHeading: {
     fontSize: 14,
-    fontWeight: "bold",
+    fontFamily: "DM Serif Display",
     color: colors.textPrimary,
     marginBottom: 10,
   },
@@ -128,7 +142,9 @@ export function YearlyTransitsPDF({
               </Text>
 
               {Object.keys(byDay).length === 0 ? (
-                <Text style={styles.emptyMonth}>No notable events this month.</Text>
+                <Text style={styles.emptyMonth}>
+                  No notable events this month.
+                </Text>
               ) : (
                 Object.entries(byDay).map(([dateKey, dayEvents]) => {
                   const day = parseInt(dateKey.slice(8, 10), 10);

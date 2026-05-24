@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "prepare:sweph": "cd ./node_modules/sweph && bun install"
+    "prepare:sweph": "cd node_modules/sweph && node-gyp rebuild"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.10",
