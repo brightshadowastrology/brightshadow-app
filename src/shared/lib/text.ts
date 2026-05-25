@@ -2320,7 +2320,7 @@ export const sectInterpretations: any = {
   Jupiter: {
     inSectBenefic: {
       easy: "As your benefic of sect, this is your most positive planet, and you can expect the transit to be particularly positive for you.",
-      hard: "Given that Jupiter is your benefic of sect, this transit should leave you feeling very bouyant, but watch out for excess.",
+      hard: "Given that Jupiter is your benefic of sect, this transit should leave you feeling very bouyant, but watch out for overindulgence.",
     },
     outOfSectBenefic: {
       easy: "As your benefic out of sect, this should be a fun transit, though its energies may be more of a background influence.",

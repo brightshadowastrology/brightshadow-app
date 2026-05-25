@@ -49,7 +49,7 @@ export default function MonthEclipse({
       </div>
       {pills.length > 0 && (
         <div className={"border-t border-primary-700 pt-3"}>
-          <div className="flex flex-column gap-2">
+          <div className="flex flex-col gap-2">
             {pills.map((pill) => {
               return (
                 <Pill key={pill.type} type={pill.type} toolTip={pill.toolTip} />

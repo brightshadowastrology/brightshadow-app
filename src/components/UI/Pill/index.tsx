@@ -1,9 +1,13 @@
 import * as React from "react";
 
 const PILL_CONFIG = {
-  fastMoving: {
+  powerful: {
     colors: "bg-primary-300 text-primary-700 border-primary-700",
-    text: "Fast-moving",
+    text: "Powerful",
+  },
+  personallyFelt: {
+    colors: "bg-primary-300 text-primary-700 border-primary-700",
+    text: "Personally Felt",
   },
   joyous: {
     colors: "bg-primary-300 text-primary-700 border-primary-700",
@@ -21,9 +25,9 @@ const PILL_CONFIG = {
     colors: "bg-primary-300 text-primary-700 border-primary-700",
     text: "Challenging",
   },
-  significant: {
+  newBeginnings: {
     colors: "bg-primary-300 text-primary-700 border-primary-700",
-    text: "Significant",
+    text: "New Beginnings",
   },
   lifeDefining: {
     colors: "bg-primary-300 text-primary-700 border-primary-700",

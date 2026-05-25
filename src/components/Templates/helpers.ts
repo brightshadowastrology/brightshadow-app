@@ -75,6 +75,10 @@ export const isFastMoving = (planet: string) => {
   return ["Mars", "Venus"].includes(planet);
 };
 
+export const isPersonalPlanet = (planet: string) => {
+  return ["Sun", "Moon", "Mercury", "Venus", "Mars"].includes(planet);
+};
+
 export const isBeneficPlanet = (planet: string) => {
   return ["Jupiter", "Venus"].includes(planet);
 };
@@ -189,12 +193,25 @@ export const getPills = (
       ? "easy"
       : "hard";
 
-  if (isFastMoving(transitingPlanetName)) {
-    // Fast moving - Transits of fast-moving inner planets
+  // Powerful transits - Transits to angles or angle rulers
+  if (
+    transitAspect === "hard" &&
+    (isPlacementAngle(transit.natalPlanet) ||
+      isAngleRuler(natalPlanet.rulerOf || []))
+  ) {
     pills.push({
-      type: "fastMoving",
+      type: "powerful",
       toolTip:
-        "This is a brief transit, so it's effects will be felt only briefly.",
+        "These hard transits to your angles or angle rulers mark significant turning points in life.",
+    });
+  }
+
+  // Personally felt transits - Transits of personal planets
+  if (transitAspect === "hard" && isPersonalPlanet(transit.transitingPlanet)) {
+    pills.push({
+      type: "personallyFelt",
+      toolTip:
+        "These hard transits of personal planets often manifest as personally felt challenges or changes.",
     });
   }
 
@@ -241,20 +258,6 @@ export const getPills = (
 
   if (
     transitAspect === "hard" &&
-    isSocialPlanet(transitingPlanetName) &&
-    (isPlacementAngle(transit.natalPlanet) ||
-      isAngleRuler(natalPlanet.rulerOf || []))
-  ) {
-    // Significant - Transits of social planets angles or angle rulers
-    pills.push({
-      type: "significant",
-      toolTip:
-        "These hard transits of the social planets (Jupiter and Saturn) to your angles or angle rulers mark significant turning points in life.",
-    });
-  }
-
-  if (
-    transitAspect === "hard" &&
     isOuterPlanet(transitingPlanetName) &&
     (isPlacementAngle(transit.natalPlanet) ||
       isAngleRuler(natalPlanet.rulerOf || []))
@@ -267,33 +270,31 @@ export const getPills = (
     });
   }
 
+  // New beginnings - Transits of lunations
   if (
     (transitingPlanetAspect === "conjunct" ||
       transitingPlanetAspect === "square" ||
       transitingPlanetAspect === "opposition") &&
     transitingPlanetName === "Lunation"
   ) {
-    // Significant - Transits of lunations angles or angle rulers
     pills.push({
-      type: "significant",
+      type: "newBeginnings",
       toolTip:
-        "This lunation sets up six months of significant changes in the areas of life associated with the planets or angles it is in hard aspect to.",
+        "This lunation sets up six months of new beginnings and changes in the areas of life associated with this house.",
     });
   }
 
+  // New beginnings - Transits of eclipses
   if (
     (transitingPlanetAspect === "conjunct" ||
       transitingPlanetAspect === "square" ||
       transitingPlanetAspect === "opposition") &&
-    transitingPlanetName === "Eclipse" &&
-    (isPlacementAngle(transit.natalPlanet) ||
-      isAngleRuler(natalPlanet.rulerOf || []))
+    transitingPlanetName === "Eclipse"
   ) {
-    // Significant - Transits of lunations angles or angle rulers
     pills.push({
-      type: "significant",
+      type: "newBeginnings",
       toolTip:
-        "This eclipse sets up six months of major endings and new beginnings in the areas of life associated with the planets or angles it is in hard aspect to.",
+        "This eclipse sets up six months of major endings and new beginnings in the areas of life associated with this house.",
     });
   }
 
