@@ -5,11 +5,17 @@ const PILL_PDF_CONFIG: Record<
   Pill["type"],
   { bg: string; color: string; border: string; text: string }
 > = {
-  fastMoving: {
-    bg: "#dbeafe",
-    color: "#1e40af",
-    border: "#93c5fd",
-    text: "Fast-moving",
+  powerful: {
+    bg: "#b8b59e",
+    color: "#50503b",
+    border: "#50503b",
+    text: "Powerful",
+  },
+  personallyFelt: {
+    bg: "#b8b59e",
+    color: "#50503b",
+    border: "#50503b",
+    text: "Personally Felt",
   },
   joyous: {
     bg: "#dcfce7",
@@ -35,11 +41,11 @@ const PILL_PDF_CONFIG: Record<
     border: "#fca5a5",
     text: "Challenging",
   },
-  significant: {
-    bg: "#e0e7ff",
-    color: "#3730a3",
-    border: "#a5b4fc",
-    text: "Significant",
+  newBeginnings: {
+    bg: "#b8b59e",
+    color: "#50503b",
+    border: "#50503b",
+    text: "New Beginnings",
   },
   lifeDefining: {
     bg: "#f3e8ff",
