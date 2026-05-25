@@ -110,7 +110,6 @@ export default function Birthchart() {
           profectionYear={profectionYear}
           isDayChart={isDayChart}
           sectPlanets={sectPlanets}
-          currentTimeLord={profectionYear?.lordOfYear || null}
         >
           {birthChartData && sectPlanets && (
             <div className="mt-8 w-full">

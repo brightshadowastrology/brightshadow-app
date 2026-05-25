@@ -19,7 +19,6 @@ type BirthChartContextValue = {
   profectionYear: ProfectionYearData | null;
   isDayChart: boolean | null;
   sectPlanets: SectPlanets | null;
-  currentTimeLord: string | null;
 };
 
 const BirthChartContext = createContext<BirthChartContextValue | null>(null);
@@ -30,7 +29,6 @@ export function BirthChartProvider({
   profectionYear,
   isDayChart,
   sectPlanets,
-  currentTimeLord,
   children,
 }: {
   value: PlanetPoint[] | null;
@@ -38,7 +36,6 @@ export function BirthChartProvider({
   profectionYear: ProfectionYearData | null;
   isDayChart: boolean | null;
   sectPlanets: SectPlanets | null;
-  currentTimeLord: string | null;
   children: ReactNode;
 }) {
   return (
@@ -49,7 +46,6 @@ export function BirthChartProvider({
         profectionYear,
         isDayChart,
         sectPlanets,
-        currentTimeLord,
       }}
     >
       {children}

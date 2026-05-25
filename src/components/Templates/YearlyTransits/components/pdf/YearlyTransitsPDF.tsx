@@ -45,7 +45,7 @@ export type MonthEvent =
   | { type: "retrograde"; date: string; data: RetrogradeEvent }
   | { type: "ingress"; date: string; data: IngressEntry }
   | { type: "transit"; date: string; data: TransitEntry }
-  | { type: "birthday"; date: string; data: null };
+  | { type: "birthday"; date: string; data: ProfectionYearData | null };
 
 export type MonthData = {
   label: string;
@@ -57,7 +57,6 @@ export type YearlyTransitsPDFProps = {
   months: MonthData[];
   birthChartData: PlanetPoint[];
   sectPlanets: SectPlanets;
-  profectionYear?: ProfectionYearData;
 };
 
 // ─── Styles ──────────────────────────────────────────────────────────────────
@@ -117,7 +116,6 @@ export function YearlyTransitsPDF({
   months,
   birthChartData,
   sectPlanets,
-  profectionYear,
 }: YearlyTransitsPDFProps) {
   return (
     <Document>
@@ -200,11 +198,10 @@ export function YearlyTransitsPDF({
                               />
                             );
                           case "birthday":
-                            return profectionYear ? (
+                            return event.data ? (
                               <MonthBirthdayPDF
                                 key="birthday"
-                                birthChartData={birthChartData}
-                                profectionYear={profectionYear}
+                                nextProfectionYear={event.data}
                               />
                             ) : null;
                         }

@@ -24,6 +24,7 @@ import {
   type RetrogradeEvent,
   type IngressEntry,
   type TransitEntry,
+  type ProfectionYearData,
 } from "@/shared/types";
 import {
   YearlyTransitsPDF,
@@ -179,6 +180,21 @@ function getTransitsForMonth(
   );
 }
 
+function computeNextProfectionYear(
+  current: ProfectionYearData,
+  ascendantSign: string,
+): ProfectionYearData {
+  const nextYearNum = (current.profectionYear % 12) + 1;
+  const ascIndex = constants.SIGNS.indexOf(ascendantSign);
+  const signIndex = (ascIndex + nextYearNum - 1) % 12;
+  const sign = constants.SIGNS[signIndex];
+  return {
+    profectionYear: nextYearNum,
+    profectionSign: sign,
+    lordOfYear: constants.SIGN_RULERS[sign],
+  };
+}
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function YearlyTransitsPDFDownload() {
@@ -231,6 +247,11 @@ export function YearlyTransitsPDFDownload() {
       return [];
     }
 
+    const now = new Date();
+    const startOfToday = new Date(
+      Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()),
+    );
+
     return months.map(({ month, year, label }) => {
       const monthEclipses = getEclipsesForMonth(eclipses, month, year);
       const monthRetrogrades = getRetrogradesForMonth(retrogrades, month, year);
@@ -270,12 +291,21 @@ export function YearlyTransitsPDFDownload() {
           data: t,
         })),
         ...(birthInfo &&
-        parseInt(birthInfo.birthDate.slice(5, 7), 10) - 1 === month
+        parseInt(birthInfo.birthDate.slice(5, 7), 10) - 1 === month &&
+        new Date(`${year}-${birthInfo.birthDate.slice(5, 10)}T00:00:00Z`) >=
+          startOfToday
           ? [
               {
                 type: "birthday" as const,
                 date: `${year}-${birthInfo.birthDate.slice(5, 10)}T00:00:00Z`,
-                data: null,
+                data:
+                  profectionYear
+                    ? computeNextProfectionYear(
+                        profectionYear,
+                        birthChartData.find((p) => p.planet === "Ascendant")
+                          ?.position.sign ?? "Aries",
+                      )
+                    : null,
               },
             ]
           : []),
@@ -291,6 +321,7 @@ export function YearlyTransitsPDFDownload() {
     ingresses,
     majorTransits,
     birthInfo,
+    profectionYear,
     months,
   ]);
 
@@ -312,7 +343,6 @@ export function YearlyTransitsPDFDownload() {
       months={monthsData}
       birthChartData={birthChartData}
       sectPlanets={sectPlanets}
-      profectionYear={profectionYear ?? undefined}
     />
   );
 

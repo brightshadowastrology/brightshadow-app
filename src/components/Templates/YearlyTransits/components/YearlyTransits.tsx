@@ -10,6 +10,7 @@ import {
   type RetrogradePeriod,
   type IngressEntry,
   type TransitEntry,
+  type ProfectionYearData,
 } from "@/shared/types";
 import MonthEclipse from "./MonthEclipse";
 import MonthLunation from "./MonthLunation";
@@ -171,10 +172,29 @@ function getTransitsForMonth(
   );
 }
 
+function computeNextProfectionYear(
+  current: ProfectionYearData,
+  ascendantSign: string,
+): ProfectionYearData {
+  const nextYearNum = (current.profectionYear % 12) + 1;
+  const ascIndex = constants.SIGNS.indexOf(ascendantSign);
+  const signIndex = (ascIndex + nextYearNum - 1) % 12;
+  const sign = constants.SIGNS[signIndex];
+  return {
+    profectionYear: nextYearNum,
+    profectionSign: sign,
+    lordOfYear: constants.SIGN_RULERS[sign],
+  };
+}
+
 export const YearlyTransits = () => {
   const months = getNext12Months();
   const dateParam = useMemo(() => new Date().toISOString(), []);
-  const { birthChartData, birthInfo } = useBirthChart();
+  const today = new Date();
+  const startOfToday = new Date(
+    Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()),
+  );
+  const { birthChartData, birthInfo, profectionYear } = useBirthChart();
 
   const { data: majorTransits, isLoading: majorTransitsLoading } =
     trpc.useQuery(
@@ -265,12 +285,21 @@ export const YearlyTransits = () => {
             data: t,
           })),
           ...(birthInfo &&
-          parseInt(birthInfo.birthDate.slice(5, 7), 10) - 1 === month
+          parseInt(birthInfo.birthDate.slice(5, 7), 10) - 1 === month &&
+          new Date(`${year}-${birthInfo.birthDate.slice(5, 10)}T00:00:00Z`) >=
+            startOfToday
             ? [
                 {
                   type: "birthday" as const,
                   date: `${year}-${birthInfo.birthDate.slice(5, 10)}T00:00:00Z`,
-                  data: null,
+                  data:
+                    profectionYear && birthChartData
+                      ? computeNextProfectionYear(
+                          profectionYear,
+                          birthChartData.find((p) => p.planet === "Ascendant")
+                            ?.position.sign ?? "Aries",
+                        )
+                      : null,
                 },
               ]
             : []),
@@ -344,9 +373,12 @@ export const YearlyTransits = () => {
                             />
                           );
                         case "birthday":
-                          return (
-                            <MonthBirthday key={`birthday-${event.date}`} />
-                          );
+                          return event.data ? (
+                            <MonthBirthday
+                              key={`birthday-${event.date}`}
+                              nextProfectionYear={event.data}
+                            />
+                          ) : null;
                       }
                     })}
                   </div>
