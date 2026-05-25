@@ -177,7 +177,7 @@ const InputMultiSelect = <
             {filteredItems.map((item) => (
               <ListBoxItem
                 key={item.id}
-                className="cursor-pointer px-(--custom-sm) py-2 hover:bg-gray-100 data-focus-visible:outline-0 data-focused:bg-gray-100 data-pressed:bg-gray-100 data-selected:font-bold"
+                className="cursor-pointer px-(--custom-sm) py-2 hover:bg-background-100 data-focus-visible:outline-0 data-focused:bg-background-100 data-pressed:bg-background-100 data-selected:font-bold"
                 id={item.id}
                 textValue={item.name}
               >

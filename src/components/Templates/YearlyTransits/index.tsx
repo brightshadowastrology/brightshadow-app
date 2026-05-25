@@ -109,6 +109,7 @@ export default function Birthchart() {
           birthInfo={birthInfo}
           profectionYear={profectionYear}
           isDayChart={isDayChart}
+          currentTimeLord={profectionYear?.lordOfYear || null}
           sectPlanets={sectPlanets}
         >
           {birthChartData && (

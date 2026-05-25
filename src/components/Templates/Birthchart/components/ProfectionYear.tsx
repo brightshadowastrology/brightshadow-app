@@ -28,7 +28,7 @@ export default function ProfectionYear({ data }: ProfectionYearProps) {
           Your Annual Profection
         </h3>
 
-        <div className="p-6 bg-secondary-500 rounded-lg border border-secondary-400 space-y-4">
+        <div className="p-6 bg-background-500 rounded-lg border border-secondary-400 space-y-4">
           <div className="flex items-center gap-4">
             <div className="text-4xl font-bold text-white">
               {profectionYear}

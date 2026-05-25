@@ -109,7 +109,7 @@ const InputAutocomplete = <
               {
                 "focus:border-primary-400 focus:ring-primary-400 border-gray-300 bg-white":
                   !readOnly && !disabled,
-                "cursor-not-allowed border-gray-200 bg-gray-50 text-secondary-500":
+                "cursor-not-allowed border-gray-200 bg-background-50 text-secondary-500":
                   readOnly || disabled,
               },
             )}
@@ -135,7 +135,7 @@ const InputAutocomplete = <
               key={item.id}
               value={item}
               className={cn("group w-full", {
-                ["cursor-pointer px-(--custom-sm) py-2 data-focus:bg-gray-100 data-selected:font-bold"]:
+                ["cursor-pointer px-(--custom-sm) py-2 data-focus:bg-background-100 data-selected:font-bold"]:
                   !renderItem,
               })}
             >

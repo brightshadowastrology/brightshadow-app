@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #e4dccf;
+  --background: #f0ece4;
   --foreground: #171717;
 }
 
@@ -13,42 +13,53 @@
 
   --font-family-sans: var(--font-crimson-text), "Crimson Text", serif;
 
-  --color-background-50: rgb(249, 247, 243);
-  --color-background-100: rgb(240, 236, 228);
-  --color-background-200: rgb(228, 220, 207);
-  --color-background-300: rgb(204, 188, 165);
-  --color-background-400: rgb(183, 158, 128);
-  --color-background-500: rgb(168, 135, 103);
-  --color-background-600: rgb(155, 118, 91);
-  --color-background-700: rgb(129, 96, 77);
-  --color-background-800: rgb(105, 79, 67);
-  --color-background-900: rgb(86, 67, 56);
+  --color-background-50: #f9f7f3;
+  --color-background-100: #f0ece4;
+  --color-background-200: #e4dccf;
+  --color-background-300: #d5cab8;
+  --color-background-400: #ad9480;
+  --color-background-600: #9a7b66;
+  --color-background-700: #7d6050;
+  --color-background-800: #5e4840;
+  --color-background-900: #3d2e29;
+  --color-background-950: #2e221c;
 
-  --color-primary-50: rgb(241, 240, 238);
-  --color-primary-100: rgb(221, 221, 214);
-  --color-primary-200: rgb(192, 192, 182);
-  --color-primary-300: rgb(161, 160, 145);
-  --color-primary-400: rgb(129, 129, 108);
-  --color-primary-500: rgb(98, 97, 71);
-  --color-primary-600: rgb(78, 78, 57);
-  --color-primary-700: rgb(59, 58, 43);
-  --color-primary-800: rgb(41, 41, 30);
-  --color-primary-900: rgb(25, 25, 18);
-  --color-primary-950: rgb(16, 16, 11);
+  /* — Primary (warm olive / dark green-grey) — */
+  --color-primary-50: #f4f4ef;
+  --color-primary-100: #e8e7df;
+  --color-primary-200: #d4d2c2;
+  --color-primary-300: #b8b59e;
+  --color-primary-400: #9e9b7d;
+  --color-primary-500: #86836a; /* mid */
+  --color-primary-600: #626147;
+  --color-primary-700: #50503b;
+  --color-primary-800: #44432f;
+  --color-primary-900: #39392e;
+  --color-primary-950: #39392e; /* deepest — same as 900 per Figma */
 
-  /* color secondary maroon */
+  /* — Secondary (pale lilac / dark eggplant) — */
+  --color-secondary-50: #fafaf9;
+  --color-secondary-100: #f5f5f4;
+  --color-secondary-200: #e8e3e3;
+  --color-secondary-300: #e8e3e3;
+  --color-secondary-400: #ac9a9a;
+  --color-secondary-500: #7d6867; /* mid */
+  --color-secondary-600: #5b4d4a;
+  --color-secondary-700: #473b39;
+  --color-secondary-800: #382c2e;
+  --color-secondary-900: #1e1615;
+  --color-secondary-950: #1e1615;
 
-  --color-secondary-50: rgb(235, 234, 234);
-  --color-secondary-100: rgb(211, 208, 209);
-  --color-secondary-200: rgb(175, 171, 171);
-  --color-secondary-300: rgb(136, 128, 130);
-  --color-secondary-400: rgb(96, 86, 88);
-  --color-secondary-500: rgb(56, 44, 46);
-  --color-secondary-600: rgb(45, 35, 37);
-  --color-secondary-700: rgb(34, 26, 28);
-  --color-secondary-800: rgb(24, 18, 19);
-  --color-secondary-900: rgb(15, 11, 12);
-  --color-secondary-950: rgb(9, 7, 7);
+  /* — Accent (golden amber) — */
+  --color-accent-100: #f5edd0;
+  --color-accent-200: #e9da9e;
+  --color-accent-300: #e8c270;
+  --color-accent-400: #ddb050;
+  --color-accent-500: #cd9433; /* primary action gold */
+  --color-accent-600: #b5742a;
+  --color-accent-700: #9a5c22;
+  --color-accent-800: #7a4519;
+  --color-accent-900: #5e3210;
 
   --color-danger-50: rgb(254, 242, 242);
   --color-danger-100: rgb(254, 226, 226);

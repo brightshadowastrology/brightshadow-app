@@ -31,14 +31,14 @@ export default function MonthIngress({ ingress }: { ingress: IngressEntry }) {
   const placementText = `Natally, ${ingress.planet} rules your ${getFormattedHouseRulersText(natalPlacement.rulerOf || [])}. During this transit, your ${getFormattedHouseDescriptionText(natalPlacement.rulerOf || [])}, will be brought up in your ${getFormattedHouseDescriptionText([houseIngressedInto])}.`;
 
   return (
-    <div className={"border-t border-gray-600 pt-3"}>
+    <div className={"border-t border-primary-700 pt-3"}>
       <div className="flex justify-between items-start">
-        <h4 className="text-lg font-medium text-white">
+        <h4 className="text-lg font-medium text-primary-700">
           {ingress.planet} enters your {ingress.sign}{" "}
           {getFormattedHouseText(houseIngressedInto)}
         </h4>
       </div>
-      <p className="text-secondary-200 mt-1">
+      <p className="text-primary-700 mt-1">
         {isTraditionalPlanet && placementText}
       </p>
     </div>

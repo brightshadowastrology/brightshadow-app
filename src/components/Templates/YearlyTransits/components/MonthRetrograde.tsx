@@ -30,12 +30,14 @@ export default function MonthRetrograde({
   const recommendationText = `This is a time when you may miscommunicate or experience delays around your ${getFormattedHouseTopicsText(houseIngressedInto)}. For these same reasons however, it's an excellent time to slow down, review, and reconsider these areas of life.`;
 
   return (
-    <div className={"border-t border-gray-600 pt-3"}>
+    <div className={"border-t border-primary-700 pt-3"}>
       <div className="flex justify-between items-start">
-        <h4 className="text-lg font-medium text-white">{retrogradeText}</h4>
+        <h4 className="text-lg font-medium text-primary-700">
+          {retrogradeText}
+        </h4>
       </div>
-      <p className="text-secondary-200 mt-1">{interpretationText}</p>
-      <p className="text-secondary-200 mt-1">{recommendationText}</p>
+      <p className="text-primary-700 mt-1">{interpretationText}</p>
+      <p className="text-primary-700 mt-1">{recommendationText}</p>
     </div>
   );
 }

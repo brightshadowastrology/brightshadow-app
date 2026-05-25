@@ -42,22 +42,28 @@ export default function MonthLunation({ lunation }: { lunation: Lunation }) {
     );
 
   return (
-    <div className={"border-t border-gray-600 pt-3"}>
+    <>
       <div className="flex justify-between items-start">
-        <h4 className="text-lg font-medium text-white">{lunationText}</h4>
-        <div className="flex gap-2">
-          {pills.map((pill) => {
-            return (
-              <Pill key={pill.type} type={pill.type} toolTip={pill.toolTip} />
-            );
-          })}
-        </div>
+        <h4 className="text-lg font-medium text-primary-700">{lunationText}</h4>
       </div>
-      <p className="text-secondary-200 mt-1">{`${interpretationText} ${recommendationText}`}</p>
-      <p className="text-secondary-200 mt-1">
-        {aspects.length > 0 &&
-          getFormattedAspectText(aspects, lunation.lunationType)}
-      </p>
-    </div>
+      {pills.length > 0 && (
+        <div className={"border-t border-primary-700 pt-3"}>
+          <div className="flex flex-col gap-2">
+            {pills.map((pill) => {
+              return (
+                <Pill key={pill.type} type={pill.type} toolTip={pill.toolTip} />
+              );
+            })}
+          </div>
+        </div>
+      )}
+      <div className={"border-t border-primary-700 pt-3"}>
+        <p className="text-primary-700 mt-1">{`${interpretationText} ${recommendationText}`}</p>
+        <p className="text-primary-700 mt-1">
+          {aspects.length > 0 &&
+            getFormattedAspectText(aspects, lunation.lunationType)}
+        </p>
+      </div>
+    </>
   );
 }

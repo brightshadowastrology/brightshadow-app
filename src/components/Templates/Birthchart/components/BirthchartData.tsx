@@ -110,7 +110,7 @@ export default function BirthchartData({
         <h3 className="text-xl font-semibold mb-4 text-secondary-500">
           Your Planetary Placements
         </h3>
-        <div className="p-4 rounded-lg border bg-secondary-500">
+        <div className="p-4 rounded-lg border bg-background-500">
           {planets.map((placement) => (
             <div
               key={placement.planet}
@@ -140,7 +140,7 @@ export default function BirthchartData({
         <h3 className="text-xl font-semibold mb-4 text-secondary-500">
           Your Angles
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 bg-secondary-500 rounded-lg border border-secondary-400 p-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 bg-background-500 rounded-lg border border-secondary-400 p-2">
           {angles.map((angle) => (
             <div
               key={angle.planet}
@@ -175,7 +175,7 @@ export default function BirthchartData({
             <h3 className="text-xl font-semibold mb-4 text-secondary-500">
               Sect
             </h3>
-            <div className="p-4 bg-secondary-500 rounded-lg border border-secondary-400 p-2">
+            <div className="p-4 bg-background-500 rounded-lg border border-secondary-400">
               <p className="text-secondary-200 text-sm">
                 You have a {isDayChart ? "day" : "night"} chart.
               </p>
