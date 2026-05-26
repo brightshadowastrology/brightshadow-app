@@ -4,21 +4,12 @@ import {
   formatDegree,
   getHouseFromSign,
   getFormattedHouseText,
+  getGeneralSignificationsText,
   getFormattedTransitText,
 } from "@/shared/lib/textHelpers";
+import { ASPECT_LABELS } from "@/shared/lib/constants";
 import Pill from "@/components/UI/Pill";
 import { getPills } from "../../helpers";
-
-const ASPECT_LABELS: Record<string, string> = {
-  conjunct: "conjunct",
-  opposition: "opposition",
-  superiorSquare: "square",
-  inferiorSquare: "square",
-  superiorTrine: "trine",
-  inferiorTrine: "trine",
-  superiorSextile: "sextile",
-  inferiorSextile: "sextile",
-};
 
 export default function MonthTransit({ transit }: { transit: TransitEntry }) {
   const { birthChartData, sectPlanets } = useBirthChart();
@@ -40,6 +31,11 @@ export default function MonthTransit({ transit }: { transit: TransitEntry }) {
   const positionText = `${transit.position.sign} ${formatDegree(transit.position.degree, transit.position.minute)}`;
 
   const interpretationText = `Transiting ${transit.transitingPlanet} at ${positionText} in your ${getFormattedHouseText(transitHouse)} forms a ${aspectLabel} to your natal ${transit.natalPlanet} at ${transit.natalPosition.sign} ${formatDegree(transit.natalPosition.degree, transit.natalPosition.minute)}.`;
+  const generalSignificationsText = getGeneralSignificationsText(
+    transit.transitingPlanet,
+    natalPlanetData,
+    aspectLabel,
+  );
   const transitInterpretation = getFormattedTransitText(
     transit.transitingPlanet,
     natalPlanetData,
@@ -49,25 +45,24 @@ export default function MonthTransit({ transit }: { transit: TransitEntry }) {
   const pills = getPills(birthChartData, sectPlanets, transit);
 
   return (
-    <>
+    <div className={"border-t border-primary-700 pt-3"}>
       <div className="flex justify-between items-start">
         <h4 className="text-lg font-medium text-primary-700">{title}</h4>
       </div>
+
       {pills.length > 0 && (
-        <div className={"border-t border-primary-700 pt-3"}>
-          <div className="flex flex-col gap-2">
-            {pills.map((pill) => {
-              return (
-                <Pill key={pill.type} type={pill.type} toolTip={pill.toolTip} />
-              );
-            })}
-          </div>
+        <div className="flex flex-col gap-2 py-2">
+          {pills.map((pill) => {
+            return (
+              <Pill key={pill.type} type={pill.type} toolTip={pill.toolTip} />
+            );
+          })}
         </div>
       )}
-      <div className={"border-t border-primary-700 pt-3"}>
-        <p className="text-primary-700 mt-1">{interpretationText}</p>
-        <p className="text-primary-700 mt-1">{transitInterpretation}</p>
-      </div>
-    </>
+
+      <p className="text-primary-700 mt-1">{interpretationText}</p>
+      <p className="text-primary-700 mt-1">{generalSignificationsText}</p>
+      <p className="text-primary-700 mt-1">{transitInterpretation}</p>
+    </div>
   );
 }

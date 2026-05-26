@@ -5,6 +5,7 @@ import {
   getFormattedHouseText,
   getFormattedHouseRulersText,
   getFormattedHouseDescriptionText,
+  getIngressInterpretation,
 } from "@/shared/lib/textHelpers";
 
 export default function MonthIngress({ ingress }: { ingress: IngressEntry }) {
@@ -20,6 +21,10 @@ export default function MonthIngress({ ingress }: { ingress: IngressEntry }) {
     birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ||
       "Aries",
     ingress.sign,
+  );
+  const ingressInterpretation = getIngressInterpretation(
+    ingress.planet,
+    houseIngressedInto.toString(),
   );
   const isTraditionalPlanet = [
     "Mercury",
@@ -38,6 +43,7 @@ export default function MonthIngress({ ingress }: { ingress: IngressEntry }) {
           {getFormattedHouseText(houseIngressedInto)}
         </h4>
       </div>
+      <p className="text-primary-700 mt-1">{ingressInterpretation}</p>
       <p className="text-primary-700 mt-1">
         {isTraditionalPlanet && placementText}
       </p>

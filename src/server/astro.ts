@@ -131,6 +131,7 @@ export const getPlanetaryPositionsByDate = (
 export const getPlanetaryIngressByDegree = (
   planet: string,
   position: Position,
+  date?: Date,
 ): PlanetaryIngress => {
   const bodyNumber = constants.PLANET_MAP[planet];
   const signIndex = sharedConstants.SIGNS.indexOf(position.sign);
@@ -145,7 +146,7 @@ export const getPlanetaryIngressByDegree = (
     exactMatch: boolean;
   }> = [];
 
-  const startDate = new Date();
+  const startDate = date || new Date();
   const endDate = new Date();
   endDate.setFullYear(startDate.getFullYear() + 1);
 
@@ -254,6 +255,7 @@ export const getPlanetaryIngressByDegree = (
 export const getMajorTransitsForAPlanet = (
   natalPlanet: string,
   position: Position,
+  date?: Date,
 ): MajorTransits => {
   const modality = getPlanetModality(natalPlanet);
 
@@ -301,46 +303,74 @@ export const getMajorTransitsForAPlanet = (
   ];
 
   const result: Transits[] = transitingPlanet.map((planet) => {
-    const conjunctTransits = getPlanetaryIngressByDegree(planet, {
-      sign: conjunctSign,
-      degree: position.degree,
-      minute: position.minute || 0,
-    });
-    const oppositionTransits = getPlanetaryIngressByDegree(planet, {
-      sign: oppositionSign,
-      degree: position.degree,
-      minute: position.minute || 0,
-    });
-    const superiorSquareTransits = getPlanetaryIngressByDegree(planet, {
-      sign: superiorSqaureSign,
-      degree: position.degree,
-      minute: position.minute || 0,
-    });
-    const inferiorSquareTransits = getPlanetaryIngressByDegree(planet, {
-      sign: inferiorSquareSign,
-      degree: position.degree,
-      minute: position.minute || 0,
-    });
-    const superiorTrineTransits = getPlanetaryIngressByDegree(planet, {
-      sign: superiorTrineSign,
-      degree: position.degree,
-      minute: position.minute || 0,
-    });
+    const conjunctTransits = getPlanetaryIngressByDegree(
+      planet,
+      {
+        sign: conjunctSign,
+        degree: position.degree,
+        minute: position.minute || 0,
+      },
+      date,
+    );
+    const oppositionTransits = getPlanetaryIngressByDegree(
+      planet,
+      {
+        sign: oppositionSign,
+        degree: position.degree,
+        minute: position.minute || 0,
+      },
+      date,
+    );
+    const superiorSquareTransits = getPlanetaryIngressByDegree(
+      planet,
+      {
+        sign: superiorSqaureSign,
+        degree: position.degree,
+        minute: position.minute || 0,
+      },
+      date,
+    );
+    const inferiorSquareTransits = getPlanetaryIngressByDegree(
+      planet,
+      {
+        sign: inferiorSquareSign,
+        degree: position.degree,
+        minute: position.minute || 0,
+      },
+      date,
+    );
+    const superiorTrineTransits = getPlanetaryIngressByDegree(
+      planet,
+      {
+        sign: superiorTrineSign,
+        degree: position.degree,
+        minute: position.minute || 0,
+      },
+      date,
+    );
     const inferiorTrineTransits = getPlanetaryIngressByDegree(planet, {
       sign: inferiorTrineSign,
       degree: position.degree,
       minute: position.minute || 0,
     });
-    const superiorSextileTransits = getPlanetaryIngressByDegree(planet, {
-      sign: superiorSextileSign,
-      degree: position.degree,
-      minute: position.minute || 0,
-    });
-    const inferiorSextileTransits = getPlanetaryIngressByDegree(planet, {
-      sign: inferiorSextileSign,
-      degree: position.degree,
-      minute: position.minute || 0,
-    });
+    const superiorSextileTransits = getPlanetaryIngressByDegree(
+      planet,
+      {
+        sign: superiorSextileSign,
+        degree: position.degree,
+        minute: position.minute || 0,
+      },
+      date,
+    );
+    const inferiorSextileTransits = getPlanetaryIngressByDegree(
+      planet,
+      {
+        sign: inferiorSextileSign,
+        degree: position.degree,
+        minute: position.minute || 0,
+      },
+      date,
+    );
 
     return {
       planet,
@@ -381,7 +411,7 @@ export const getMajorTransitsForAPlanet = (
 export const getLunations = (date?: Date): Lunation[] => {
   const startDate = date || new Date();
   // For each sign, we need to find the dates where the moon is conjunct the Sun, and when the moon is in opposition to the Sun
-  let results = sharedConstants.SIGNS.map((sign) => {
+  const results = sharedConstants.SIGNS.map((sign) => {
     return [] as Array<Lunation>;
   });
   // Start from current date, calculate for one year from current date
@@ -392,7 +422,7 @@ export const getLunations = (date?: Date): Lunation[] => {
   const fullMoons: Array<string> = [];
 
   // Search day by day
-  let currentDate = new Date(startDate);
+  const currentDate = new Date(startDate);
 
   while (currentDate <= endDate) {
     // Convert to Julian day
@@ -464,7 +494,7 @@ export const getLunations = (date?: Date): Lunation[] => {
 
   const uniqueLunations = results
     .flatMap((lunations: Lunation[]) => lunations)
-    .filter((lunation: Lunation, index: number, self: any) => {
+    .filter((lunation: Lunation, index: number, self) => {
       return (
         index ===
         self.findIndex(
@@ -493,7 +523,7 @@ export const getLunarEclipses = (date: Date): Eclipse[] => {
   const endDate = new Date(startDate);
   endDate.setFullYear(startDate.getFullYear() + 1);
 
-  let currentDate = new Date(startDate);
+  const currentDate = new Date(startDate);
 
   while (currentDate <= endDate) {
     const lunarEclipse = sweph.lun_eclipse_when(
@@ -576,10 +606,10 @@ export const getSolarEclipses = (date: Date): Eclipse[] => {
   ];
   endDate.setFullYear(startDate.getFullYear() + 1);
 
-  let currentDate = new Date(startDate);
+  const currentDate = new Date(startDate);
 
   while (currentDate <= endDate) {
-    for (let eclipseType of eclipseTypes) {
+    for (const eclipseType of eclipseTypes) {
       const solarEclipse = sweph.sol_eclipse_when_glob(
         getJulianDayFromDate(currentDate).data[0],
         sweph.constants.SEFLG_SWIEPH,
@@ -664,7 +694,7 @@ export const getMercuryRetrogradePeriods = (date: Date): RetrogradePeriod[] => {
   const endDate = new Date(startDate);
   endDate.setFullYear(startDate.getFullYear() + 1);
 
-  let currentDate = new Date(startDate);
+  const currentDate = new Date(startDate);
   let isRetrograde = false;
   let previousDate: Date | null = null;
   let previousLongitude: number | null = null;
@@ -771,7 +801,7 @@ export const getMercuryRetrogradePeriods = (date: Date): RetrogradePeriod[] => {
   return filteredRetrogradePeriods;
 };
 
-export const getAllPlanetZeroDegreeIngresses = () => {
+export const getAllPlanetZeroDegreeIngresses = (date: Date) => {
   const planets = [
     "Venus",
     "Mars",
@@ -784,11 +814,15 @@ export const getAllPlanetZeroDegreeIngresses = () => {
 
   return planets.map((planet) => {
     const ingresses = sharedConstants.SIGNS.map((sign) => {
-      return getPlanetaryIngressByDegree(planet, {
-        sign,
-        degree: 0,
-        minute: 0,
-      });
+      return getPlanetaryIngressByDegree(
+        planet,
+        {
+          sign,
+          degree: 0,
+          minute: 0,
+        },
+        date,
+      );
     });
 
     return {
@@ -798,7 +832,10 @@ export const getAllPlanetZeroDegreeIngresses = () => {
   });
 };
 
-export const getMajorTransitsAllPlanets = (natalPlacements: PlanetPoint[]) => {
+export const getMajorTransitsAllPlanets = (
+  natalPlacements: PlanetPoint[],
+  date: Date,
+) => {
   const traditionalPlanets = [
     "Ascendant",
     "Midheaven",
@@ -816,6 +853,10 @@ export const getMajorTransitsAllPlanets = (natalPlacements: PlanetPoint[]) => {
   );
 
   return traditionalPlacements.map((placement) => {
-    return getMajorTransitsForAPlanet(placement.planet, placement.position);
+    return getMajorTransitsForAPlanet(
+      placement.planet,
+      placement.position,
+      date,
+    );
   });
 };

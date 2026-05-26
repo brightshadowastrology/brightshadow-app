@@ -3,7 +3,7 @@ import {
   planetDescriptions,
   signDescriptions,
   houseDescriptions,
-} from "@/shared/lib/text";
+} from "@/shared/text/text";
 import * as constants from "@/shared/lib/constants";
 import {
   getOrdinal,

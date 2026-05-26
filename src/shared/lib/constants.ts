@@ -158,6 +158,17 @@ export const ASPECTS_MAP = {
   },
 };
 
+export const ASPECT_LABELS: Record<string, string> = {
+  conjunct: "conjunct",
+  opposition: "opposition",
+  superiorSquare: "square",
+  inferiorSquare: "square",
+  superiorTrine: "trine",
+  inferiorTrine: "trine",
+  superiorSextile: "sextile",
+  inferiorSextile: "sextile",
+};
+
 export const SIGNS = [
   "Aries",
   "Taurus",

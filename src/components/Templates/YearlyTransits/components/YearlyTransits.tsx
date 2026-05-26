@@ -20,14 +20,13 @@ import MonthTransit from "./MonthTransit";
 import MonthBirthday from "./MonthBirthday";
 import LoadingIndicator from "@/components/UI/LoadingIndicator";
 
-function getNext12Months(): { month: number; year: number; label: string }[] {
-  const now = new Date();
-  const currentMonth = now.getMonth();
-  const currentYear = now.getFullYear();
-
-  return Array.from({ length: 13 }, (_, i) => {
-    const monthIndex = (currentMonth + i) % 12;
-    const year = currentYear + Math.floor((currentMonth + i) / 12);
+function getNext12Months(
+  startMonth = new Date().getMonth(),
+  startYear = new Date().getFullYear(),
+): { month: number; year: number; label: string }[] {
+  return Array.from({ length: 12 }, (_, i) => {
+    const monthIndex = (startMonth + i) % 12;
+    const year = startYear + Math.floor((startMonth + i) / 12);
     return {
       month: monthIndex,
       year,
@@ -188,8 +187,17 @@ function computeNextProfectionYear(
 }
 
 export const YearlyTransits = () => {
-  const months = getNext12Months();
-  const dateParam = useMemo(() => new Date().toISOString(), []);
+  // const months = getNext12Months();
+  // // use date of purchase
+  // const dateParam = useMemo(() => new Date().toISOString(), []);
+
+  //use first day of the current year
+  const months = getNext12Months(0, new Date().getFullYear());
+  const dateParam = useMemo(() => {
+    const now = new Date();
+    return new Date(Date.UTC(now.getUTCFullYear(), 0, 1)).toISOString();
+  }, []);
+
   const today = new Date();
   const startOfToday = new Date(
     Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()),
@@ -200,7 +208,7 @@ export const YearlyTransits = () => {
     trpc.useQuery(
       [
         "astro.getMajorTransitsAllPlanets",
-        { natalPlacements: birthChartData! },
+        { natalPlacements: birthChartData!, date: dateParam },
       ],
       { enabled: !!birthChartData },
     );

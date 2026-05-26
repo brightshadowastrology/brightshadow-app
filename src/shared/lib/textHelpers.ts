@@ -1,21 +1,30 @@
 import * as constants from "@/shared/lib/constants";
+import { houseDescriptions, houseTopics } from "@/shared/text/text";
+import {
+  jupiterTransitInterpretations,
+  marsTransitInterpretations,
+  neptuneTransitInterpretations,
+  plutoTransitInterpretations,
+  saturnTransitInterpretations,
+  uranusTransitInterpretations,
+  venusTransitInterpretations,
+} from "@/shared/text/transitInterpretations";
+import {
+  venusIngressInterpretations,
+  marsIngressInterpretations,
+  jupiterIngressInterpretations,
+  saturnIngressInterpretations,
+  uranusIngressInterpretations,
+  neptuneIngressInterpretations,
+  plutoIngressInterpretations,
+} from "@/shared/text/ingressInterpretations";
+import { ASPECT_LABELS } from "@/shared/lib/constants";
 import {
   type PlanetPoint,
   type TransitInterpretations,
-  SectPlanets,
+  type IngressInterpretations,
   TransitEntry,
 } from "@/shared/types";
-import { houseDescriptions, houseTopics } from "@/shared/lib/text";
-import {
-  venusTransitInterpretations,
-  marsTransitInterpretations,
-  jupiterTransitInterpretations,
-  saturnTransitInterpretations,
-  uranusTransitInterpretations,
-  neptuneTransitInterpretations,
-  plutoTransitInterpretations,
-  sectInterpretations,
-} from "@/shared/lib/text";
 
 export const getOrdinal = (n: number): string => {
   const suffixes = ["th", "st", "nd", "rd"];
@@ -38,8 +47,8 @@ export const randomArrayIndex = <T>(arrLength: number): number => {
 };
 
 export const titleCase = (str: string): string => {
-  var splitStr = str.toLowerCase().split(" ");
-  for (var i = 0; i < splitStr.length; i++) {
+  const splitStr = str.toLowerCase().split(" ");
+  for (let i = 0; i < splitStr.length; i++) {
     // You do not need to check if i is larger than splitStr length, as your for does that for you
     // Assign it back to the array
     splitStr[i] =
@@ -97,16 +106,15 @@ export const getFormattedAspectText = (
   transitText?: string,
 ) => {
   const text = aspects.map((aspect) => {
+    const formattedAspect = ASPECT_LABELS[aspect.aspect] || aspect.aspect;
     const a =
-      aspect.aspect === "conjunct"
+      formattedAspect === "conjunct"
         ? ""
-        : aspect.aspect.startsWith("s")
-          ? "a"
-          : "an";
-    return `${a} ${aspect.aspect
-      .split(/(?=[A-Z])/)
-      .join(" ")
-      .toLowerCase()} to your natal ${aspect.natalPlanet}`;
+        : formattedAspect === "opposition"
+          ? "an"
+          : "a";
+
+    return `${a} ${formattedAspect} to your natal ${aspect.natalPlanet}`;
   });
 
   return `This ${transitText || "transit"} is in ${text.join(", ").replace(/, ([^,]*)$/, ", and $1")}.`;
@@ -137,6 +145,7 @@ export const getFormattedTransitText = (
       break;
     case "Saturn":
       transitTextCollection = saturnTransitInterpretations;
+      break;
     case "Uranus":
       transitTextCollection = uranusTransitInterpretations;
       break;
@@ -157,4 +166,81 @@ export const getFormattedTransitText = (
       );
     })
     .join(" ");
+};
+
+export const getGeneralSignificationsText = (
+  transitingPlanet: string,
+  natalPlanet: PlanetPoint,
+  aspectLabel: string,
+) => {
+  let transitTextCollection: TransitInterpretations = {};
+  const aspect =
+    aspectLabel === "conjunct"
+      ? "conjunct"
+      : aspectLabel === "square" || aspectLabel === "opposition"
+        ? "squareOrOpposition"
+        : "trineOrSextile";
+
+  switch (transitingPlanet) {
+    case "Venus":
+      transitTextCollection = venusTransitInterpretations;
+      break;
+    case "Mars":
+      transitTextCollection = marsTransitInterpretations;
+      break;
+    case "Jupiter":
+      transitTextCollection = jupiterTransitInterpretations;
+      break;
+    case "Saturn":
+      transitTextCollection = saturnTransitInterpretations;
+      break;
+    case "Uranus":
+      transitTextCollection = uranusTransitInterpretations;
+      break;
+    case "Neptune":
+      transitTextCollection = neptuneTransitInterpretations;
+      break;
+    case "Pluto":
+      transitTextCollection = plutoTransitInterpretations;
+      break;
+    default:
+      console.log("Not found");
+  }
+
+  return transitTextCollection?.[natalPlanet.planet]?.[aspect]?.[0] || "";
+};
+
+export const getIngressInterpretation = (
+  transitingPlanet: string,
+  house: string,
+) => {
+  let ingressTextCollection: IngressInterpretations = {};
+
+  switch (transitingPlanet) {
+    case "Venus":
+      ingressTextCollection = venusIngressInterpretations;
+      break;
+    case "Mars":
+      ingressTextCollection = marsIngressInterpretations;
+      break;
+    case "Jupiter":
+      ingressTextCollection = jupiterIngressInterpretations;
+      break;
+    case "Saturn":
+      ingressTextCollection = saturnIngressInterpretations;
+      break;
+    case "Uranus":
+      ingressTextCollection = uranusIngressInterpretations;
+      break;
+    case "Neptune":
+      ingressTextCollection = neptuneIngressInterpretations;
+      break;
+    case "Pluto":
+      ingressTextCollection = plutoIngressInterpretations;
+      break;
+    default:
+      console.log("Not found");
+  }
+
+  return ingressTextCollection?.[house] || "";
 };

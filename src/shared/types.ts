@@ -111,6 +111,31 @@ export type TransitInterpretations = {
   };
 };
 
+export type IngressInterpretations = {
+  [key: string]: string;
+};
+
+export type SectInterpretations = {
+  [key: string]: {
+    inSectBenefic?: {
+      easy: string;
+      hard: string;
+    };
+    outOfSectBenefic?: {
+      easy: string;
+      hard: string;
+    };
+    inSectMalefic?: {
+      easy: string;
+      hard: string;
+    };
+    outOfSectMalefic?: {
+      easy: string;
+      hard: string;
+    };
+  };
+};
+
 export type SectPlanets = {
   inSectBenefic: PlanetPoint;
   outOfSectBenefic: PlanetPoint;
@@ -126,7 +151,7 @@ export type Pill = {
     | "excessive"
     | "productive"
     | "challenging"
-    | "newBeginnings"
+    | "pivotPoint"
     | "lifeDefining";
   toolTip: string;
 };

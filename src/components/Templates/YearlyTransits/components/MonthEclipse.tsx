@@ -13,7 +13,6 @@ import {
 
 export default function MonthEclipse({
   eclipse,
-  showDate = true,
 }: {
   eclipse: Eclipse;
   showDate?: boolean;
@@ -43,27 +42,25 @@ export default function MonthEclipse({
     );
 
   return (
-    <>
+    <div className={"border-t border-primary-700 pt-3"}>
       <div className="flex justify-between items-start">
         <h4 className="text-lg font-medium text-primary-700">{lunationText}</h4>
       </div>
+
       {pills.length > 0 && (
-        <div className={"border-t border-primary-700 pt-3"}>
-          <div className="flex flex-col gap-2">
-            {pills.map((pill) => {
-              return (
-                <Pill key={pill.type} type={pill.type} toolTip={pill.toolTip} />
-              );
-            })}
-          </div>
+        <div className="flex flex-col gap-2 py-2">
+          {pills.map((pill) => {
+            return (
+              <Pill key={pill.type} type={pill.type} toolTip={pill.toolTip} />
+            );
+          })}
         </div>
       )}
-      <div className={"border-t border-primary-700 pt-3"}>
-        <p className="text-primary-700 mt-1">{interpretationText}</p>
-        <p className="text-primary-700 mt-1">
-          {aspects.length > 0 && getFormattedAspectText(aspects, eclipse.type)}
-        </p>
-      </div>
-    </>
+
+      <p className="text-primary-700 mt-1">{interpretationText}</p>
+      <p className="text-primary-700 mt-1">
+        {aspects.length > 0 && getFormattedAspectText(aspects, eclipse.type)}
+      </p>
+    </div>
   );
 }

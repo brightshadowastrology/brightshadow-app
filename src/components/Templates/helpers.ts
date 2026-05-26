@@ -5,7 +5,7 @@ import {
   type TransitEntry,
   type Pill,
 } from "@/shared/types";
-import { sectInterpretations } from "@/shared/lib/text";
+import { sectInterpretations } from "@/shared/text/text";
 import { ASPECTS_MAP } from "@/shared/lib/constants";
 
 export const getAspectsToNatalPlanets = (
@@ -278,7 +278,7 @@ export const getPills = (
     transitingPlanetName === "Lunation"
   ) {
     pills.push({
-      type: "newBeginnings",
+      type: "pivotPoint",
       toolTip:
         "This lunation sets up six months of new beginnings and changes in the areas of life associated with this house.",
     });
@@ -292,7 +292,7 @@ export const getPills = (
     transitingPlanetName === "Eclipse"
   ) {
     pills.push({
-      type: "newBeginnings",
+      type: "pivotPoint",
       toolTip:
         "This eclipse sets up six months of major endings and new beginnings in the areas of life associated with this house.",
     });

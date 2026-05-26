@@ -1,18 +1,18 @@
 "use client";
 
+import Button from "@/components/UI/Button";
 import Dropdown from "@/components/UI/Dropdown";
 import Input from "@/components/UI/Form/Input";
-import * as constants from "@/shared/lib/constants";
-import { useForm, Controller } from "react-hook-form";
-import * as Form from "@radix-ui/react-form";
 import InputTimePicker from "@/components/UI/Form/InputTimePicker";
-import { Time } from "@internationalized/date";
-import { useEffect, useState } from "react";
-import { type TimeValue } from "react-aria";
-import Button from "@/components/UI/Button";
 import PlacesAutocomplete, {
   type PlaceDetails,
 } from "@/components/UI/PlacesAutocomplete";
+import * as constants from "@/shared/lib/constants";
+import { Time } from "@internationalized/date";
+import * as Form from "@radix-ui/react-form";
+import { useEffect } from "react";
+import { type TimeValue } from "react-aria";
+import { Controller, useForm } from "react-hook-form";
 
 type BirthchartFormData = {
   day: string;

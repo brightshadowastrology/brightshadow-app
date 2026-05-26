@@ -41,7 +41,7 @@ const PILL_PDF_CONFIG: Record<
     border: "#fca5a5",
     text: "Challenging",
   },
-  newBeginnings: {
+  pivotPoint: {
     bg: "#b8b59e",
     color: "#50503b",
     border: "#50503b",

@@ -207,7 +207,7 @@ export function YearlyTransitsPDFDownload() {
     trpc.useQuery(
       [
         "astro.getMajorTransitsAllPlanets",
-        { natalPlacements: birthChartData! },
+        { natalPlacements: birthChartData!, date: dateParam },
       ],
       { enabled: !!birthChartData },
     );
@@ -298,14 +298,13 @@ export function YearlyTransitsPDFDownload() {
               {
                 type: "birthday" as const,
                 date: `${year}-${birthInfo.birthDate.slice(5, 10)}T00:00:00Z`,
-                data:
-                  profectionYear
-                    ? computeNextProfectionYear(
-                        profectionYear,
-                        birthChartData.find((p) => p.planet === "Ascendant")
-                          ?.position.sign ?? "Aries",
-                      )
-                    : null,
+                data: profectionYear
+                  ? computeNextProfectionYear(
+                      profectionYear,
+                      birthChartData.find((p) => p.planet === "Ascendant")
+                        ?.position.sign ?? "Aries",
+                    )
+                  : null,
               },
             ]
           : []),

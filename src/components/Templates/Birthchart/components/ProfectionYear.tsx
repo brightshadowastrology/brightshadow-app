@@ -3,7 +3,7 @@ import {
   signDescriptions,
   houseTopics,
   lordDescriptions,
-} from "@/shared/lib/text";
+} from "@/shared/text/text";
 import { type ProfectionYearData } from "@/shared/types";
 
 type ProfectionYearProps = {

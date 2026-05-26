@@ -1,139 +1,10 @@
 import { type TransitInterpretations } from "@/shared/types";
 
-export const planetDescriptions: Record<
-  string,
-  { tagline: string; verbs?: string[] }
-> = {
-  Sun: {
-    tagline: "Your core identity and life purpose",
-    verbs: ["shine", "radiate", "express yourself", "embody"],
-  },
-  Moon: {
-    tagline: "Your emotional nature and inner self",
-    verbs: ["feel", "nurture", "intuit", "require nourishment"],
-  },
-  Mercury: {
-    tagline: "Your communication style and thinking",
-    verbs: ["communicate", "think", "process information"],
-  },
-  Venus: {
-    tagline: "Your approach to love, beauty, and values",
-    verbs: ["love", "appreciate beauty", "value relationships"],
-  },
-  Mars: {
-    tagline: "Your drive, ambition, and how you take action",
-    verbs: ["act", "assert", "pursue desires", "compete"],
-  },
-  Jupiter: { tagline: "Your growth, luck, and expansion", verbs: ["grow"] },
-  Saturn: {
-    tagline: "Your discipline, challenges, and life lessons",
-    verbs: ["learn", "gain discipline", "practice restraint"],
-  },
-  Uranus: {
-    tagline: "Your individuality and where you break conventions",
-    verbs: ["break rules", "innovate", "rebel against the status quo"],
-  },
-  Neptune: {
-    tagline: "Your dreams, intuition, and spiritual nature",
-    verbs: ["idealize", "get close to the divine", "transcend"],
-  },
-  Pluto: {
-    tagline: "Your transformation and personal power",
-    verbs: ["transform", "reclaim power", "release control"],
-  },
-  Ascendant: {
-    tagline: "Your outward personality and first impressions",
-    verbs: ["present", "project", "approach life"],
-  },
-  Descendant: {
-    tagline: "Your approach to partnerships and relationships",
-    verbs: ["connect", "empathize", "compromise"],
-  },
-  Midheaven: {
-    tagline: "Your career path and public image",
-    verbs: ["advance", "pursues goal", "build reputation"],
-  },
-  IC: {
-    tagline: "Your roots, home, and private life",
-    verbs: ["ground", "establish roots", "nurture your private self"],
-  },
-};
-
-export const houseDescriptions: Record<number, string> = {
-  1: "life direction and sense of self",
-  2: "personal resources",
-  3: "communication",
-  4: "emotional foundations",
-  5: "creativity",
-  6: "work",
-  7: "relationships",
-  8: "shared resources",
-  9: "beliefs and higher education",
-  10: "career",
-  11: "friendships",
-  12: "solitude and spirituality",
-};
-
-export const signDescriptions: Record<string, string[]> = {
-  Aries: ["assertive", "energetic", "pioneering"],
-  Taurus: ["practical", "sensual", "reliable"],
-  Gemini: ["curious", "adaptable", "communicative"],
-  Cancer: ["nurturing", "emotional", "protective"],
-  Leo: ["confident", "creative", "charismatic"],
-  Virgo: ["analytical", "detail-oriented", "service-minded"],
-  Libra: ["diplomatic", "charming", "relationship-focused"],
-  Scorpio: ["intense", "passionate", "transformative"],
-  Sagittarius: ["adventurous", "optimistic", "philosophical"],
-  Capricorn: ["disciplined", "ambitious", "responsible"],
-  Aquarius: ["innovative", "independent", "humanitarian"],
-  Pisces: ["compassionate", "intuitive", "dreamy"],
-};
-
-export const houseTopics: { [key: number]: string[] } = {
-  1: ["self-presentation", "body", "identity", "life direction"],
-  2: ["earned income", "assets", "personal values", "self esteem"],
-  3: ["learning", "local travel", "siblings"],
-  4: ["home", "family", "ancestry", "property"],
-  5: ["creativity", "children", "fun", "romance", "pleasure"],
-  6: ["health", "work", "daily habits", "pets", "coworkers"],
-  7: ["important one-to-one relationships", "partnerships", "contracts"],
-  8: ["debt", "taxes", "shared resources", "subconscious material"],
-  9: ["beliefs", "higher education", "travel", "legal matters"],
-  10: ["career", "vocation", "public reputation", "authority"],
-  11: [
-    "friendships",
-    "professional networks",
-    "supporters",
-    "community",
-    "aspirations",
-  ],
-  12: ["solitude", "rest", "spirituality", "spirituality"],
-};
-
-export const lordDescriptions: Record<string, string> = {
-  Mars: "Take bold action and pursue your goals with courage. Watch for conflicts but use your drive productively.",
-  Venus:
-    "Focus on relationships, creativity, and enjoying life's pleasures. A year for harmony and beauty.",
-  Mercury:
-    "Communication and learning take center stage. Great for studies, writing, and making connections.",
-  Moon: "Emotional growth and domestic matters are highlighted. Trust your intuition and nurture yourself.",
-  Sun: "Step into the spotlight and express your authentic self. A year for leadership and vitality.",
-  Jupiter:
-    "Expansion and opportunities abound. Say yes to growth, travel, and broadening your horizons.",
-  Saturn:
-    "A year of hard work and building foundations. Embrace discipline for lasting achievements.",
-  Uranus:
-    "Expect the unexpected. Embrace change and innovation, even if it feels disruptive.",
-  Neptune:
-    "Spiritual and creative pursuits flourish. Stay grounded while exploring your dreams.",
-  Pluto:
-    "Deep transformation awaits. Let go of what no longer serves you and embrace rebirth.",
-};
-
 // Done
 export const venusTransitInterpretations: TransitInterpretations = {
   Sun: {
     conjunct: {
+      "0": "Venus conjunct Sun is a delightful transit that enhances your charm and attractiveness. It's a great time for romance, socializing, and creative expression. You may feel more confident and magnetic, drawing positive attention from others.",
       "1": "With the Sun as the lord of your 1st house, this fast-moving transit is a time of greater personal popularity. You may feel compelled to spend more effort (and money) on your appearance. The world looks a little brighter on days like these.",
       "2": "With the Sun ruling your 2nd house, this transit can bring pleasurable spending and a desire for comfort. Financial matters may temporarily improve, or you may simply feel more at ease with what you have. Treat yourself—but avoid overindulgence.",
       "3": "With the Sun as lord of the 3rd, conversations flow more sweetly now. It's a pleasant time for writing, connecting with siblings, or short trips. Words carry warmth and charm.",
@@ -148,6 +19,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
       "12": "With the Sun ruling your 12th house, this is a gentle, reflective transit. Private pleasures, artistic inspiration, or quiet romantic moments can bring subtle joy.",
     },
     trineOrSextile: {
+      "0": "Venus trine or sextile Sun is a harmonious transit that enhances your natural charm and makes social interactions more enjoyable. It's a great time for romance, creative projects, and simply enjoying the beauty around you. You may feel more confident and at ease in your own skin.",
       "1": "With the Sun as lord of the 1st, confidence blends easily with charm. Others respond warmly, and self-expression feels natural and attractive.",
       "2": "With the Sun ruling the 2nd, financial decisions tend to flow smoothly. Small gains or helpful opportunities may arise with little effort.",
       "3": "With the Sun as lord of the 3rd, pleasant news or supportive conversations uplift your mood. Agreements are easier to reach.",
@@ -162,6 +34,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
       "12": "With the Sun ruling the 12th, private reflection brings peace. Artistic or spiritual pursuits feel gently supported.",
     },
     squareOrOpposition: {
+      "0": "Venus square or opposite Sun can create tension between your desires for harmony and the realities of your relationships or self-expression. You may feel a push-pull between wanting to connect and needing to assert yourself. It's important to find balance and avoid overreacting to minor conflicts.",
       "1": "With the Sun as lord of the 1st, tensions may arise between personal desires and relationship needs. Avoid seeking validation through overspending or over-pleasing.",
       "2": "With the Sun ruling the 2nd, financial strain or value conflicts may surface. Be cautious about impulse purchases.",
       "3": "With the Sun as lord of the 3rd, misunderstandings in communication are possible. Choose words carefully to avoid unnecessary friction.",
@@ -178,6 +51,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
   },
   Moon: {
     conjunct: {
+      "0": "Venus conjunct Moon is a sweet transit that enhances your emotional receptivity and desire for connection. It's a great time for romance, nurturing relationships, and enjoying simple pleasures. You may feel more affectionate and in tune with your feelings.",
       "1": "With the Moon as lord of your 1st house, this is a tender and receptive period. You may feel more emotionally expressive and physically affectionate. Others respond warmly to your vulnerability.",
       "2": "With the Moon ruling your 2nd house, emotional security and financial comfort are closely linked now. You may spend to soothe feelings or seek beauty that brings reassurance.",
       "3": "With the Moon as lord of the 3rd, conversations take on a caring tone. It's a sweet time for connecting with siblings or sharing personal thoughts.",
@@ -192,6 +66,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
       "12": "With the Moon ruling the 12th, this is a deeply reflective and compassionate time. Private emotions surface gently, inviting rest and quiet affection.",
     },
     trineOrSextile: {
+      "0": "Venus trine or sextile Moon is a harmonious transit that enhances your emotional receptivity and desire for connection. It's a great time for romance, nurturing relationships, and enjoying simple pleasures. You may feel more affectionate and in tune with your feelings.",
       "1": "With the Moon as lord of the 1st, emotional ease supports self-expression. You feel comfortable in your own skin.",
       "2": "With the Moon ruling the 2nd, financial and emotional stability reinforce one another. Small comforts bring genuine contentment.",
       "3": "With the Moon as lord of the 3rd, kind words and thoughtful gestures strengthen bonds.",
@@ -206,6 +81,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
       "12": "With the Moon ruling the 12th, solitude feels peaceful. Compassion for yourself and others grows quietly.",
     },
     squareOrOpposition: {
+      "0": "Venus square or opposite Moon can create tension between your desires for harmony and the realities of your relationships or emotional needs. You may feel a push-pull between wanting to connect and needing to assert yourself. It's important to find balance and avoid overreacting to minor conflicts.",
       "1": "With the Moon as lord of the 1st, heightened sensitivity may create misunderstandings. Guard against mood-driven reactions.",
       "2": "With the Moon ruling the 2nd, emotional spending or insecurity around finances could arise. Seek balance before making purchases.",
       "3": "With the Moon as lord of the 3rd, feelings may cloud communication. Take care not to assume others' intentions.",
@@ -222,6 +98,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
   },
   Mercury: {
     conjunct: {
+      "0": "Venus conjunct Mercury is a delightful transit that enhances your communication style with charm and grace. It's a great time for self-expression, socializing, and presenting ideas with style. You may find it easier to connect with others through words, whether in writing or conversation.",
       "1": "With Mercury as lord of your 1st house, your words carry charm and grace. This is a pleasant time for self-expression, socializing, and presenting ideas with style.",
       "2": "With Mercury ruling your 2nd house, financial discussions flow smoothly. You may negotiate, purchase, or make agreements that feel mutually beneficial.",
       "3": "With Mercury as lord of the 3rd, communication becomes especially sweet. Writing, teaching, and conversations are highlighted.",
@@ -236,6 +113,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
       "12": "With Mercury ruling the 12th, private reflection or creative writing feels soothing. Gentle conversations may happen behind the scenes.",
     },
     trineOrSextile: {
+      "0": "Venus trine or sextile Mercury is a harmonious transit that enhances your communication style with charm and grace. It's a great time for self-expression, socializing, and presenting ideas with style. You may find it easier to connect with others through words, whether in writing or conversation.",
       "1": "With Mercury as lord of the 1st, your thoughts and self-expression align gracefully. Others appreciate your perspective.",
       "2": "With Mercury ruling the 2nd, financial planning or agreements unfold smoothly. Practical thinking supports comfort.",
       "3": "With Mercury as lord of the 3rd, harmonious exchanges strengthen connections. Learning feels enjoyable.",
@@ -250,6 +128,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
       "12": "With Mercury ruling the 12th, quiet insight brings peace of mind. Subtle understanding deepens.",
     },
     squareOrOpposition: {
+      "0": "Venus square or opposite Mercury can create tension between your desires for harmony and the realities of your relationships or communication style. You may feel a push-pull between wanting to be rational and needing for pleasure. It's important to beware of misunderstandings and avoid overcompromising your values to please others.",
       "1": "With Mercury as lord of the 1st, you may struggle to balance honesty with diplomacy. Avoid saying yes simply to please.",
       "2": "With Mercury ruling the 2nd, financial disagreements or unclear agreements could arise. Read the fine print.",
       "3": "With Mercury as lord of the 3rd, miscommunications are possible. Words may be taken more personally than intended.",
@@ -266,6 +145,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
   },
   Venus: {
     conjunct: {
+      "0": "Happy Venus return! This transit is a delightful time for love, beauty, and pleasure. Your charm is heightened, and social interactions feel more enjoyable. It's a great moment to indulge in creative expression, connect with loved ones, or simply appreciate the beauty around you.",
       "1": "With Venus as lord of your 1st house, this is a peak moment for charm and attraction. You may feel more beautiful, magnetic, and socially at ease.",
       "2": "With Venus ruling your 2nd house, pleasure and finances intertwine. You may indulge in comforts or feel more satisfied with what you own.",
       "3": "With Venus as lord of the 3rd, conversations are affectionate and light. It's a lovely time for socializing, writing, or short trips.",
@@ -280,6 +160,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
       "12": "With Venus ruling the 12th, private love or quiet artistic inspiration becomes meaningful. Gentle solitude restores your heart.",
     },
     trineOrSextile: {
+      "0": "Venus trine or sextile Venus is a harmonious transit that enhances your natural charm and makes social interactions more enjoyable. It's a great time for romance, creative projects, and simply enjoying the beauty around you. You may feel more confident and at ease in your own skin.",
       "1": "With Venus as lord of the 1st, attraction and ease flow naturally. You feel aligned with your personal style and desires.",
       "2": "With Venus ruling the 2nd, financial and aesthetic choices feel balanced. Small pleasures bring contentment.",
       "3": "With Venus as lord of the 3rd, kind exchanges strengthen bonds. Communication feels light and agreeable.",
@@ -294,6 +175,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
       "12": "With Venus ruling the 12th, spiritual or artistic pursuits feel gently supported. Peace comes through reflection.",
     },
     squareOrOpposition: {
+      "0": "Venus square or opposite Venus can create tension between your desires for harmony and the realities of your relationships or emotional needs. You may feel a push-pull between wanting to connect and needing to assert yourself. It's important to find balance and avoid overreacting to minor conflicts.",
       "1": "With Venus as lord of the 1st, tension may arise between self-interest and pleasing others. Avoid overcompromising.",
       "2": "With Venus ruling the 2nd, financial strain or value conflicts may surface. Be cautious about indulgence.",
       "3": "With Venus as lord of the 3rd, misunderstandings in romantic or friendly conversations are possible.",
@@ -310,6 +192,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
   },
   Mars: {
     conjunct: {
+      "0": "Venus conjunct Mars is a passionate transit that heightens attraction and desire. It's a great time for romance, creative projects, and pursuing what you want with confidence. You may feel more assertive and magnetic, drawing others in with your energy.",
       "1": "With Mars as lord of your 1st house, attraction and desire are heightened. You may feel bolder in pursuing what (or who) you want.",
       "2": "With Mars ruling your 2nd house, financial impulses intensify. Spending may be driven by passion or competition.",
       "3": "With Mars as lord of the 3rd, conversations become lively and flirtatious. Debates can spark chemistry—or conflict.",
@@ -324,6 +207,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
       "12": "With Mars ruling the 12th, hidden desires or frustrations may emerge. Private passions intensify.",
     },
     trineOrSextile: {
+      "0": "Venus trine or sextile Mars is a harmonious transit that enhances your natural charm and makes social interactions more enjoyable. It's a great time for romance, creative projects, and simply enjoying the beauty around you. You may feel more confident and at ease in your own skin.",
       "1": "With Mars as lord of the 1st, confidence and magnetism blend smoothly. You assert yourself attractively.",
       "2": "With Mars ruling the 2nd, motivated financial actions can lead to constructive gains.",
       "3": "With Mars as lord of the 3rd, lively exchanges stimulate interest and excitement without tipping into conflict.",
@@ -338,6 +222,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
       "12": "With Mars ruling the 12th, private efforts or behind-the-scenes work move forward productively.",
     },
     squareOrOpposition: {
+      "0": "Venus square or opposite Mars can create tension between your desires for harmony and the realities of your relationships or assertiveness. You may feel a push-pull between wanting to connect and needing to assert yourself. It's important to find balance and avoid overreacting to minor conflicts.",
       "1": "With Mars as lord of the 1st, impatience or competitiveness could strain relationships. Avoid pushing too hard.",
       "2": "With Mars ruling the 2nd, financial disputes or impulsive spending may create tension.",
       "3": "With Mars as lord of the 3rd, arguments can flare quickly. Choose your battles wisely.",
@@ -354,6 +239,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
   },
   Jupiter: {
     conjunct: {
+      "0": "Venus conjunct Jupiter is a joyful transit that amplifies your desire for connection, beauty, and pleasure.",
       "1": "With Jupiter as lord of your 1st house, confidence and generosity radiate outward. You may feel socially expansive and optimistic about new connections.",
       "2": "With Jupiter ruling your 2nd house, financial opportunities or indulgences increase. Abundance feels possible, though moderation is wise.",
       "3": "With Jupiter as lord of the 3rd, uplifting conversations and good news are likely. Learning and teaching feel rewarding.",
@@ -368,6 +254,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
       "12": "With Jupiter ruling the 12th, quiet generosity or spiritual reflection brings inner peace.",
     },
     trineOrSextile: {
+      "0": "Venus trine or sextile Jupiter is a harmonious transit that enhances the possibilities for pleasure and growth.",
       "1": "With Jupiter as lord of the 1st, self-assurance grows naturally. Others respond positively to your enthusiasm.",
       "2": "With Jupiter ruling the 2nd, steady financial improvements or wise investments are possible.",
       "3": "With Jupiter as lord of the 3rd, agreements and communications move forward with helpful support.",
@@ -382,6 +269,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
       "12": "With Jupiter ruling the 12th, private faith and quiet generosity bring subtle rewards.",
     },
     squareOrOpposition: {
+      "0": "Venus square or opposite Jupiter can create tension between your desires for harmony and the urge to grow or expand.",
       "1": "With Jupiter as lord of the 1st, overconfidence or excess could strain relationships. Avoid promising more than you can deliver.",
       "2": "With Jupiter ruling the 2nd, overspending or inflated expectations around money may create imbalance.",
       "3": "With Jupiter as lord of the 3rd, exaggerated statements or unrealistic plans may lead to misunderstandings.",
@@ -398,6 +286,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
   },
   Saturn: {
     conjunct: {
+      "0": "Venus conjunct Saturn is a serious transit that encourages you to take relationships and pleasures with more responsibility. This can be a time of testing or deepening commitments, where the rewards come through steady effort rather than instant gratification.",
       "1": "With Saturn as lord of your 1st house, you may take relationships and personal presentation more seriously. Affection is expressed with restraint but sincerity.",
       "2": "With Saturn ruling your 2nd house, financial realities come into focus. This is a time to stabilize resources rather than indulge.",
       "3": "With Saturn as lord of the 3rd, conversations turn thoughtful and measured. Commitments made now carry weight.",
@@ -412,6 +301,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
       "12": "With Saturn ruling the 12th, quiet reflection may reveal lingering fears or attachments ready for release.",
     },
     trineOrSextile: {
+      "0": "Venus trine or sextile Saturn is a supportive transit that encourages you to take relationships and pleasures with more responsibility. This can be a time of testing or deepening commitments, where the rewards come through steady effort rather than instant gratification.",
       "1": "With Saturn as lord of the 1st, steady confidence and composure enhance your appeal.",
       "2": "With Saturn ruling the 2nd, disciplined financial planning strengthens long-term security.",
       "3": "With Saturn as lord of the 3rd, practical discussions lead to constructive agreements.",
@@ -426,6 +316,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
       "12": "With Saturn ruling the 12th, private discipline or spiritual commitment brings inner strength.",
     },
     squareOrOpposition: {
+      "0": "Venus square or opposite Saturn can create tension between your desires for harmony and the realities of your relationships or responsibilities. You may feel a push-pull between wanting to connect and needing to be cautious. It's important to find balance and avoid overreacting to minor conflicts.",
       "1": "With Saturn as lord of the 1st, self-doubt or relational distance may surface. Avoid withdrawing emotionally.",
       "2": "With Saturn ruling the 2nd, financial pressure or scarcity concerns may arise. Patience is essential.",
       "3": "With Saturn as lord of the 3rd, communication may feel strained or inhibited. Choose clarity over avoidance.",
@@ -446,6 +337,7 @@ export const venusTransitInterpretations: TransitInterpretations = {
 export const marsTransitInterpretations: TransitInterpretations = {
   Sun: {
     conjunct: {
+      "0": "Mars conjunct Sun is a powerful transit that amplifies your energy, confidence, and assertiveness. It's a great time to take initiative and pursue your goals with passion. You may feel more competitive and driven, making it an ideal moment for leadership or physical activity.",
       "1": "With the Sun as lord of your 1st house, your energy, confidence, and assertiveness are amplified. This is a time to take initiative and make a strong personal impression.",
       "2": "With the Sun ruling your 2nd house, you may assertively pursue financial goals or personal values. Guard against impulsive spending.",
       "3": "With the Sun as lord of the 3rd, communication is direct and bold. You may initiate debates, make decisive plans, or push for clarity.",
@@ -460,6 +352,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With the Sun ruling the 12th, hidden strengths and subconscious drives come forward. Reflection and behind-the-scenes action fuel personal growth.",
     },
     trineOrSextile: {
+      "0": "Mars trine or sextile Sun is a harmonious transit that enhances your energy, confidence, and assertiveness. It's a great time to take initiative and pursue your goals with passion. You may feel more competitive and driven, making it an ideal moment for leadership or physical activity.",
       "1": "With the Sun as lord of the 1st, assertive energy flows easily. Confidence and initiative attract positive attention.",
       "2": "With the Sun ruling the 2nd, productive action toward financial or material goals is supported.",
       "3": "With the Sun as lord of the 3rd, communication and short-term plans advance smoothly.",
@@ -474,6 +367,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With the Sun ruling the 12th, private efforts and introspection strengthen self-understanding.",
     },
     squareOrOpposition: {
+      "0": "Mars square or opposite Sun can create tension between your desire to shine and the urge to assert yourself. You may feel a push-pull between wanting to lead and needing to be independent. It's important to find balance and avoid overreacting to minor conflicts.",
       "1": "With the Sun as lord of the 1st, impatience or impulsiveness may create tension. Avoid forcing your will on others.",
       "2": "With the Sun ruling the 2nd, financial or material conflicts may arise. Avoid aggressive spending or confrontations over resources.",
       "3": "With the Sun as lord of the 3rd, arguments or miscommunications may flare. Practice tact when asserting your ideas.",
@@ -490,6 +384,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
   },
   Moon: {
     conjunct: {
+      "0": "Mars conjunct Moon is an emotionally charged transit that heightens your instincts and reactions. You may feel more passionate and reactive, making it a powerful time for emotional expression or taking action based on your feelings.",
       "1": "With the Moon as lord of your 1st house, emotions run high and you feel more reactive. Your instincts push you to act on feelings quickly.",
       "2": "With the Moon ruling your 2nd house, emotional impulses may influence spending or financial decisions. Guard against hasty purchases.",
       "3": "With the Moon as lord of the 3rd, conversations are passionate and sometimes confrontational. Emotional expression is bold but may spark tension.",
@@ -504,6 +399,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With the Moon ruling the 12th, hidden feelings or subconscious impulses emerge. Reflection helps manage emotional intensity.",
     },
     trineOrSextile: {
+      "0": "Mars trine or sextile Moon is a harmonious transit that enhances your instincts and emotional expression. You may feel more passionate and reactive, making it a powerful time for emotional expression or taking action based on your feelings.",
       "1": "With the Moon as lord of the 1st, emotional energy and personal initiative flow smoothly. Confidence in expressing feelings is natural.",
       "2": "With the Moon ruling the 2nd, practical emotional decisions support financial stability.",
       "3": "With the Moon as lord of the 3rd, lively but harmonious conversations strengthen bonds.",
@@ -518,6 +414,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With the Moon ruling the 12th, private reflection and emotional insight are energized constructively.",
     },
     squareOrOpposition: {
+      "0": "Mars square or opposite Moon can create tension between your desire to express emotions and your ambitions and drive. You may feel a push-pull between wanting to be nurtured and needing to be move forward with something. It's important to find balance and avoid overreacting to minor conflicts.",
       "1": "With the Moon as lord of the 1st, impulsive reactions and emotional impatience may create tension. Pause before acting.",
       "2": "With the Moon ruling the 2nd, financial or material decisions may be driven by emotion rather than logic.",
       "3": "With the Moon as lord of the 3rd, arguments or misunderstandings can arise from emotional assertiveness.",
@@ -534,6 +431,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
   },
   Mercury: {
     conjunct: {
+      "0": "Mars conjunct Mercury is a dynamic transit that sharpens your mind and quickens your communication. You may feel more assertive in expressing your ideas and taking action based on your thoughts.",
       "1": "With Mercury as lord of your 1st house, your mind is quick and assertive. You may speak boldly or take decisive action based on your ideas.",
       "2": "With Mercury ruling your 2nd house, financial or value-based decisions may be made impulsively. Be mindful of hasty commitments.",
       "3": "With Mercury as lord of the 3rd, communication is direct and energetic. Debates or lively discussions are likely.",
@@ -548,6 +446,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With Mercury ruling the 12th, behind-the-scenes thinking and reflection are active. Private planning benefits from mental focus.",
     },
     trineOrSextile: {
+      "0": "Mars trine or sextile Mercury is a harmonious transit that sharpens your mind and quickens your communication. You may feel more assertive in expressing your ideas and taking action based on your thoughts.",
       "1": "With Mercury as lord of the 1st, your thoughts and expressions flow smoothly. Assertive communication is effective without friction.",
       "2": "With Mercury ruling the 2nd, financial and value decisions progress logically and efficiently.",
       "3": "With Mercury as lord of the 3rd, discussions and short-term plans advance harmoniously.",
@@ -562,6 +461,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With Mercury ruling the 12th, private planning and introspection are mentally energized.",
     },
     squareOrOpposition: {
+      "0": "Mars square or opposite Mercury can create tension between your desire to express ideas and your need for clarity. You may feel a push-pull between wanting to communicate effectively and dealing with misunderstandings. It's important to find balance and avoid overreacting to minor conflicts.",
       "1": "With Mercury as lord of the 1st, impatience or bluntness may strain interactions. Think before speaking or acting.",
       "2": "With Mercury ruling the 2nd, impulsive financial or value-based decisions may create tension.",
       "3": "With Mercury as lord of the 3rd, arguments or misunderstandings are likely. Avoid hasty conclusions.",
@@ -578,6 +478,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
   },
   Venus: {
     conjunct: {
+      "0": "Mars conjunct Venus is a dynamic transit that enhances your charm and social skills. You may feel more confident in expressing your desires and connecting with others on an emotional level.",
       "1": "With Venus as lord of your 1st house, personal charm and magnetism are intensified. You feel bold in pursuing what you desire and expressing affection.",
       "2": "With Venus ruling your 2nd house, financial or material indulgences may be tempting. Assertive action can help you secure what you value.",
       "3": "With Venus as lord of the 3rd, conversations are lively, flirtatious, or persuasive. Your assertiveness enhances social connections.",
@@ -592,6 +493,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With Venus ruling the 12th, private love or creative inspiration is stirred. Hidden desires may motivate behind-the-scenes action.",
     },
     trineOrSextile: {
+      "0": "Mars trine or sextile Venus is a harmonious transit that enhances your charm and social skills. You may feel more confident in expressing your desires and connecting with others on an emotional level.",
       "1": "With Venus as lord of the 1st, attraction and assertive charm flow naturally. You express affection confidently and harmoniously.",
       "2": "With Venus ruling the 2nd, financial or material initiatives progress smoothly and positively.",
       "3": "With Venus as lord of the 3rd, social or romantic communication is lively yet cooperative.",
@@ -606,6 +508,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With Venus ruling the 12th, private creativity or romance is energized gently and constructively.",
     },
     squareOrOpposition: {
+      "0": "Mars square or opposite Venus can create tension between your desire for connection and your assertive energy. You may feel a push-pull between wanting to be close and needing to assert yourself.",
       "1": "With Venus as lord of the 1st, impulsive desires or overassertiveness in relationships may cause friction.",
       "2": "With Venus ruling the 2nd, financial or material conflicts may arise from indulgence or impatience.",
       "3": "With Venus as lord of the 3rd, flirtation or social interactions may lead to misunderstandings or tension.",
@@ -622,6 +525,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
   },
   Mars: {
     conjunct: {
+      "0": "Happy Mars return! This powerful transit amplifies your energy, drive, and assertiveness. You may feel more motivated to take action and pursue your goals with passion. It's a great time for leadership, physical activity, or initiating new projects.",
       "1": "With Mars as lord of your 1st house, personal energy and assertiveness peak. You feel driven to act, lead, and assert yourself, but impatience or aggression may surface.",
       "2": "With Mars ruling your 2nd house, financial and material matters gain momentum. You may take bold action to secure resources, but avoid impulsive spending or conflicts.",
       "3": "With Mars as lord of the 3rd, communication and short-term plans are energetic and decisive. Debate or competitive exchanges may occur.",
@@ -636,6 +540,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With Mars ruling the 12th, hidden drives and subconscious impulses energize private or behind-the-scenes activity. Channeling energy constructively is key.",
     },
     trineOrSextile: {
+      "0": "Mars trine or sextile Mars is a harmonious transit that enhances your energy, drive, and assertiveness. You may feel more motivated to take action and pursue your goals with passion. It's a great time for leadership, physical activity, or initiating new projects.",
       "1": "With Mars as lord of the 1st, personal drive and confidence flow smoothly. Initiative and assertiveness are productive without unnecessary conflict.",
       "2": "With Mars ruling the 2nd, financial actions and resource management benefit from energetic, decisive effort.",
       "3": "With Mars as lord of the 3rd, communication and short-term planning proceed efficiently and effectively.",
@@ -650,6 +555,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With Mars ruling the 12th, private work or introspective efforts gain constructive energy and motivation.",
     },
     squareOrOpposition: {
+      "0": "Mars square or opposite Mars can create tension between your desire to assert yourself and the need for patience. You may feel a push-pull between wanting to take action and needing to consider consequences. It's important to find balance and avoid overreacting to minor conflicts.",
       "1": "With Mars as lord of the 1st, impatience, impulsiveness, or conflicts may arise. Avoid forcing situations or others to comply.",
       "2": "With Mars ruling the 2nd, financial disagreements or impulsive spending may create tension.",
       "3": "With Mars as lord of the 3rd, arguments, miscommunications, or competitive debates are likely.",
@@ -664,9 +570,9 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With Mars ruling the 12th, hidden anger or impulsive urges may emerge. Reflection and restraint are important.",
     },
   },
-
   Jupiter: {
     conjunct: {
+      "0": "Mars conjunct Jupiter is an expansive transit that boosts your confidence and ambition. You may feel more driven to take bold actions and pursue growth opportunities. It's a great time for leadership, adventure, or initiating new projects with optimism.",
       "1": "With Jupiter as lord of your 1st house, your confidence and optimism surge. You feel driven to pursue personal growth and assert your beliefs boldly.",
       "2": "With Jupiter ruling your 2nd house, financial and material ambitions are energized. Opportunities for growth may appear, but avoid overconfidence in spending.",
       "3": "With Jupiter as lord of the 3rd, communication and short-term planning are ambitious and assertive. You may push ideas forward enthusiastically.",
@@ -681,6 +587,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With Jupiter ruling the 12th, private growth, reflection, and spiritual pursuits are energized. Hidden potential may be activated.",
     },
     trineOrSextile: {
+      "0": "Mars trine or sextile Jupiter is a harmonious transit that enhances your confidence and ambition. You may feel more driven to take bold actions and pursue growth opportunities. It's a great time for leadership, adventure, or initiating new projects with optimism.",
       "1": "With Jupiter as lord of the 1st, confidence and initiative flow easily. Personal growth and assertive action are supported.",
       "2": "With Jupiter ruling the 2nd, financial and material opportunities progress smoothly through proactive effort.",
       "3": "With Jupiter as lord of the 3rd, communication and planning advance positively and constructively.",
@@ -695,6 +602,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With Jupiter ruling the 12th, private growth and introspection are energized, supporting long-term development.",
     },
     squareOrOpposition: {
+      "0": "Mars square or opposite Jupiter can create tension between your desire to take bold action and the need for growth. You may feel a push-pull between wanting to expand and needing to consider consequences.",
       "1": "With Jupiter as lord of the 1st, overconfidence or impulsive actions may lead to friction. Balance ambition with patience.",
       "2": "With Jupiter ruling the 2nd, financial overreach or rash decisions could create tension. Avoid extravagance.",
       "3": "With Jupiter as lord of the 3rd, debates or overly ambitious plans may lead to misunderstandings.",
@@ -711,6 +619,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
   },
   Saturn: {
     conjunct: {
+      "0": "Mars conjunct Saturn is a challenging transit that tests your patience and discipline. You may feel a push-pull between your desire to take action and the need to be responsible and cautious.",
       "1": "With Saturn as lord of your 1st house, personal drive is focused but restrained. You feel motivated to act responsibly, though challenges may test patience and endurance.",
       "2": "With Saturn ruling your 2nd house, financial or material matters require careful, disciplined action. Impulsive spending may lead to setbacks.",
       "3": "With Saturn as lord of the 3rd, communication and short-term planning demand precision and patience. Avoid hasty words or rash decisions.",
@@ -725,6 +634,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With Saturn ruling the 12th, private growth, reflection, or spiritual work require disciplined focus. Hidden challenges may emerge, prompting maturation.",
     },
     trineOrSextile: {
+      "0": "Mars trine or sextile Saturn is a harmonious transit that enhances your discipline and focus. You may feel motivated to take responsible action and pursue goals with patience and persistence.",
       "1": "With Saturn as lord of the 1st, disciplined initiative flows smoothly. Effort and patience yield productive results.",
       "2": "With Saturn ruling the 2nd, financial and material matters progress steadily through careful planning.",
       "3": "With Saturn as lord of the 3rd, communication and planning are effective and structured.",
@@ -739,6 +649,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
       "12": "With Saturn ruling the 12th, private reflection and spiritual work benefit from steady effort and discipline.",
     },
     squareOrOpposition: {
+      "0": "Mars square or opposite Saturn can create tension between your desire to take action and the need for discipline. You may feel a push-pull between wanting to move forward and needing to be cautious and responsible.",
       "1": "With Saturn as lord of the 1st, impatience or frustration may arise. Avoid impulsive actions and practice restraint.",
       "2": "With Saturn ruling the 2nd, financial or material challenges may create tension. Careful budgeting is essential.",
       "3": "With Saturn as lord of the 3rd, miscommunication or delays in plans may cause frustration. Patience and clarity help.",
@@ -759,6 +670,7 @@ export const marsTransitInterpretations: TransitInterpretations = {
 export const jupiterTransitInterpretations: TransitInterpretations = {
   Sun: {
     conjunct: {
+      "0": "Jupiter conjunct Sun is a powerful transit that amplifies your confidence, optimism, and ambition. You may feel more driven to pursue growth opportunities and take bold actions. It's a great time for leadership, adventure, or initiating new projects with enthusiasm.",
       "1": "With the Sun as lord of your 1st house, confidence, enthusiasm, and vitality surge. Personal goals and self-expression are favored, attracting opportunities and recognition.",
       "2": "With the Sun ruling your 2nd house, financial prospects and personal values expand. You feel motivated to pursue material growth or secure resources.",
       "3": "With the Sun as lord of the 3rd, communication and short-term initiatives gain momentum. Optimism and enthusiasm enhance interactions and learning.",
@@ -773,6 +685,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
       "12": "With the Sun ruling the 12th, private growth, reflection, or spiritual pursuits are energized. Hidden opportunities or insights may emerge.",
     },
     trineOrSextile: {
+      "0": "Jupiter trine or sextile Sun is a harmonious transit that enhances your confidence, optimism, and ambition. You may feel more driven to pursue growth opportunities and take bold actions. It's a great time for leadership, adventure, or initiating new projects with enthusiasm.",
       "1": "With the Sun as lord of the 1st, personal confidence and initiative flow easily. Opportunities for growth and self-expression arise smoothly.",
       "2": "With the Sun ruling the 2nd, financial and material progress benefits from optimism and practical effort.",
       "3": "With the Sun as lord of the 3rd, communication and learning proceed harmoniously, enhancing understanding and connections.",
@@ -787,6 +700,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
       "12": "With the Sun ruling the 12th, private growth and introspection are energized constructively.",
     },
     squareOrOpposition: {
+      "0": "Jupiter square or opposite Sun can create tension between your desire for growth and the need for self-expression. You may feel a push-pull between wanting to expand and being your truest self. It's important to find moderation and avoid overconfidence.",
       "1": "With the Sun as lord of the 1st, overconfidence or excess optimism may lead to impulsive actions. Balance enthusiasm with caution.",
       "2": "With the Sun ruling the 2nd, financial or material overreach could create tension. Avoid extravagant spending.",
       "3": "With the Sun as lord of the 3rd, ambitious plans or communications may clash with reality or others’ opinions.",
@@ -803,6 +717,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
   },
   Moon: {
     conjunct: {
+      "0": "Jupiter conjunct Moon is a transit that expands your emotional world and instincts. You may feel more nourished and safe than usual, and more open to new experiences as a result.",
       "1": "With the Moon as lord of your 1st house, emotions and instincts feel expansive and optimistic. You are more confident, cheerful, and emotionally open to new experiences.",
       "2": "With the Moon ruling your 2nd house, financial and material security may improve. Emotional satisfaction can come from acquiring or valuing resources.",
       "3": "With the Moon as lord of the 3rd, communication and learning are emotionally fulfilling. Optimism and curiosity drive social interactions.",
@@ -817,6 +732,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
       "12": "With the Moon ruling the 12th, private reflection and spiritual work bring emotional growth. Hidden opportunities for inner expansion may arise.",
     },
     trineOrSextile: {
+      "0": "Jupiter trine or sextile Moon is a harmonious transit that expands your emotional world and instincts. It's a great time for emotional growth, nurturing relationships, or pursuing activities that bring joy.",
       "1": "With the Moon as lord of the 1st, emotional confidence and optimism flow smoothly. You feel naturally motivated and emotionally balanced.",
       "2": "With the Moon ruling the 2nd, financial and emotional stability progresses harmoniously.",
       "3": "With the Moon as lord of the 3rd, communication and learning are enhanced by curiosity and emotional warmth.",
@@ -831,6 +747,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
       "12": "With the Moon ruling the 12th, private reflection and spiritual work progress positively and constructively.",
     },
     squareOrOpposition: {
+      "0": "Jupiter square or opposite Moon can create tension between your desire for emotional expansion and the need for safety. You may feel a push-pull between comfort and needing to expand one's horizons.",
       "1": "With the Moon as lord of the 1st, over-optimism or emotional exaggeration may lead to impatience or misjudgments.",
       "2": "With the Moon ruling the 2nd, financial or material expectations may exceed reality, creating tension.",
       "3": "With the Moon as lord of the 3rd, emotional enthusiasm in communication may cause misunderstandings.",
@@ -847,6 +764,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
   },
   Mercury: {
     conjunct: {
+      "0": "Jupiter conjunct Mercury is a transit that expands your thinking and communication. You may feel more optimistic, curious, and open to new ideas.",
       "1": "With Mercury as lord of your 1st house, your thinking and communication are energized. Confidence in expressing ideas and optimism in learning new things are highlighted.",
       "2": "With Mercury ruling your 2nd house, financial decisions and values benefit from broadened perspective. You may find new ways to increase resources or improve security.",
       "3": "With Mercury as lord of the 3rd, mental energy and curiosity are high. Short-term planning, communication, and learning move forward enthusiastically.",
@@ -861,6 +779,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
       "12": "With Mercury ruling the 12th, private reflection, study, or spiritual learning benefits from broadened perspective and insight.",
     },
     trineOrSextile: {
+      "0": "Jupiter trine or sextile Mercury is a harmonious transit that expands your thinking and communication. It's a great time for learning, sharing knowledge, or pursuing intellectual growth.",
       "1": "With Mercury as lord of the 1st, intellectual confidence flows smoothly. Learning and communication progress harmoniously.",
       "2": "With Mercury ruling the 2nd, financial or material planning benefits from constructive ideas and clear thinking.",
       "3": "With Mercury as lord of the 3rd, communication and learning advance efficiently with optimism.",
@@ -875,6 +794,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
       "12": "With Mercury ruling the 12th, private study and reflection benefit from expanded perspective.",
     },
     squareOrOpposition: {
+      "0": "Jupiter square or opposite Mercury can create tension between your desire for intellectual expansion and the need for clear communication. You may feel a push-pull between wanting to explore new ideas and needing to focus on details or practicalities.",
       "1": "With Mercury as lord of the 1st, overconfidence or scattered thinking may cause miscommunication or impatience.",
       "2": "With Mercury ruling the 2nd, financial decisions may be overly optimistic or based on assumptions.",
       "3": "With Mercury as lord of the 3rd, debates or information overload may lead to confusion or tension.",
@@ -891,6 +811,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
   },
   Venus: {
     conjunct: {
+      "0": "Jupiter conjunct Venus is a transit that expands your charm, attractiveness, and social appeal. You may feel more confident expressing affection and enjoying life’s pleasures.",
       "1": "With Venus as lord of your 1st house, charm, attractiveness, and social appeal are amplified. You feel more confident expressing affection and enjoying life’s pleasures.",
       "2": "With Venus ruling your 2nd house, financial opportunities and material comfort expand. Enjoyment of luxury and the arts is highlighted.",
       "3": "With Venus as lord of the 3rd, social interactions, communication, and short journeys are pleasurable and optimistic. Flirtation or creative exchanges are favored.",
@@ -905,6 +826,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
       "12": "With Venus ruling the 12th, private reflection, spiritual love, or hidden pleasures bring emotional satisfaction and inspiration.",
     },
     trineOrSextile: {
+      "0": "Jupiter trine or sextile Venus is a harmonious transit that enhances your charm, attractiveness, and social appeal. You may feel more confident expressing affection and enjoying life’s pleasures.",
       "1": "With Venus as lord of the 1st, personal charm and attractiveness flow naturally. Social interactions and love are harmonious.",
       "2": "With Venus ruling the 2nd, financial and material matters progress smoothly with positive results.",
       "3": "With Venus as lord of the 3rd, communication and social exchanges are enjoyable and constructive.",
@@ -919,6 +841,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
       "12": "With Venus ruling the 12th, private creativity, love, or spiritual pursuits are enriched positively.",
     },
     squareOrOpposition: {
+      "0": "Jupiter square or opposite Venus can create tension between your desire to enjoy the sweeter things of life and the need for purposeful growth. You may feel a push-pull between wanting to express affection and expanding one's horizons",
       "1": "With Venus as lord of the 1st, overindulgence or vanity may cause tension. Balance pleasure with responsibility.",
       "2": "With Venus ruling the 2nd, financial or material desires may exceed reality, creating potential conflicts.",
       "3": "With Venus as lord of the 3rd, social or romantic communications may be over-optimistic or misinterpreted.",
@@ -935,6 +858,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
   },
   Mars: {
     conjunct: {
+      "0": "Jupiter conjunct Mars is a transit that energizes your drive and ambition. You may feel more confident and motivated to take bold actions and pursue growth opportunities.",
       "1": "With Mars as lord of your 1st house, personal drive, confidence, and ambition are intensified. You feel empowered to act boldly and pursue your goals with enthusiasm.",
       "2": "With Mars ruling your 2nd house, financial initiatives and material pursuits gain momentum. Opportunities for growth appear, though impulsive spending should be monitored.",
       "3": "With Mars as lord of the 3rd, communication, learning, and short-term plans are energized. Assertiveness and initiative help you make progress quickly.",
@@ -949,6 +873,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
       "12": "With Mars ruling the 12th, private projects, spiritual pursuits, or behind-the-scenes efforts gain drive. Channel energy constructively to avoid frustration.",
     },
     trineOrSextile: {
+      "0": "Jupiter trine or sextile Mars is a harmonious transit that enhances your drive and ambition. You may feel more confident and motivated to take bold actions and pursue growth opportunities.",
       "1": "With Mars as lord of the 1st, personal initiative flows smoothly. Energy and confidence support productive action without unnecessary conflict.",
       "2": "With Mars ruling the 2nd, financial and material goals progress constructively. Opportunities for growth are handled effectively.",
       "3": "With Mars as lord of the 3rd, communication and short-term plans advance positively. Assertive but cooperative action brings results.",
@@ -963,6 +888,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
       "12": "With Mars ruling the 12th, private or spiritual efforts are energized productively when directed with focus.",
     },
     squareOrOpposition: {
+      "0": "Jupiter square or opposite Mars can create tension between your desire for growth and the need for focused action. You may feel a push-pull between wanting to take bold steps and needing them to also be meaningful to you.",
       "1": "With Mars as lord of the 1st, impulsive or overconfident actions may create friction or challenges. Patience and focus are essential.",
       "2": "With Mars ruling the 2nd, financial or material impulsiveness may cause tension or overreach.",
       "3": "With Mars as lord of the 3rd, assertive communication may lead to conflicts or misunderstandings.",
@@ -979,6 +905,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
   },
   Jupiter: {
     conjunct: {
+      "0": "Happy Jupiter return! Jupiter conjunct Jupiter is a powerful transit that amplifies your confidence, optimism, and growth potential. You may feel more open to taking risks and embracing new opportunities for expansion in various areas of life.",
       "1": "With Jupiter as lord of your 1st house, personal confidence, optimism, and self-expression expand. You may feel more open to taking risks and embracing growth opportunities.",
       "2": "With Jupiter ruling your 2nd house, financial and material resources are likely to increase. Expansion in income or values is possible through optimism and wise decisions.",
       "3": "With Jupiter as lord of the 3rd, learning, communication, and short-term projects gain momentum. Curiosity and enthusiasm guide constructive ideas.",
@@ -993,6 +920,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
       "12": "With Jupiter ruling the 12th, private growth, spiritual pursuits, and hidden opportunities bring expansion and deeper understanding.",
     },
     trineOrSextile: {
+      "0": "Jupiter trine or sextile Jupiter is a harmonious transit that enhances your confidence, optimism, and growth potential. You may feel more open to taking risks and embracing new opportunities for expansion in various areas of life.",
       "1": "With Jupiter as lord of the 1st, personal growth and confidence flow smoothly. Opportunities arise naturally without force.",
       "2": "With Jupiter ruling the 2nd, financial and material progress benefits from steady optimism and wise choices.",
       "3": "With Jupiter as lord of the 3rd, communication and learning advance constructively and with enthusiasm.",
@@ -1007,6 +935,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
       "12": "With Jupiter ruling the 12th, private reflection, spiritual work, or behind-the-scenes efforts progress constructively.",
     },
     squareOrOpposition: {
+      "0": "Jupiter square or opposite Jupiter can create tension between your desire for growth and the need for realistic expectations. You may feel a push-pull between wanting to expand and needing to also be grounded in reality.",
       "1": "With Jupiter as lord of the 1st, overconfidence or overextension may lead to impulsive decisions. Balance optimism with caution.",
       "2": "With Jupiter ruling the 2nd, financial or material overreach may cause tension or setbacks. Avoid excess.",
       "3": "With Jupiter as lord of the 3rd, overly ambitious plans or overoptimistic communication may lead to misunderstandings.",
@@ -1023,6 +952,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
   },
   Saturn: {
     conjunct: {
+      "0": "Jupiter conjunct Saturn is a significant transit that brings a balance of optimism and realism. It can be a time of hard work, responsibility, and long-term planning, but also one of growth and achievement through disciplined effort.",
       "1": "With Saturn as lord of your 1st house, personal growth is tempered with responsibility and discipline. Opportunities require patience and careful planning to achieve lasting success.",
       "2": "With Saturn ruling your 2nd house, financial and material stability is emphasized. Long-term security can be built through disciplined effort and prudent management.",
       "3": "With Saturn as lord of the 3rd, communication and learning benefit from structured effort and careful thought. Progress may be slower but more solid.",
@@ -1037,6 +967,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
       "12": "With Saturn ruling the 12th, private reflection, spiritual work, and hidden matters benefit from disciplined focus. Long-term growth emerges from patience and perseverance.",
     },
     trineOrSextile: {
+      "0": "Jupiter trine or sextile Saturn is a harmonious transit that brings a balance of optimism and realism. It can be a time of hard work, responsibility, and long-term planning, but also one of growth and achievement through disciplined effort.",
       "1": "With Saturn as lord of the 1st, personal initiatives progress steadily and constructively. Patience and effort yield solid results.",
       "2": "With Saturn ruling the 2nd, financial and material goals advance smoothly through disciplined action.",
       "3": "With Saturn as lord of the 3rd, learning and communication are enhanced by structured effort and practical thinking.",
@@ -1051,6 +982,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
       "12": "With Saturn ruling the 12th, private growth and spiritual work benefit from patient, focused effort.",
     },
     squareOrOpposition: {
+      "0": "Jupiter square or opposite Saturn can create tension between your desire for growth and the need for discipline. You may feel a push-pull between wanting to expand and needing to also be responsible and realistic.",
       "1": "With Saturn as lord of the 1st, personal ambitions may face delays or restrictions. Patience and perseverance are essential.",
       "2": "With Saturn ruling the 2nd, financial or material challenges may arise, requiring careful management and restraint.",
       "3": "With Saturn as lord of the 3rd, communication or learning may be slow or face obstacles. Structured effort overcomes difficulties.",
@@ -1071,6 +1003,7 @@ export const jupiterTransitInterpretations: TransitInterpretations = {
 export const saturnTransitInterpretations: TransitInterpretations = {
   Sun: {
     conjunct: {
+      "0": "Saturn conjunct Sun is a transit that brings a serious tone to your personal growth and self-expression. It can be a time of self-evaluation, increased responsibility, and long-term planning. Challenges may arise, but disciplined effort leads to lasting achievements.",
       "1": "With the Sun as lord of your 1st house, this is a serious period of self-evaluation and personal responsibility. You may feel tested, but disciplined effort strengthens your identity and long-term direction.",
       "2": "With the Sun ruling your 2nd house, financial matters and personal values require realism and careful planning. Stability can be built through patience and restraint.",
       "3": "With the Sun as lord of the 3rd, communication and learning demand focus and precision. Responsibilities involving siblings, study, or contracts may increase.",
@@ -1085,6 +1018,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
       "12": "With the Sun ruling the 12th, private matters, spiritual life, or hidden responsibilities require sober reflection. Solitude may strengthen inner resilience.",
     },
     trineOrSextile: {
+      "0": "Saturn trine or sextile Sun is a harmonious transit that brings a serious tone to your personal growth and self-expression. It can be a time of self-evaluation, increased responsibility, and long-term planning. Challenges may arise, but disciplined effort leads to lasting achievements.",
       "1": "With the Sun as lord of the 1st, disciplined self-improvement flows steadily. You build confidence through practical achievement.",
       "2": "With the Sun ruling the 2nd, financial stability grows through structured planning and responsible choices.",
       "3": "With the Sun as lord of the 3rd, communication and learning progress with focus and maturity.",
@@ -1099,6 +1033,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
       "12": "With the Sun ruling the 12th, private growth and spiritual discipline strengthen inner stability.",
     },
     squareOrOpposition: {
+      "0": "Saturn square or opposite Sun can create tension between your need for self-expression and the need for responsibility. You may feel a push-pull between wanting to be your truest self, while needing to also be responsible and realistic.",
       "1": "With the Sun as lord of the 1st, personal confidence may feel tested. Obstacles require patience, humility, and sustained effort.",
       "2": "With the Sun ruling the 2nd, financial pressures or value conflicts may arise. Careful budgeting and restraint are essential.",
       "3": "With the Sun as lord of the 3rd, communication challenges or delays may cause frustration. Precision and patience prevent setbacks.",
@@ -1115,6 +1050,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
   },
   Moon: {
     conjunct: {
+      "0": "Saturn conjunct Moon is a transit that brings a serious tone to your emotional life and inner world. It can be a time of emotional testing, increased responsibility, and long-term emotional growth. Challenges may arise, but disciplined effort leads to greater emotional resilience.",
       "1": "With the Moon as lord of your 1st house, emotional self-awareness deepens. You may feel more reserved or serious, but this is a time to strengthen emotional resilience.",
       "2": "With the Moon ruling your 2nd house, financial security and emotional stability are closely linked. Careful management brings long-term peace of mind.",
       "3": "With the Moon as lord of the 3rd, communication becomes more thoughtful and restrained. Emotional clarity grows through disciplined thinking.",
@@ -1129,6 +1065,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
       "12": "With the Moon ruling the 12th, hidden emotions or past issues surface for resolution. Solitude and reflection promote emotional maturity.",
     },
     trineOrSextile: {
+      "0": "Saturn trine or sextile Moon is a harmonious transit that brings a serious tone to your emotional life and inner world. It can be a time of emotional testing, increased responsibility, and long-term emotional growth. Challenges may arise, but disciplined effort leads to greater emotional resilience.",
       "1": "With the Moon as lord of the 1st, emotional stability and maturity develop steadily. You feel grounded and composed.",
       "2": "With the Moon ruling the 2nd, financial and emotional security grow through careful planning and restraint.",
       "3": "With the Moon as lord of the 3rd, communication benefits from emotional clarity and thoughtful expression.",
@@ -1143,6 +1080,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
       "12": "With the Moon ruling the 12th, private reflection and spiritual discipline foster emotional peace.",
     },
     squareOrOpposition: {
+      "0": "Saturn square or opposite Moon can create tension between your emotional needs and the demands of responsibility. You may feel a push-pull between wanting emotional security and your obligations.",
       "1": "With the Moon as lord of the 1st, emotional heaviness or self-doubt may surface. Patience and self-care are essential.",
       "2": "With the Moon ruling the 2nd, financial concerns may affect emotional security. Careful budgeting reduces anxiety.",
       "3": "With the Moon as lord of the 3rd, communication may feel strained or misunderstood. Thoughtful listening prevents conflict.",
@@ -1159,6 +1097,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
   },
   Mercury: {
     conjunct: {
+      "0": "Saturn conjunct Mercury is a transit that brings a serious tone to your thinking and communication. It can be a time of mental discipline, increased responsibility, and long-term planning. Challenges may arise, but disciplined effort leads to clearer thinking and more effective communication.",
       "1": "With Mercury as lord of your 1st house, your thinking becomes more serious and deliberate. You may feel mentally burdened, but disciplined focus strengthens your judgment.",
       "2": "With Mercury ruling your 2nd house, financial planning requires caution and precision. Practical decisions now lay the groundwork for long-term stability.",
       "3": "With Mercury as lord of the 3rd, communication, study, and short-term plans demand patience and careful thought. Responsibilities involving paperwork or siblings may increase.",
@@ -1173,6 +1112,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
       "12": "With Mercury ruling the 12th, private thoughts may feel heavy or introspective. Reflection and disciplined mental work bring clarity.",
     },
     trineOrSextile: {
+      "0": "Saturn trine or sextile Mercury is a harmonious transit that brings a serious tone to your thinking and communication. It can be a time of mental discipline, increased responsibility, and long-term planning. Disciplined effort leads to clearer thinking and more effective communication.",
       "1": "With Mercury as lord of the 1st, mental focus and clear thinking develop steadily. You communicate with maturity and authority.",
       "2": "With Mercury ruling the 2nd, financial planning progresses smoothly through careful analysis and responsible choices.",
       "3": "With Mercury as lord of the 3rd, communication and study advance productively with disciplined effort.",
@@ -1187,6 +1127,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
       "12": "With Mercury ruling the 12th, private reflection and study strengthen inner clarity and discipline.",
     },
     squareOrOpposition: {
+      "0": "Saturn square or opposite Mercury can create tension between your need for clear communication and the need for responsibility. You may feel a push-pull between wanting to communicate openly, and the need to be careful with your words.",
       "1": "With Mercury as lord of the 1st, self-doubt or mental pressure may arise. Avoid negative thinking and focus on steady progress.",
       "2": "With Mercury ruling the 2nd, financial worries or restrictive circumstances may require careful reassessment.",
       "3": "With Mercury as lord of the 3rd, communication delays or misunderstandings may cause frustration. Patience is essential.",
@@ -1203,6 +1144,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
   },
   Venus: {
     conjunct: {
+      "0": "Saturn conjunct Venus is a transit that brings a serious tone to your relationships and values. It can be a time of emotional testing, increased responsibility, and long-term growth in love and self-worth. Challenges may arise, but disciplined effort leads to deeper connections and greater self-respect.",
       "1": "With Venus as lord of your 1st house, relationships and personal values undergo serious evaluation. You may appear more reserved, but commitment and authenticity strengthen your self-worth.",
       "2": "With Venus ruling your 2nd house, finances and material pleasures require discipline. Careful budgeting and realistic priorities build lasting security.",
       "3": "With Venus as lord of the 3rd, communication in relationships becomes more thoughtful and deliberate. Honest conversations clarify expectations.",
@@ -1217,6 +1159,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
       "12": "With Venus ruling the 12th, hidden relationships or private emotional matters require clarity and closure. Emotional maturity develops through reflection.",
     },
     trineOrSextile: {
+      "0": "Saturn trine or sextile Venus is a harmonious transit that brings a serious tone to your relationships and values. It can be a time of emotional testing, increased responsibility, and long-term growth in love and self-worth. Challenges may arise, but disciplined effort leads to deeper connections and greater self-respect.",
       "1": "With Venus as lord of the 1st, personal relationships strengthen steadily through loyalty and maturity.",
       "2": "With Venus ruling the 2nd, financial stability improves through careful planning and restrained spending.",
       "3": "With Venus as lord of the 3rd, communication in love and friendship is thoughtful and constructive.",
@@ -1231,6 +1174,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
       "12": "With Venus ruling the 12th, private emotional healing and spiritual love deepen with patience and acceptance.",
     },
     squareOrOpposition: {
+      "0": "Saturn square or opposite Venus can create tension between your need for emotional connection and the need for responsibility. You may feel a push-pull between wanting to express your feelings openly and the need to be practical.",
       "1": "With Venus as lord of the 1st, feelings of isolation or self-doubt in relationships may surface. Patience and self-respect are essential.",
       "2": "With Venus ruling the 2nd, financial pressures or restrictive circumstances may challenge comfort and security.",
       "3": "With Venus as lord of the 3rd, misunderstandings or coolness in communication may strain relationships.",
@@ -1247,6 +1191,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
   },
   Mars: {
     conjunct: {
+      "0": "Saturn conjunct Mars is a transit that brings a serious tone to your drive and energy. It can be a time of increased responsibility, testing of your ambitions, and long-term growth through disciplined effort. Challenges may arise, but perseverance leads to greater strength and achievement.",
       "1": "With Mars as lord of your 1st house, personal drive may feel restrained or tested. This is a period requiring patience, endurance, and disciplined self-control.",
       "2": "With Mars ruling your 2nd house, financial actions must be carefully managed. Impulsive spending or risk-taking may lead to setbacks.",
       "3": "With Mars as lord of the 3rd, communication may feel blocked or tense. Strategic planning and measured words are essential.",
@@ -1261,6 +1206,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
       "12": "With Mars ruling the 12th, suppressed anger or frustration may surface. Constructive outlets and self-discipline are key.",
     },
     trineOrSextile: {
+      "0": "Saturn trine or sextile Mars is a harmonious transit that brings a serious tone to your drive and energy. It can be a time of increased responsibility, testing of your ambitions, and long-term growth through disciplined effort. Perseverance leads to greater strength and achievement.",
       "1": "With Mars as lord of the 1st, disciplined action strengthens confidence and physical endurance.",
       "2": "With Mars ruling the 2nd, financial goals progress steadily through controlled effort and strategic planning.",
       "3": "With Mars as lord of the 3rd, communication and planning become focused and productive.",
@@ -1275,6 +1221,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
       "12": "With Mars ruling the 12th, private efforts and inner discipline bring steady progress and emotional control.",
     },
     squareOrOpposition: {
+      "0": "Saturn square or opposite Mars can create tension between your need for action and the need for responsibility. You may feel a push-pull between wanting to take immediate action and the need to be careful with your approach.",
       "1": "With Mars as lord of the 1st, frustration or blocked energy may test patience. Avoid rash reactions.",
       "2": "With Mars ruling the 2nd, financial strain or resource limitations may create tension.",
       "3": "With Mars as lord of the 3rd, sharp words or communication breakdowns may lead to conflict.",
@@ -1291,6 +1238,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
   },
   Jupiter: {
     conjunct: {
+      "0": "Saturn conjunct Jupiter is a transit that brings a serious tone to your growth and expansion. It can be a time of increased responsibility, testing of your optimism, and long-term growth through disciplined effort. Challenges may arise, but perseverance leads to greater wisdom and achievement.",
       "1": "With Jupiter as lord of your 1st house, personal growth slows into a period of self-discipline and maturity. Optimism is tested, but long-term confidence is built through steady effort.",
       "2": "With Jupiter ruling your 2nd house, financial expansion requires restraint and structured planning. Sustainable security replaces risky growth.",
       "3": "With Jupiter as lord of the 3rd, learning and communication demand focus and realism. Practical knowledge takes precedence over broad speculation.",
@@ -1305,6 +1253,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
       "12": "With Jupiter ruling the 12th, spiritual or private growth deepens through disciplined reflection and inner responsibility.",
     },
     trineOrSextile: {
+      "0": "Saturn trine or sextile Jupiter is a harmonious transit that brings a serious tone to your growth and expansion. It can be a time of increased responsibility, testing of your optimism, and long-term growth through disciplined effort. Perseverance leads to greater wisdom and achievement.",
       "1": "With Jupiter as lord of the 1st, personal growth stabilizes. Confidence becomes grounded and practical.",
       "2": "With Jupiter ruling the 2nd, financial expansion progresses steadily through responsible management.",
       "3": "With Jupiter as lord of the 3rd, communication and study benefit from structured thinking and long-term focus.",
@@ -1319,6 +1268,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
       "12": "With Jupiter ruling the 12th, spiritual development deepens through steady reflection and discipline.",
     },
     squareOrOpposition: {
+      "0": "Saturn square or opposite Jupiter can create tension between your desire for growth and the need for responsibility. You may feel a push-pull between wanting to expand and the need to be cautious.",
       "1": "With Jupiter as lord of the 1st, optimism may feel blocked or limited. Patience is required to rebuild confidence realistically.",
       "2": "With Jupiter ruling the 2nd, financial constraints may challenge previous expansion. Caution replaces excess.",
       "3": "With Jupiter as lord of the 3rd, communication or study plans may face delays or critical evaluation.",
@@ -1335,6 +1285,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
   },
   Saturn: {
     conjunct: {
+      "0": "Your Saturn return is here! This is a profound period of personal growth and maturity. Responsibilities increase, but so does inner strength. Challenges may arise, but disciplined effort leads to lasting achievements.",
       "1": "With Saturn as lord of your 1st house, this marks a profound period of personal maturity and self-definition. Responsibilities increase, but so does inner strength.",
       "2": "With Saturn ruling your 2nd house, financial structures undergo serious review. Long-term security depends on disciplined management and realistic planning.",
       "3": "With Saturn as lord of the 3rd, communication patterns and daily responsibilities are restructured. Mental discipline becomes essential.",
@@ -1349,6 +1300,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
       "12": "With Saturn ruling the 12th, karmic patterns, solitude, or spiritual responsibilities become prominent themes of growth.",
     },
     trineOrSextile: {
+      "0": "Saturn trine or sextile your natal Saturn is a harmonious transit that brings a serious tone to your personal growth and maturity. Responsibilities increase, but so does inner strength. Challenges may arise, but disciplined effort leads to lasting achievements.",
       "1": "With Saturn as lord of the 1st, personal discipline strengthens identity and self-mastery.",
       "2": "With Saturn ruling the 2nd, financial stability improves through steady, responsible planning.",
       "3": "With Saturn as lord of the 3rd, communication and daily routines become structured and productive.",
@@ -1363,6 +1315,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
       "12": "With Saturn ruling the 12th, inner discipline and spiritual maturity deepen gradually.",
     },
     squareOrOpposition: {
+      "0": "Saturn square or opposite your natal Saturn can create tension between your need for responsibility and the desire for freedom. You may feel a push-pull between wanting to take control and the need to be patient.",
       "1": "With Saturn as lord of the 1st, personal limitations or self-doubt may surface. Patience and resilience are required.",
       "2": "With Saturn ruling the 2nd, financial pressure or scarcity concerns demand serious reassessment.",
       "3": "With Saturn as lord of the 3rd, communication challenges or mental fatigue may create strain.",
@@ -1383,6 +1336,7 @@ export const saturnTransitInterpretations: TransitInterpretations = {
 export const uranusTransitInterpretations: TransitInterpretations = {
   Sun: {
     conjunct: {
+      "0": "Uranus conjunct Sun is a transit that brings a powerful tone of awakening and individuality. It can be a time of sudden insights, unexpected changes, and a strong desire for freedom. Challenges may arise, but embracing change leads to greater authenticity and self-expression.",
       "1": "With the Sun as lord of your 1st house, this is a powerful awakening of identity. You may radically redefine yourself, seeking freedom and authenticity.",
       "2": "With the Sun ruling your 2nd house, sudden shifts in finances or values push you toward greater independence and self-reliance.",
       "3": "With the Sun as lord of the 3rd, communication and thinking patterns change abruptly. New ideas disrupt old assumptions.",
@@ -1397,6 +1351,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
       "12": "With the Sun ruling the 12th, hidden aspects of identity awaken. Sudden insights bring liberation from old psychological patterns.",
     },
     trineOrSextile: {
+      "0": "Uranus trine or sextile Sun is a harmonious transit that brings a powerful tone of awakening and individuality. It can be a time of sudden insights, unexpected changes, and a strong desire for freedom. Embracing change leads to greater authenticity and self-expression.",
       "1": "With the Sun as lord of the 1st, personal reinvention flows smoothly. You feel confident embracing your uniqueness.",
       "2": "With the Sun ruling the 2nd, financial innovation and new value systems develop with minimal disruption.",
       "3": "With the Sun as lord of the 3rd, fresh ideas and stimulating conversations open new pathways.",
@@ -1411,6 +1366,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
       "12": "With the Sun ruling the 12th, intuitive breakthroughs help release unconscious limitations.",
     },
     squareOrOpposition: {
+      "0": "Uranus square or opposite Sun can create tension between your desire for freedom and the need for self-expression. You may feel a push-pull between wanting to break free and the need to express yourself authentically.",
       "1": "With the Sun as lord of the 1st, sudden identity shifts may feel destabilizing. Avoid impulsive decisions made purely for rebellion.",
       "2": "With the Sun ruling the 2nd, financial instability or unexpected expenses may challenge your sense of security.",
       "3": "With the Sun as lord of the 3rd, communication may become erratic or confrontational. Mental restlessness increases.",
@@ -1427,6 +1383,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
   },
   Moon: {
     conjunct: {
+      "0": "Uranus conjunct Moon is a transit that brings a powerful tone of emotional awakening and unpredictability. It can be a time of sudden insights, unexpected changes in feelings, and a strong desire for emotional freedom. Challenges may arise, but embracing change leads to greater authenticity and emotional liberation.",
       "1": "With the Moon as lord of your 1st house, emotional identity shifts suddenly. You may feel restless and eager for greater personal freedom.",
       "2": "With the Moon ruling your 2nd house, fluctuations in finances affect your sense of security. You may seek unconventional income sources.",
       "3": "With the Moon as lord of the 3rd, communication becomes emotionally reactive or inspired. New ideas disrupt familiar thinking patterns.",
@@ -1441,6 +1398,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
       "12": "With the Moon ruling the 12th, unconscious emotions surface suddenly, bringing breakthroughs and release.",
     },
     trineOrSextile: {
+      "0": "Uranus trine or sextile Moon is a harmonious transit that brings a powerful tone of emotional awakening and unpredictability. It can be a time of sudden insights, unexpected changes in feelings, and a strong desire for emotional freedom. Embracing change leads to greater authenticity and emotional liberation.",
       "1": "With the Moon as lord of the 1st, emotional liberation unfolds naturally. You feel freer to express your authentic feelings.",
       "2": "With the Moon ruling the 2nd, innovative financial or value shifts enhance emotional security.",
       "3": "With the Moon as lord of the 3rd, intuitive insights and stimulating conversations uplift your mood.",
@@ -1455,6 +1413,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
       "12": "With the Moon ruling the 12th, intuitive awakenings bring emotional clarity and release.",
     },
     squareOrOpposition: {
+      "0": "Uranus square or opposite Moon can create tension between your desire for safety and the need for novelty and freedom. You may feel a push-pull between wanting to break free emotionally and the need to maintain some sense of security.",
       "1": "With the Moon as lord of the 1st, emotional instability or mood swings may disrupt personal equilibrium.",
       "2": "With the Moon ruling the 2nd, sudden financial changes may unsettle your sense of safety.",
       "3": "With the Moon as lord of the 3rd, erratic communication or nervous tension may affect emotional balance.",
@@ -1471,6 +1430,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
   },
   Mercury: {
     conjunct: {
+      "0": "Uranus conjunct Mercury is a transit that brings a powerful tone of mental awakening and unpredictability. It can be a time of sudden insights, unexpected changes in thinking, and a strong desire for intellectual freedom. Challenges may arise, but embracing change leads to greater authenticity and mental liberation.",
       "1": "With Mercury as lord of your 1st house, your thinking and self-expression shift suddenly. You may feel mentally restless and eager to redefine how you present yourself.",
       "2": "With Mercury ruling your 2nd house, financial decisions may change unexpectedly. New ideas about income or values emerge abruptly.",
       "3": "With Mercury as lord of the 3rd, communication becomes electrified. Sudden news, innovative ideas, or changes involving siblings may arise.",
@@ -1485,6 +1445,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
       "12": "With Mercury ruling the 12th, unconscious insights and sudden realizations disrupt old mental patterns.",
     },
     trineOrSextile: {
+      "0": "Uranus trine or sextile Mercury is a harmonious transit that brings a powerful tone of mental awakening and unpredictability. It can be a time of sudden insights, unexpected changes in thinking, and a strong desire for intellectual freedom. Embracing change leads to greater authenticity and mental liberation.",
       "1": "With Mercury as lord of the 1st, mental breakthroughs enhance confidence and originality.",
       "2": "With Mercury ruling the 2nd, innovative financial strategies improve income or resource management.",
       "3": "With Mercury as lord of the 3rd, stimulating conversations and progressive ideas flow naturally.",
@@ -1499,6 +1460,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
       "12": "With Mercury ruling the 12th, intuitive flashes of insight bring mental liberation.",
     },
     squareOrOpposition: {
+      "0": "Uranus square or opposite Mercury can create tension between your desire for intellectual freedom and the need for clear communication. You may feel a push-pull between wanting to break free mentally and the need to express yourself coherently.",
       "1": "With Mercury as lord of the 1st, nervous tension or erratic thinking may disrupt self-expression.",
       "2": "With Mercury ruling the 2nd, financial instability may arise from impulsive decisions.",
       "3": "With Mercury as lord of the 3rd, misunderstandings or sudden arguments may create tension.",
@@ -1515,6 +1477,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
   },
   Venus: {
     conjunct: {
+      "0": "Uranus conjunct Venus is a transit that brings a powerful tone of emotional awakening and unpredictability in relationships. It can be a time of sudden insights, unexpected changes in love or values, and a strong desire for freedom in how you relate to others. Challenges may arise, but embracing change leads to greater authenticity and relational liberation.",
       "1": "With Venus as lord of your 1st house, personal charm and style may change suddenly. You seek freedom in self-expression and relationships.",
       "2": "With Venus ruling your 2nd house, financial opportunities or material values may shift unexpectedly. You are drawn to unconventional sources of income or possessions.",
       "3": "With Venus as lord of the 3rd, social communication and friendships may take unpredictable turns, bringing excitement and fresh perspectives.",
@@ -1529,6 +1492,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
       "12": "With Venus ruling the 12th, hidden desires or secret relationships may emerge suddenly, prompting emotional liberation and self-discovery.",
     },
     trineOrSextile: {
+      "0": "Uranus trine or sextile Venus is a harmonious transit that brings a powerful tone of emotional awakening and unpredictability in relationships. It can be a time of sudden insights, unexpected changes in love or values, and a strong desire for freedom in how you relate to others. Embracing change leads to greater authenticity and relational liberation.",
       "1": "With Venus as lord of the 1st, personal charm and attractiveness flow naturally, enhancing relationships and self-expression.",
       "2": "With Venus ruling the 2nd, financial creativity and new opportunities develop smoothly.",
       "3": "With Venus as lord of the 3rd, friendships and social interactions bring exciting new ideas and inspirations.",
@@ -1543,6 +1507,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
       "12": "With Venus ruling the 12th, private or hidden relationships bring emotional insight and liberating experiences.",
     },
     squareOrOpposition: {
+      "0": "Uranus square or opposite Venus can create tension between your desire for emotional freedom and the need for stability in relationships. You may feel a push-pull between wanting to break free emotionally and the need to maintain some sense of security.",
       "1": "With Venus as lord of the 1st, sudden changes in relationships or self-image may feel unsettling. Flexibility is key.",
       "2": "With Venus ruling the 2nd, financial surprises or shifts in values may cause tension or instability.",
       "3": "With Venus as lord of the 3rd, miscommunications or erratic social behavior may create conflicts.",
@@ -1559,6 +1524,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
   },
   Mars: {
     conjunct: {
+      "0": "Uranus conjunct Mars is a transit that brings a powerful tone of emotional awakening and unpredictability. It can be a time of sudden insights, unexpected changes in drive or behavior, and a strong desire for freedom in how you express yourself. Challenges may arise, but embracing change leads to greater authenticity and personal liberation.",
       "1": "With Mars as lord of your 1st house, personal drive and assertiveness may erupt suddenly. You feel restless and eager for freedom in self-expression.",
       "2": "With Mars ruling your 2nd house, financial decisions or actions may shift abruptly. You may pursue unconventional ways to earn or manage resources.",
       "3": "With Mars as lord of the 3rd, communication and local activities become impulsive or dynamic. Quick decisions or sudden ideas may dominate.",
@@ -1573,6 +1539,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
       "12": "With Mars ruling the 12th, hidden drives or suppressed anger may surface suddenly. Channel energy constructively.",
     },
     trineOrSextile: {
+      "0": "Uranus trine or sextile Mars is a harmonious transit that brings a powerful tone of emotional awakening and unpredictability. It can be a time of sudden insights, unexpected changes in drive or behavior, and a strong desire for freedom in how you express yourself. Embracing change leads to greater authenticity and personal liberation.",
       "1": "With Mars as lord of the 1st, personal initiative flows smoothly, giving dynamic energy to self-expression.",
       "2": "With Mars ruling the 2nd, financial action and resource management advance naturally through bold but measured steps.",
       "3": "With Mars as lord of the 3rd, communication and local activity are energized constructively.",
@@ -1587,6 +1554,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
       "12": "With Mars ruling the 12th, hidden strengths and inner energy support long-term personal growth.",
     },
     squareOrOpposition: {
+      "0": "Uranus square or opposite Mars can create tension between your desire for freedom and the need for structured action. You may feel a push-pull between wanting to break free and the need to maintain some sense of control.",
       "1": "With Mars as lord of the 1st, impulsive actions or impatience may cause friction. Channel energy carefully.",
       "2": "With Mars ruling the 2nd, financial risks or conflicts over resources may arise suddenly.",
       "3": "With Mars as lord of the 3rd, rash words or hasty decisions may create misunderstandings.",
@@ -1603,6 +1571,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
   },
   Jupiter: {
     conjunct: {
+      "0": "Uranus conjunct Jupiter is a transit that brings a powerful tone of expansion and unpredictability. It can be a time of sudden opportunities, unexpected growth, and a strong desire for freedom in how you expand your horizons. Challenges may arise, but embracing change leads to greater authenticity and expansive growth.",
       "1": "With Jupiter as lord of your 1st house, personal growth and optimism may surge unexpectedly. You feel inspired to expand your horizons and take bold steps.",
       "2": "With Jupiter ruling your 2nd house, financial opportunities or resources may come suddenly. You may embrace new value systems or unconventional income paths.",
       "3": "With Jupiter as lord of the 3rd, learning, communication, and local connections may expand unpredictably. New ideas open exciting possibilities.",
@@ -1617,6 +1586,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
       "12": "With Jupiter ruling the 12th, spiritual insights or hidden opportunities may emerge, expanding your inner horizons.",
     },
     trineOrSextile: {
+      "0": "Uranus trine or sextile Jupiter is a harmonious transit that brings a powerful tone of expansion and unpredictability. It can be a time of sudden opportunities, unexpected growth, and a strong desire for freedom in how you expand your horizons. Embracing change leads to greater authenticity and expansive growth.",
       "1": "With Jupiter as lord of the 1st, personal growth and confidence expand naturally, allowing steady optimism and initiative.",
       "2": "With Jupiter ruling the 2nd, financial growth or resource management improves smoothly, supporting long-term security.",
       "3": "With Jupiter as lord of the 3rd, communication and learning bring constructive expansion and stimulating ideas.",
@@ -1631,6 +1601,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
       "12": "With Jupiter ruling the 12th, inner growth and spiritual insight deepen naturally, expanding self-awareness.",
     },
     squareOrOpposition: {
+      "0": "Uranus square or opposite Jupiter can create tension between your desire for freedom and the need for purposeful growth. You may feel a push-pull between wanting to break free and the need to maintain some sense of control.",
       "1": "With Jupiter as lord of the 1st, sudden opportunities may feel overwhelming or unstable. Caution is needed to avoid overextension.",
       "2": "With Jupiter ruling the 2nd, financial surprises or impulsive spending may disrupt security.",
       "3": "With Jupiter as lord of the 3rd, new ideas or communications may challenge existing plans or create tension.",
@@ -1647,6 +1618,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
   },
   Saturn: {
     conjunct: {
+      "0": "Uranus conjunct Saturn is a transit that brings a powerful tone of transformation and unexpected changes. It can be a time of sudden insights, unexpected shifts in responsibility, and a strong desire for freedom in how you approach your commitments. Challenges may arise, but embracing change leads to greater authenticity and personal liberation.",
       "1": "With Saturn as lord of your 1st house, personal responsibilities or self-identity may shift abruptly. Old restrictions may break, allowing for new, more authentic structures.",
       "2": "With Saturn ruling your 2nd house, financial or material stability may experience sudden changes. You are pushed to innovate while maintaining security.",
       "3": "With Saturn as lord of the 3rd, communication and local routines may be disrupted, prompting new ways of thinking and expressing ideas.",
@@ -1661,6 +1633,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
       "12": "With Saturn ruling the 12th, hidden limitations or subconscious patterns may surface unexpectedly, prompting release and structural transformation.",
     },
     trineOrSextile: {
+      "0": "Uranus trine or sextile Saturn is a harmonious transit that brings a powerful tone of transformation and unexpected changes. It can be a time of sudden insights, unexpected shifts in responsibility, and a strong desire for freedom in how you approach your commitments. Embracing change leads to greater authenticity and personal liberation.",
       "1": "With Saturn as lord of the 1st, sudden shifts in self-identity bring opportunities for constructive growth and liberation.",
       "2": "With Saturn ruling the 2nd, innovative financial strategies enhance long-term security and independence.",
       "3": "With Saturn as lord of the 3rd, new ideas and communication methods flow smoothly, supporting productive change.",
@@ -1675,6 +1648,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
       "12": "With Saturn ruling the 12th, subconscious insights or hidden patterns are addressed with clarity and liberating perspective.",
     },
     squareOrOpposition: {
+      "0": "Uranus square or opposite Saturn can create tension between your desire for freedom and the need for structure. You may feel a push-pull between wanting to break free and the need to maintain some sense of control.",
       "1": "With Saturn as lord of the 1st, sudden personal or identity challenges may feel destabilizing. Flexibility is required.",
       "2": "With Saturn ruling the 2nd, unexpected financial changes may challenge stability and require quick adaptation.",
       "3": "With Saturn as lord of the 3rd, communication or local disruptions may create tension, demanding innovative solutions.",
@@ -1695,6 +1669,7 @@ export const uranusTransitInterpretations: TransitInterpretations = {
 export const neptuneTransitInterpretations: TransitInterpretations = {
   Sun: {
     conjunct: {
+      "0": "Neptune conjunct Sun is a transit that brings a powerful tone of spiritual awakening and emotional sensitivity. It can be a time of heightened intuition, creativity, and a strong desire for connection with something greater than yourself. Challenges may arise, but embracing change leads to greater authenticity and emotional liberation.",
       "1": "With the Sun as lord of your 1st house, your sense of self may feel fluid. Intuition, sensitivity, and a desire for spiritual or creative expression are heightened, but clarity may waver.",
       "2": "With the Sun ruling your 2nd house, financial and material values may feel uncertain. You are drawn to imaginative ways of earning or appreciating resources.",
       "3": "With the Sun as lord of the 3rd, communication and thinking may become more intuitive and creative, though sometimes vague or confused.",
@@ -1709,6 +1684,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With the Sun ruling the 12th, subconscious, spiritual, or hidden dimensions of identity come to the fore, inspiring empathy and inner exploration.",
     },
     trineOrSextile: {
+      "0": "Neptune trine or sextile Sun is a harmonious transit that brings a powerful tone of spiritual awakening and emotional sensitivity. It can be a time of heightened intuition, creativity, and a strong desire for connection with something greater than yourself. Embracing change leads to greater authenticity and emotional liberation.",
       "1": "With the Sun as lord of the 1st, creativity, intuition, and empathy flow naturally, enhancing self-expression without overwhelming clarity.",
       "2": "With the Sun ruling the 2nd, financial or material concerns benefit from imaginative solutions and inspired approaches.",
       "3": "With the Sun as lord of the 3rd, mental insights and intuitive communication occur smoothly, fostering creativity and understanding.",
@@ -1723,6 +1699,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With the Sun ruling the 12th, inner insight, spiritual growth, and subconscious understanding deepen gracefully.",
     },
     squareOrOpposition: {
+      "0": "Neptune square or opposite Sun can create tension between your desire for spiritual connection and the need for practical reality. You may feel a push-pull between wanting to escape and the need to remain grounded.",
       "1": "With the Sun as lord of the 1st, personal identity may feel confused or ill-defined. Avoid overidealizing yourself or others.",
       "2": "With the Sun ruling the 2nd, financial uncertainty or unrealistic material expectations may create stress.",
       "3": "With the Sun as lord of the 3rd, miscommunications or unclear thinking may cause misunderstandings.",
@@ -1739,6 +1716,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
   },
   Moon: {
     conjunct: {
+      "0": "Neptune conjunct Moon is a transit that brings a powerful tone of emotional awakening and sensitivity. It can be a time of heightened intuition, empathy, and a strong desire for emotional connection and spiritual insight. Challenges may arise, but embracing change leads to greater authenticity and emotional liberation.",
       "1": "With the Moon as lord of your 1st house, emotions may feel fluid and heightened. Intuition and empathy are amplified, but boundaries may blur.",
       "2": "With the Moon ruling your 2nd house, financial security and personal values may feel uncertain. You may be drawn to idealistic or imaginative ways of earning or using resources.",
       "3": "With the Moon as lord of the 3rd, communication and mental activity are more intuitive and imaginative. Misunderstandings may occur if clarity is lacking.",
@@ -1753,6 +1731,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With the Moon ruling the 12th, subconscious emotions surface strongly, enhancing spiritual or emotional insight but requiring grounding.",
     },
     trineOrSextile: {
+      "0": "Neptune trine or sextile Moon is a harmonious transit that brings a powerful tone of emotional awakening and sensitivity. It can be a time of heightened intuition, empathy, and a strong desire for emotional connection and spiritual insight. Embracing change leads to greater authenticity and emotional liberation.",
       "1": "With the Moon as lord of the 1st, emotional sensitivity and intuition flow smoothly, enhancing self-awareness and empathy.",
       "2": "With the Moon ruling the 2nd, financial and material matters benefit from inspired and imaginative solutions.",
       "3": "With the Moon as lord of the 3rd, communication and learning are enhanced by intuition and creative insight.",
@@ -1767,6 +1746,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With the Moon ruling the 12th, subconscious emotions and spiritual insight deepen gracefully, enhancing intuition and compassion.",
     },
     squareOrOpposition: {
+      "0": "Neptune square or opposite Moon can create tension between your desire for emotional connection and the need for practical reality. You may feel a push-pull between wanting to escape emotionally and the need to remain grounded.",
       "1": "With the Moon as lord of the 1st, emotions may feel confusing or overwhelming. Boundaries and grounding are important.",
       "2": "With the Moon ruling the 2nd, financial uncertainty or idealization of values may create stress.",
       "3": "With the Moon as lord of the 3rd, miscommunications or unclear thinking may arise, requiring patience and clarity.",
@@ -1783,6 +1763,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
   },
   Mercury: {
     conjunct: {
+      "0": "Neptune conjunct Mercury is a transit that brings a powerful tone of mental awakening and emotional sensitivity. It can be a time of heightened intuition, creativity, and a strong desire for connection through communication. Challenges may arise, but embracing change leads to greater authenticity and mental liberation.",
       "1": "With Mercury as lord of your 1st house, thinking and self-expression become more intuitive and imaginative. You may feel inspired but sometimes unclear or indecisive.",
       "2": "With Mercury ruling your 2nd house, financial planning and values may be guided by intuition or creative ideas, but clarity is needed to avoid misjudgment.",
       "3": "With Mercury as lord of the 3rd, communication and learning are highly imaginative, though misinterpretations and confusion may occur.",
@@ -1797,6 +1778,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With Mercury ruling the 12th, subconscious insights, dreams, and intuition enhance mental activity, but beware of confusion or illusion.",
     },
     trineOrSextile: {
+      "0": "Neptune trine or sextile Mercury is a harmonious transit that brings a powerful tone of mental awakening and emotional sensitivity. It can be a time of heightened intuition, creativity, and a strong desire for connection through communication. Embracing change leads to greater authenticity and mental liberation.",
       "1": "With Mercury as lord of the 1st, thinking and expression flow intuitively and creatively, enhancing problem-solving and communication.",
       "2": "With Mercury ruling the 2nd, financial and material matters benefit from inspired insights and imaginative solutions.",
       "3": "With Mercury as lord of the 3rd, communication and learning are enhanced by intuition and creativity, fostering understanding.",
@@ -1811,6 +1793,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With Mercury ruling the 12th, subconscious insights, intuition, and imagination support mental clarity and spiritual understanding.",
     },
     squareOrOpposition: {
+      "0": "Neptune square or opposite Mercury can create tension between your desire for mental clarity and the pull of imagination or illusion. You may feel a push-pull between wanting to understand and the tendency to escape into fantasy.",
       "1": "With Mercury as lord of the 1st, thinking may feel confused or indecisive. Avoid overidealizing or overcomplicating ideas.",
       "2": "With Mercury ruling the 2nd, financial decisions may be unclear or overly idealistic, risking misjudgment.",
       "3": "With Mercury as lord of the 3rd, misunderstandings, miscommunications, or mental fog may cause frustration.",
@@ -1827,6 +1810,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
   },
   Venus: {
     conjunct: {
+      "0": "Neptune conjunct Venus is a transit that brings a powerful tone of emotional awakening and sensitivity. It can be a time of heightened intuition, empathy, and a strong desire for emotional connection and spiritual insight. Challenges may arise, but embracing change leads to greater authenticity and emotional liberation.",
       "1": "With Venus as lord of your 1st house, your personal charm and attractiveness are heightened, often inspiring idealistic self-expression and romantic allure, though clarity in relationships may waver.",
       "2": "With Venus ruling your 2nd house, financial and material values may feel fluid. You may be drawn to imaginative or idealistic ways of earning or appreciating resources.",
       "3": "With Venus as lord of the 3rd, communication, social interactions, and local connections become more empathetic, imaginative, and idealistic, though misunderstandings are possible.",
@@ -1841,6 +1825,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With Venus ruling the 12th, hidden love, secret affections, or spiritual relationships may inspire deep compassion and imagination, but boundaries may blur.",
     },
     trineOrSextile: {
+      "0": "Neptune trine or sextile Venus is a harmonious transit that brings a powerful tone of emotional awakening and sensitivity. It can be a time of heightened intuition, empathy, and a strong desire for emotional connection and spiritual insight. Embracing change leads to greater authenticity and emotional liberation.",
       "1": "With Venus as lord of the 1st, charm, grace, and creativity flow naturally, enhancing relationships and self-expression.",
       "2": "With Venus ruling the 2nd, financial or material matters benefit from inspired ideas, creativity, and harmonious approaches.",
       "3": "With Venus as lord of the 3rd, social and communication skills improve through empathy, creativity, and imagination.",
@@ -1855,6 +1840,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With Venus ruling the 12th, subconscious insights, hidden relationships, or spiritual connections support compassion and imaginative understanding.",
     },
     squareOrOpposition: {
+      "0": "Neptune square or opposite Venus can create tension between your desire for love and beauty and the pull of illusion or idealization. You may feel a push-pull between wanting to connect and the tendency to escape into fantasy.",
       "1": "With Venus as lord of the 1st, personal relationships or values may feel confusing or idealized, requiring clarity and grounding.",
       "2": "With Venus ruling the 2nd, financial or material uncertainty may arise due to unrealistic expectations or illusions.",
       "3": "With Venus as lord of the 3rd, communication or social misunderstandings may occur due to idealism or emotional bias.",
@@ -1871,6 +1857,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
   },
   Mars: {
     conjunct: {
+      "0": "Neptune conjunct Mars is a transit that brings a powerful tone of inspired action and emotional sensitivity. It can be a time of heightened intuition, creativity, and a strong desire to act on ideals or spiritual insights. Challenges may arise, but embracing change leads to greater authenticity and inspired action.",
       "1": "With Mars as lord of your 1st house, your energy and assertiveness may take on a dreamy or idealistic quality. Action may feel inspired but sometimes unclear or hesitant.",
       "2": "With Mars ruling your 2nd house, financial or material initiatives may be influenced by intuition or idealism, but require careful planning to avoid misjudgment.",
       "3": "With Mars as lord of the 3rd, communication and local activities are more imaginative and inspired, though misdirected energy or misunderstandings may occur.",
@@ -1885,6 +1872,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With Mars ruling the 12th, hidden motivations, subconscious drives, or spiritual pursuits influence action, sometimes creating confusion or indirect approaches.",
     },
     trineOrSextile: {
+      "0": "Neptune trine or sextile Mars is a harmonious transit that brings a powerful tone of inspired action and emotional sensitivity. It can be a time of heightened intuition, creativity, and a strong desire to act on ideals or spiritual insights. Embracing change leads to greater authenticity and inspired action.",
       "1": "With Mars as lord of the 1st, energy and assertiveness flow smoothly through intuition and inspired action, supporting constructive self-expression.",
       "2": "With Mars ruling the 2nd, financial or material initiatives proceed harmoniously with creative or subtle strategies.",
       "3": "With Mars as lord of the 3rd, communication and local activity benefit from imaginative and intuitive approaches.",
@@ -1899,6 +1887,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With Mars ruling the 12th, subconscious drives and spiritual pursuits support subtle and constructive action.",
     },
     squareOrOpposition: {
+      "0": "Neptune square or opposite Mars can create tension between your desire for inspired action and the pull of confusion or idealization. You may feel a push-pull between wanting to act on your ideals and the tendency to feel scattered or unclear.",
       "1": "With Mars as lord of the 1st, energy may be scattered or confused. Avoid impulsive or poorly directed action.",
       "2": "With Mars ruling the 2nd, financial or material efforts may be misdirected or influenced by idealism, requiring caution.",
       "3": "With Mars as lord of the 3rd, communication or local activity may involve misunderstandings or unfocused effort.",
@@ -1913,9 +1902,9 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With Mars ruling the 12th, subconscious drives or spiritual action may be unclear or misdirected, requiring grounding and awareness.",
     },
   },
-
   Jupiter: {
     conjunct: {
+      "0": "Neptune conjunct Jupiter is a transit that brings a powerful tone of spiritual awakening and expansive idealism. It can be a time of heightened intuition, optimism, and a strong desire for growth and connection with something greater than yourself. Challenges may arise, but embracing change leads to greater authenticity and expansive growth.",
       "1": "With Jupiter as lord of your 1st house, optimism, faith, and expansive energy are heightened. You may feel inspired to pursue ideals and personal growth, though clarity may fluctuate.",
       "2": "With Jupiter ruling your 2nd house, financial or material opportunities may appear idealistically. You are drawn to generous, imaginative, or visionary approaches to resources.",
       "3": "With Jupiter as lord of the 3rd, learning, communication, and local interactions expand through intuition, vision, and imaginative thinking.",
@@ -1930,6 +1919,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With Jupiter ruling the 12th, subconscious, spiritual, or hidden opportunities may inspire growth, compassion, and visionary insight.",
     },
     trineOrSextile: {
+      "0": "Neptune trine or sextile Jupiter is a harmonious transit that brings a powerful tone of spiritual awakening and expansive idealism. It can be a time of heightened intuition, optimism, and a strong desire for growth and connection with something greater than yourself. Embracing change leads to greater authenticity and expansive growth.",
       "1": "With Jupiter as lord of the 1st, optimism and personal growth flow smoothly, supporting inspired action and visionary thinking.",
       "2": "With Jupiter ruling the 2nd, financial and material matters benefit from inspired, visionary, and expansive approaches.",
       "3": "With Jupiter as lord of the 3rd, communication, learning, and local activity proceed smoothly with vision and imagination.",
@@ -1944,6 +1934,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With Jupiter ruling the 12th, subconscious and spiritual growth flows naturally, enhancing compassion, intuition, and insight.",
     },
     squareOrOpposition: {
+      "0": "Neptune square or opposite Jupiter can create tension between your desire for growth and the pull of idealism or illusion. You may feel a push-pull between wanting to expand and the tendency to overextend or lose clarity.",
       "1": "With Jupiter as lord of the 1st, over-optimism or idealization may cloud clarity. Avoid taking on too much or expecting unrealistic outcomes.",
       "2": "With Jupiter ruling the 2nd, financial or material decisions may be overly idealistic or risky, requiring discernment.",
       "3": "With Jupiter as lord of the 3rd, communication or learning may become scattered or overly optimistic, risking misunderstandings.",
@@ -1960,6 +1951,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
   },
   Saturn: {
     conjunct: {
+      "0": "Neptune conjunct Saturn is a transit that brings a powerful tone of spiritual awakening and emotional sensitivity. It can be a time of heightened intuition, compassion, and a strong desire for connection with something greater than yourself. Challenges may arise, but embracing change leads to greater authenticity and spiritual growth.",
       "1": "With Saturn as lord of your 1st house, your sense of self and personal discipline may be influenced by intuition and idealism. Boundaries may feel fluid, calling for conscious structure.",
       "2": "With Saturn ruling your 2nd house, financial and material security may require flexible planning. Idealistic approaches to resources need grounding.",
       "3": "With Saturn as lord of the 3rd, communication and local activities may blend practicality with vision, but confusion or misinterpretation may occur.",
@@ -1974,6 +1966,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With Saturn ruling the 12th, subconscious patterns, hidden limitations, or spiritual pursuits may challenge structure, requiring intuition and compassion.",
     },
     trineOrSextile: {
+      "0": "Neptune trine or sextile Saturn is a harmonious transit that brings a powerful tone of spiritual awakening and emotional sensitivity. It can be a time of heightened intuition, compassion, and a strong desire for connection with something greater than yourself. Embracing change leads to greater authenticity and spiritual growth.",
       "1": "With Saturn as lord of the 1st, discipline and personal growth harmonize with intuition and vision, supporting constructive self-improvement.",
       "2": "With Saturn ruling the 2nd, financial and material planning benefits from imaginative yet practical approaches.",
       "3": "With Saturn as lord of the 3rd, communication and learning proceed smoothly, integrating vision with practical understanding.",
@@ -1988,6 +1981,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
       "12": "With Saturn ruling the 12th, subconscious or spiritual work proceeds constructively, integrating insight, discipline, and compassion.",
     },
     squareOrOpposition: {
+      "0": "Neptune square or opposite Saturn can create tension between your desire for structure and the pull of idealism or confusion. You may feel a push-pull between wanting to establish boundaries and the tendency to feel uncertain or overwhelmed.",
       "1": "With Saturn as lord of the 1st, personal boundaries and self-discipline may feel unclear or challenged. Patience and intuition are needed.",
       "2": "With Saturn ruling the 2nd, financial or material uncertainties may arise, requiring cautious, grounded decision-making.",
       "3": "With Saturn as lord of the 3rd, communication or learning may be confusing, requiring careful attention to clarity and practical understanding.",
@@ -2008,6 +2002,7 @@ export const neptuneTransitInterpretations: TransitInterpretations = {
 export const plutoTransitInterpretations: TransitInterpretations = {
   Sun: {
     conjunct: {
+      "0": "Pluto conjunct Sun is a transit that brings a powerful tone of transformation and empowerment. It can be a time of profound self-discovery, intense experiences, and a strong desire to assert your identity and personal power. Challenges may arise, but embracing change leads to greater authenticity and empowerment.",
       "1": "With the Sun as lord of your 1st house, personal identity and self-expression undergo profound transformation. You may feel intense drive to assert yourself and shed old patterns.",
       "2": "With the Sun ruling your 2nd house, financial and material matters may require deep restructuring. Your values and sense of security are challenged for transformation.",
       "3": "With the Sun as lord of the 3rd, thinking, communication, and local interactions undergo profound insight and change. Power dynamics in relationships may emerge.",
@@ -2022,6 +2017,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "12": "With the Sun ruling the 12th, subconscious patterns, hidden issues, or spiritual growth are highlighted. Transformation often occurs behind the scenes.",
     },
     trineOrSextile: {
+      "0": "Pluto trine or sextile Sun is a harmonious transit that brings a powerful tone of transformation and empowerment. It can be a time of profound self-discovery, intense experiences, and a strong desire to assert your identity and personal power. Embracing change leads to greater authenticity and empowerment.",
       "1": "With the Sun as lord of the 1st, transformative energy flows constructively, supporting personal empowerment and deep self-understanding.",
       "2": "With the Sun ruling the 2nd, financial and material changes occur smoothly, allowing for empowerment and restructuring.",
       "3": "With the Sun as lord of the 3rd, communication and thought processes are enriched by insight and transformative clarity.",
@@ -2036,6 +2032,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "12": "With the Sun ruling the 12th, subconscious and spiritual growth flows constructively, supporting deep transformation and insight.",
     },
     squareOrOpposition: {
+      "0": "Pluto square or opposite Sun can create tension between your desire for empowerment and the pull of intense transformation. You may feel a push-pull between wanting to assert yourself and the challenges that arise to transform your identity.",
       "1": "With the Sun as lord of the 1st, personal identity may feel challenged or under pressure. Intense experiences push for transformation and empowerment.",
       "2": "With the Sun ruling the 2nd, financial or material pressures may prompt profound reevaluation and restructuring of values.",
       "3": "With the Sun as lord of the 3rd, communication conflicts or misunderstandings may arise, demanding transformative insight and perspective shifts.",
@@ -2052,6 +2049,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
   },
   Moon: {
     conjunct: {
+      "0": "Pluto conjunct Moon is a transit that brings a powerful tone of emotional transformation and deep insight. It can be a time of intense emotional experiences, profound self-discovery, and a strong desire to understand and transform your inner world. Challenges may arise, but embracing change leads to greater emotional depth and empowerment.",
       "1": "With the Moon ruling your 1st house, your emotional self and personal identity undergo deep transformation. Old habits and emotional patterns may be purged for renewal.",
       "2": "With the Moon as lord of the 2nd, emotional attachments to finances, possessions, or self-worth are transformed. Deep reassessment of values is likely.",
       "3": "With the Moon ruling the 3rd, communication, thought patterns, and local relationships are intensely transformed. Hidden emotions may surface in interactions.",
@@ -2066,6 +2064,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "12": "With the Moon as lord of the 12th, subconscious patterns, hidden emotions, and spiritual growth are deeply transformed. Healing occurs behind the scenes.",
     },
     trineOrSextile: {
+      "0": "Pluto trine or sextile Moon is a harmonious transit that brings a powerful tone of emotional transformation and deep insight. It can be a time of intense emotional experiences, profound self-discovery, and a strong desire to understand and transform your inner world. Embracing change leads to greater emotional depth and empowerment.",
       "1": "With the Moon ruling your 1st, emotional transformation flows constructively, supporting self-awareness and personal empowerment.",
       "2": "With the Moon as lord of the 2nd, emotional insight aids smooth restructuring of finances, possessions, and self-worth.",
       "3": "With the Moon ruling the 3rd, communication and thinking benefit from deep emotional clarity and understanding.",
@@ -2080,6 +2079,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "12": "With the Moon as lord of the 12th, subconscious growth and spiritual insight flow smoothly, supporting constructive emotional transformation.",
     },
     squareOrOpposition: {
+      "0": "Pluto square or opposite Moon can create tension between your emotional world and the pull of intense transformation. You may feel a push-pull between wanting emotional security and the challenges that arise to transform your inner life.",
       "1": "With the Moon ruling your 1st, emotional pressures challenge your sense of self. Transformative experiences demand emotional resilience.",
       "2": "With the Moon as lord of the 2nd, financial or personal security may feel destabilized, prompting deep emotional reevaluation.",
       "3": "With the Moon ruling the 3rd, emotional tension may arise in communication and local relationships, requiring insight and adaptation.",
@@ -2096,6 +2096,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
   },
   Mercury: {
     conjunct: {
+      "0": "Pluto conjunct Mercury is a transit that brings a powerful tone of mental transformation and deep insight. It can be a time of intense intellectual experiences, profound self-discovery, and a strong desire to understand and transform your thought processes and communication style. Challenges may arise, but embracing change leads to greater mental clarity and empowerment.",
       "1": "With Mercury ruling your 1st house, your mind and communication style undergo deep transformation. You may rethink how you express yourself and assert ideas.",
       "2": "With Mercury as lord of the 2nd, thoughts about finances, possessions, and personal values are intensely transformed. Deep restructuring of priorities may occur.",
       "3": "With Mercury ruling the 3rd, communication, learning, and local interactions are deeply affected. Hidden information may surface, and thinking becomes more profound.",
@@ -2110,6 +2111,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "12": "With Mercury as lord of the 12th, subconscious mind, hidden thoughts, and spiritual insight are deeply transformed. Research, introspection, or hidden knowledge may bring breakthroughs.",
     },
     trineOrSextile: {
+      "0": "Pluto trine or sextile Mercury is a harmonious transit that brings a powerful tone of mental transformation and deep insight. It can be a time of intense intellectual experiences, profound self-discovery, and a strong desire to understand and transform your thought processes and communication style. Embracing change leads to greater mental clarity and empowerment.",
       "1": "With Mercury ruling your 1st, transformative mental energy flows smoothly, enhancing self-expression and deep self-understanding.",
       "2": "With Mercury as lord of the 2nd, financial and personal values are restructured constructively through insight and thoughtful planning.",
       "3": "With Mercury ruling the 3rd, communication, learning, and local interactions benefit from clear transformative insight and understanding.",
@@ -2124,6 +2126,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "12": "With Mercury as lord of the 12th, subconscious insights and hidden knowledge emerge constructively, supporting transformative reflection.",
     },
     squareOrOpposition: {
+      "0": "Pluto square or opposite Mercury can create tension between your desire for mental clarity and the pull of intense transformation. You may feel a push-pull between wanting to understand and communicate effectively and the challenges that arise to transform your thought processes.",
       "1": "With Mercury ruling your 1st, intense mental pressure challenges self-expression and thinking. Communication may feel pressured, demanding transformation.",
       "2": "With Mercury as lord of the 2nd, financial and value-related stress prompts deep reassessment and mental restructuring.",
       "3": "With Mercury ruling the 3rd, conflicts in communication and thought may surface, requiring transformative clarity and perspective shifts.",
@@ -2140,6 +2143,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
   },
   Venus: {
     conjunct: {
+      "0": "Pluto conjunct Venus is a transit that brings a powerful tone of emotional transformation and deep insight in relationships and values. It can be a time of intense romantic experiences, profound self-discovery in love, and a strong desire to understand and transform your approach to relationships and personal values. Challenges may arise, but embracing change leads to greater emotional depth and empowerment.",
       "1": "With Venus ruling your 1st house, personal charm, relationships, and self-expression undergo profound transformation. Old patterns in attraction and self-image are purged for renewal.",
       "2": "With Venus as lord of the 2nd, financial matters, possessions, and personal values experience deep change. Emotional attachments to material security are transformed.",
       "3": "With Venus ruling the 3rd, communication, relationships with siblings or neighbors, and social interactions are intensely transformed. Hidden feelings may surface.",
@@ -2154,6 +2158,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "12": "With Venus as lord of the 12th, hidden emotions, subconscious patterns, and spiritual growth are deeply affected. Healing or hidden relationships may emerge through transformation.",
     },
     trineOrSextile: {
+      "0": "Pluto trine or sextile Venus is a harmonious transit that brings a powerful tone of emotional transformation and deep insight in relationships and values. It can be a time of intense romantic experiences, profound self-discovery in love, and a strong desire to understand and transform your approach to relationships and personal values. Embracing change leads to greater emotional depth and empowerment.",
       "1": "With Venus ruling your 1st, transformative energy flows constructively, enhancing personal magnetism, charm, and self-expression.",
       "2": "With Venus as lord of the 2nd, financial and material restructuring occurs smoothly, allowing for empowered emotional and practical adjustments.",
       "3": "With Venus ruling the 3rd, communication and social interactions benefit from deep insight and constructive emotional transformation.",
@@ -2168,6 +2173,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "12": "With Venus as lord of the 12th, hidden emotional patterns and subconscious growth flow constructively, supporting deep transformation and healing.",
     },
     squareOrOpposition: {
+      "0": "Pluto square or opposite Venus can create tension between your desire for emotional connection and the pull of intense transformation. You may feel a push-pull between wanting harmonious relationships and the challenges that arise to transform your approach to love and values.",
       "1": "With Venus ruling your 1st, personal charm and self-expression may feel challenged. Intense experiences push for deep transformation in relationships and self-image.",
       "2": "With Venus as lord of the 2nd, finances, possessions, and values may be tested. Emotional attachment to security and comfort requires transformation.",
       "3": "With Venus ruling the 3rd, communication and relationships may experience tension, uncovering hidden feelings and prompting deep emotional insight.",
@@ -2184,6 +2190,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
   },
   Mars: {
     conjunct: {
+      "0": "Pluto conjunct Mars is a transit that brings a powerful tone of transformation and empowerment in your drive, energy, and assertiveness. It can be a time of intense experiences, profound self-discovery, and a strong desire to assert your will and personal power. Challenges may arise, but embracing change leads to greater authenticity and empowerment.",
       "1": "With Mars ruling your 1st house, personal drive, assertiveness, and energy undergo profound transformation. Old impulses and approaches to action are purged and renewed.",
       "2": "With Mars as lord of the 2nd, financial decisions, resources, and personal values are intensely re-evaluated. You may feel a strong drive to restructure material security.",
       "3": "With Mars ruling the 3rd, communication, thinking, and local interactions become intense. Hidden tensions or competitive dynamics may surface, prompting transformation.",
@@ -2198,6 +2205,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "12": "With Mars as lord of the 12th, subconscious drives, hidden patterns, and spiritual energy are profoundly affected. Private efforts or behind-the-scenes activity trigger transformation.",
     },
     trineOrSextile: {
+      "0": "Pluto trine or sextile Mars is a harmonious transit that brings a powerful tone of transformation and empowerment in your drive, energy, and assertiveness. It can be a time of intense experiences, profound self-discovery, and a strong desire to assert your will and personal power. Embracing change leads to greater authenticity and empowerment.",
       "1": "With Mars ruling your 1st, transformative energy flows constructively, enhancing personal drive, courage, and assertive self-expression.",
       "2": "With Mars as lord of the 2nd, financial and material changes occur smoothly, allowing empowerment and strategic resource management.",
       "3": "With Mars ruling the 3rd, communication and thought processes benefit from deep insight and constructive transformative energy.",
@@ -2212,6 +2220,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "12": "With Mars as lord of the 12th, subconscious energy and private endeavors flow constructively, enabling deep transformation and inner strength.",
     },
     squareOrOpposition: {
+      "0": "Pluto square or opposite Mars can create tension between your desire for assertiveness and the pull of intense transformation. You may feel a push-pull between wanting to take action and the challenges that arise to transform your approach to drive and energy.",
       "1": "With Mars ruling your 1st, personal drive and assertiveness may face pressure or challenges. Intense experiences push for self-mastery and transformation.",
       "2": "With Mars as lord of the 2nd, finances, possessions, and values may be tested. Pressure triggers deep reassessment and strategic action.",
       "3": "With Mars ruling the 3rd, communication or thought patterns may experience conflict or tension, requiring transformative clarity and focus.",
@@ -2228,6 +2237,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
   },
   Jupiter: {
     conjunct: {
+      "0": "Pluto conjunct Jupiter is a transit that brings a powerful tone of transformation and expansion in your beliefs, growth, and opportunities. It can be a time of intense experiences, profound self-discovery, and a strong desire to understand and transform your worldview and personal growth. Challenges may arise, but embracing change leads to greater insight and empowerment.",
       "1": "With Jupiter ruling your 1st house, your sense of self, optimism, and personal growth undergo profound transformation. Expansion comes through deep inner changes.",
       "2": "With Jupiter as lord of the 2nd, finances, values, and resources are intensely reevaluated. Growth occurs through restructuring material and emotional security.",
       "3": "With Jupiter ruling the 3rd, communication, learning, and local interactions are transformed. Philosophical or spiritual insights may reshape your thinking.",
@@ -2242,6 +2252,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "12": "With Jupiter as lord of the 12th, subconscious patterns, hidden opportunities, and spiritual growth are intensely transformed. Healing and insight occur behind the scenes.",
     },
     trineOrSextile: {
+      "0": "Pluto trine or sextile Jupiter is a harmonious transit that brings a powerful tone of transformation and expansion in your beliefs, growth, and opportunities. It can be a time of intense experiences, profound self-discovery, and a strong desire to understand and transform your worldview and personal growth. Embracing change leads to greater insight and empowerment.",
       "1": "With Jupiter ruling your 1st, transformative growth flows constructively, supporting personal expansion, confidence, and self-understanding.",
       "2": "With Jupiter as lord of the 2nd, finances, possessions, and values evolve smoothly through empowered insight and constructive transformation.",
       "3": "With Jupiter ruling the 3rd, communication, learning, and local interactions benefit from deep understanding and constructive expansion.",
@@ -2256,6 +2267,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "12": "With Jupiter as lord of the 12th, hidden growth, subconscious insight, and spiritual development flow smoothly, supporting constructive transformation.",
     },
     squareOrOpposition: {
+      "0": "Pluto square or opposite Jupiter can create tension between your desire for growth and the pull of intense transformation. You may feel a push-pull between wanting to expand and the challenges that arise to transform your beliefs and personal growth.",
       "1": "With Jupiter ruling your 1st, personal growth and confidence may be challenged. Expansion comes through intense experiences demanding self-reflection.",
       "2": "With Jupiter as lord of the 2nd, finances, possessions, or personal values may face pressure, prompting deep reassessment and transformative adjustments.",
       "3": "With Jupiter ruling the 3rd, communication, learning, or local interactions may encounter tension, requiring transformative insight and perspective shifts.",
@@ -2272,6 +2284,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
   },
   Saturn: {
     conjunct: {
+      "0": "Pluto conjunct Saturn is a transit that brings a powerful tone of transformation and restructuring in your sense of responsibility, discipline, and long-term goals. It can be a time of intense experiences, profound self-discovery, and a strong desire to understand and transform your approach to authority and structure. Challenges may arise, but embracing change leads to greater maturity and empowerment.",
       "1": "With Saturn ruling your 1st house, your sense of self, discipline, and personal responsibility undergo profound transformation. Old limitations and fears are confronted and restructured.",
       "2": "With Saturn as lord of the 2nd, finances, possessions, and personal values experience deep restructuring. Security and material stability are reexamined under transformative pressure.",
       "3": "With Saturn ruling the 3rd, communication, learning, and local interactions are transformed. Structured thinking and disciplined approaches emerge from challenges.",
@@ -2286,6 +2299,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "12": "With Saturn as lord of the 12th, subconscious patterns, hidden responsibilities, and spiritual growth are deeply transformed. Inner discipline and reflection are emphasized.",
     },
     trineOrSextile: {
+      "0": "Pluto trine or sextile Saturn is a harmonious transit that brings a powerful tone of transformation and restructuring in your sense of responsibility, discipline, and long-term goals. It can be a time of intense experiences, profound self-discovery, and a strong desire to understand and transform your approach to authority and structure. Embracing change leads to greater maturity and empowerment.",
       "1": "With Saturn ruling your 1st, transformative energy flows constructively, strengthening self-discipline, focus, and personal empowerment.",
       "2": "With Saturn as lord of the 2nd, finances and values evolve smoothly through disciplined insight and constructive transformation.",
       "3": "With Saturn ruling the 3rd, communication, learning, and local interactions benefit from structured, constructive transformation.",
@@ -2300,6 +2314,7 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "12": "With Saturn as lord of the 12th, subconscious patterns and spiritual growth flow smoothly, supporting disciplined and constructive inner transformation.",
     },
     squareOrOpposition: {
+      "0": "Pluto square or opposite Saturn can create tension between your desire for structure and the pull of intense transformation. You may feel a push-pull between wanting stability and the challenges that arise to transform your approach to responsibility and authority.",
       "1": "With Saturn ruling your 1st, personal identity and self-expression may feel restricted or challenged. Transformation comes through discipline and resilience.",
       "2": "With Saturn as lord of the 2nd, finances, possessions, and values may be tested. Pressure prompts careful reassessment and deep transformation.",
       "3": "With Saturn ruling the 3rd, communication and learning may encounter obstacles, requiring disciplined focus and transformative insight.",
@@ -2312,49 +2327,6 @@ export const plutoTransitInterpretations: TransitInterpretations = {
       "10": "With Saturn as lord of the 10th, career and public life may face obstacles or pressure, prompting strategic transformation and responsible growth.",
       "11": "With Saturn ruling the 11th, friendships and group dynamics may be tested, requiring responsibility, careful planning, and deep transformation of goals.",
       "12": "With Saturn as lord of the 12th, hidden responsibilities, subconscious patterns, or spiritual matters may surface intensely, demanding disciplined inner work and transformation.",
-    },
-  },
-};
-
-export const sectInterpretations: any = {
-  Jupiter: {
-    inSectBenefic: {
-      easy: "As your benefic of sect, this is your most positive planet, and you can expect the transit to be particularly positive for you.",
-      hard: "Given that Jupiter is your benefic of sect, this transit should leave you feeling very bouyant, but watch out for overindulgence.",
-    },
-    outOfSectBenefic: {
-      easy: "As your benefic out of sect, this should be a fun transit, though its energies may be more of a background influence.",
-      hard: "Given that Jupiter is your benefic out of sect, you may be slightly prone to going over board in the aforementioned areas of life at this time.",
-    },
-  },
-  Venus: {
-    inSectBenefic: {
-      easy: "As your benefic of sect, this is your most positive planet, and you should expect the transit to be particularly positive for you.",
-      hard: "Given that Venus is your benefic of sect, you might feel particularly well-resourced at this time, but watch out for superficiality.",
-    },
-    outOfSectBenefic: {
-      easy: "As your benefic out of sect, Venus should make this a pleasant transit, though her energies may be more of a background influence.",
-      hard: "Given that Venus is your benefic out of sect, you are somewhat more prone to vanity or superficiality in the aforementioned areas of life at this time.",
-    },
-  },
-  Mars: {
-    inSectMalefic: {
-      easy: "Given that Mars is your malefic of sect, you might feel particularly invigorated and ready to tackle the issues at hand.",
-      hard: "As your malefic of sect, Mars may bring frustrations at this time, but rest assured, these are surmountable challenges.",
-    },
-    outOfSectMalefic: {
-      easy: "As your malefic out of sect, transits of Mars present a fair bit of challenge. For now, however, you will be experiencing greater vigor and a sharpening of your skills in this area of life.",
-      hard: "As your malefic out of sect, this can be a challenging time for you in this area of life. You may experience conflicts or frustrations, so try to let cooler heads prevail.",
-    },
-  },
-  Saturn: {
-    inSectMalefic: {
-      easy: "Given that Saturn is your malefic of sect, you might feel particularly serious and ready to tackle the issues at hand.",
-      hard: "As your malefic of sect, Saturn may bring delays and difficulty at this time, but rest assured, these are surmountable challenges.",
-    },
-    outOfSectMalefic: {
-      easy: "As your malefic out of sect, transits of Saturn present a fair bit of challenge. For now, however, you will be experiencing greater determination and gravitas around these issues.",
-      hard: "As your malefic out of sect, this can feel like a time of scarcity in these aresas of life, and restraint and maturity are demanded of you.",
     },
   },
 };

@@ -71,9 +71,14 @@ export const astroRouter = trpc
     input: z.object({
       natalPlanet: z.string(),
       position: positionSchema,
+      date: z.string().transform((val) => new Date(val)),
     }),
     resolve({ input }) {
-      return getMajorTransitsForAPlanet(input.natalPlanet, input.position);
+      return getMajorTransitsForAPlanet(
+        input.natalPlanet,
+        input.position,
+        input.date,
+      );
     },
   })
   .query("getLunations", {
@@ -122,15 +127,16 @@ export const astroRouter = trpc
     input: z.object({
       date: z.string().transform((val) => new Date(val)),
     }),
-    resolve() {
-      return getAllPlanetZeroDegreeIngresses();
+    resolve({ input }) {
+      return getAllPlanetZeroDegreeIngresses(input.date);
     },
   })
   .query("getMajorTransitsAllPlanets", {
     input: z.object({
       natalPlacements: z.array(planetPositionSchema),
+      date: z.string().transform((val) => new Date(val)),
     }),
     resolve({ input }) {
-      return getMajorTransitsAllPlanets(input.natalPlacements);
+      return getMajorTransitsAllPlanets(input.natalPlacements, input.date);
     },
   });

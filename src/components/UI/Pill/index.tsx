@@ -25,9 +25,9 @@ const PILL_CONFIG = {
     colors: "bg-primary-300 text-primary-700 border-primary-700",
     text: "Challenging",
   },
-  newBeginnings: {
+  pivotPoint: {
     colors: "bg-primary-300 text-primary-700 border-primary-700",
-    text: "New Beginnings",
+    text: "Pivot Point",
   },
   lifeDefining: {
     colors: "bg-primary-300 text-primary-700 border-primary-700",
@@ -48,7 +48,7 @@ export const Pill: React.FC<PillProps> = ({ type, toolTip }) => {
   return (
     <span className="inline-flex items-start gap-2">
       <span
-        className={`inline-block rounded-full border px-3 py-1 text-xs font-medium ${colors}`}
+        className={`inline-block rounded-full border px-3 py-1 text-xs font-medium ${colors} min-w-25 text-center`}
       >
         {text}
       </span>
