@@ -105,5 +105,5 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-dm-serif-display), "DM Serif Display", serif;
+  font-family: var(--font-lora), "Lora", serif;
 }
