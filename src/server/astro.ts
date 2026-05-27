@@ -614,7 +614,7 @@ export const getSolarEclipses = (date: Date): Eclipse[] => {
         getJulianDayFromDate(currentDate).data[0],
         sweph.constants.SEFLG_SWIEPH,
         eclipseType,
-        // ignore error here
+        // @ts-expect-error - sweph types incorrectly declare `backwards` as number; false is correct
         false,
       );
 

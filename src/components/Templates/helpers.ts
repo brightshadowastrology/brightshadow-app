@@ -224,7 +224,9 @@ export const getPills = (
       : sectPlanets.inSectMalefic.planet === transitingPlanetName
         ? "inSectMalefic"
         : "outOfSectMalefic";
-    const text = sectInterpretations[transitingPlanetName][sect][transitAspect];
+    const text =
+      sectInterpretations?.[transitingPlanetName]?.[sect]?.[transitAspect] ||
+      "";
 
     // Joyous transits - Easy Transits from benefic
     if (isBenefic && transitAspect === "easy") {
