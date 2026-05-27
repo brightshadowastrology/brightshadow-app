@@ -1,4 +1,4 @@
 {
-  "installCommand": "pnpm install && cd node_modules/sweph && node-gyp rebuild --python=python3.11",
+  "installCommand": "pnpm install && cd node_modules/sweph && node-gyp rebuild --python=python3",
   "buildCommand": "pnpm run build"
 }
