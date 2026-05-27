@@ -8,16 +8,19 @@ import {
 } from "@react-pdf/renderer";
 
 Font.register({
-  family: "Inter",
+  family: "Quicksand",
   fonts: [
-    { src: "/fonts/Inter-VariableFont_opsz,wght.ttf" },
-    { src: "/fonts/Inter-VariableFont_opsz,wght.ttf", fontWeight: "bold" },
+    { src: "/fonts/Quicksand-VariableFont_wght.ttf" },
+    { src: "/fonts/Quicksand-VariableFont_wght.ttf", fontWeight: "bold" },
   ],
 });
 
 Font.register({
-  family: "DM Serif Display",
-  src: "/fonts/DMSerifDisplay-Regular.ttf",
+  family: "Lora",
+  fonts: [
+    { src: "/fonts/Lora-VariableFont_wght.ttf" },
+    { src: "/fonts/Lora-Italic-VariableFont_wght.ttf", fontStyle: "italic" },
+  ],
 });
 import {
   type Eclipse,
@@ -64,13 +67,13 @@ export type YearlyTransitsPDFProps = {
 const styles = StyleSheet.create({
   page: {
     backgroundColor: colors.pageBg,
-    paddingVertical: 36,
+    paddingVertical: 10,
     paddingHorizontal: 40,
-    fontFamily: "Inter",
+    fontFamily: "Quicksand",
   },
   pageTitle: {
     fontSize: 20,
-    fontFamily: "DM Serif Display",
+    fontFamily: "Lora",
     color: colors.textPrimary,
     marginBottom: 20,
   },
@@ -85,7 +88,7 @@ const styles = StyleSheet.create({
   },
   monthHeading: {
     fontSize: 14,
-    fontFamily: "DM Serif Display",
+    fontFamily: "Lora",
     color: colors.textPrimary,
     marginBottom: 10,
   },
@@ -94,9 +97,9 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: colors.cardBg,
     borderRadius: 4,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: colors.sectionBorder,
+    // borderWidth: 1,
+    // borderStyle: "solid",
+    // borderColor: colors.sectionBorder,
   },
   dayLabel: {
     fontSize: 9,

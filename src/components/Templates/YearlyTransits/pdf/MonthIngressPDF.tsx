@@ -5,6 +5,7 @@ import {
   getFormattedHouseText,
   getFormattedHouseRulersText,
   getFormattedHouseDescriptionText,
+  getIngressInterpretation,
 } from "@/shared/lib/textHelpers";
 import { eventStyles as s } from "./styles";
 
@@ -24,11 +25,16 @@ export function MonthIngressPDF({
   if (!natalPlacement) return null;
 
   const houseIngressedInto = getHouseFromSign(
-    birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ?? "Aries",
+    birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ??
+      "Aries",
     ingress.sign,
   );
+  const ingressInterpretation = getIngressInterpretation(
+    ingress.planet,
+    houseIngressedInto.toString(),
+  );
   const isTraditionalPlanet = TRADITIONAL_PLANETS.includes(ingress.planet);
-  const placementText = `Natally, ${ingress.planet} rules your ${getFormattedHouseRulersText(natalPlacement.rulerOf ?? [])}. During this transit, your ${getFormattedHouseDescriptionText(natalPlacement.rulerOf ?? [])}, will be brought up in your ${getFormattedHouseDescriptionText([houseIngressedInto])}.`;
+  const placementText = `Natally, ${ingress.planet} rules your ${getFormattedHouseRulersText(natalPlacement.rulerOf ?? [])}. During this transit, topics related to your ${getFormattedHouseDescriptionText(natalPlacement.rulerOf ?? [])}, will be brought up in your ${getFormattedHouseDescriptionText([houseIngressedInto])}.`;
 
   return (
     <View style={s.eventContainer}>
@@ -36,9 +42,8 @@ export function MonthIngressPDF({
         {ingress.planet} enters your {ingress.sign}{" "}
         {getFormattedHouseText(houseIngressedInto)}
       </Text>
-      {isTraditionalPlanet && (
-        <Text style={s.eventBody}>{placementText}</Text>
-      )}
+      <Text style={s.eventBody}>{ingressInterpretation}</Text>
+      {isTraditionalPlanet && <Text style={s.eventBody}>{placementText}</Text>}
     </View>
   );
 }

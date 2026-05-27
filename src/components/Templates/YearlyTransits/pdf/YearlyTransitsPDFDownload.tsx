@@ -349,7 +349,7 @@ export function YearlyTransitsPDFDownload() {
     <PDFDownloadLink document={document} fileName="yearly-transits.pdf">
       {({ loading }) => (
         <button
-          className="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors"
+          className="px-4 py-2 rounded-md bg-primary-600 hover:bg-primary-500 text-white text-sm font-medium transition-colors w-full"
           disabled={loading}
         >
           {loading ? "Generating PDF…" : "Download PDF"}

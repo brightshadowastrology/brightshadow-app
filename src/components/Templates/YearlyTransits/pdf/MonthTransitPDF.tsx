@@ -8,22 +8,13 @@ import {
   formatDegree,
   getHouseFromSign,
   getFormattedHouseText,
+  getGeneralSignificationsText,
   getFormattedTransitText,
 } from "@/shared/lib/textHelpers";
-import { getPills } from "../../../helpers";
+import { ASPECT_LABELS } from "@/shared/lib/constants";
+import { getPills } from "../../helpers";
 import { PillPDF } from "./PillPDF";
 import { eventStyles as s } from "./styles";
-
-const ASPECT_LABELS: Record<string, string> = {
-  conjunct: "conjunct",
-  opposition: "opposition",
-  superiorSquare: "square",
-  inferiorSquare: "square",
-  superiorTrine: "trine",
-  inferiorTrine: "trine",
-  superiorSextile: "sextile",
-  inferiorSextile: "sextile",
-};
 
 export function MonthTransitPDF({
   transit,
@@ -47,6 +38,11 @@ export function MonthTransitPDF({
   const title = `${transit.transitingPlanet} ${aspectLabel} natal ${transit.natalPlanet}`;
   const positionText = `${transit.position.sign} ${formatDegree(transit.position.degree, transit.position.minute)}`;
   const interpretationText = `Transiting ${transit.transitingPlanet} at ${positionText} in your ${getFormattedHouseText(transitHouse)} forms a ${aspectLabel} to your natal ${transit.natalPlanet} at ${transit.natalPosition.sign} ${formatDegree(transit.natalPosition.degree, transit.natalPosition.minute)}.`;
+  const generalSignificationsText = getGeneralSignificationsText(
+    transit.transitingPlanet,
+    natalPlanetData,
+    aspectLabel,
+  );
   const transitInterpretation = getFormattedTransitText(
     transit.transitingPlanet,
     natalPlanetData,
@@ -57,15 +53,18 @@ export function MonthTransitPDF({
 
   return (
     <View style={s.eventContainer}>
-      <View style={s.eventHeader}>
-        <Text style={s.eventTitleInRow}>{title}</Text>
-        <View style={s.pillRow}>
+      <Text style={s.eventTitle}>{title}</Text>
+      {pills.length > 0 && (
+        <View style={s.pillsColumn}>
           {pills.map((pill) => (
-            <PillPDF key={pill.type} type={pill.type} />
+            <PillPDF key={pill.type} type={pill.type} toolTip={pill.toolTip} />
           ))}
         </View>
-      </View>
+      )}
       <Text style={s.eventBody}>{interpretationText}</Text>
+      {generalSignificationsText && (
+        <Text style={s.eventBody}>{generalSignificationsText}</Text>
+      )}
       {transitInterpretation && (
         <Text style={s.eventBody}>{transitInterpretation}</Text>
       )}

@@ -16,7 +16,7 @@ import BirthchartDataForm from "../BirthchartDataForm";
 import { BirthChartProvider } from "@/components/Providers/BirthChartContext";
 import { getIsDayChart, getSectPlanets } from "../helpers";
 import YearlyTransits from "./components/YearlyTransits";
-import YearlyTransitsPDFDownload from "./components/pdf/YearlyTransitsPDFDownload";
+import YearlyTransitsPDFDownload from "./pdf/YearlyTransitsPDFDownload";
 
 type BirthchartFormData = {
   day: string;
@@ -112,9 +112,9 @@ export default function Birthchart() {
           sectPlanets={sectPlanets}
         >
           {birthChartData && (
-            <div className="mt-8 w-full">
-              <YearlyTransits />
+            <div className="mt-8 w-full flex flex-col gap-4">
               <YearlyTransitsPDFDownload />
+              <YearlyTransits />
             </div>
           )}
         </BirthChartProvider>

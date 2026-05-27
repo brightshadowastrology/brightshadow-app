@@ -1,14 +1,14 @@
 import { StyleSheet } from "@react-pdf/renderer";
 
 export const colors = {
-  pageBg: "#f9f7f3",
-  sectionBg: "#f0ece4",
-  cardBg: "#e4dccf",
-  sectionBorder: "#b79e80",
-  divider: "#9b765b",
-  textPrimary: "#111827",
-  textSecondary: "#374151",
-  textMuted: "#a9a67e",
+  pageBg: "#f0ece4",
+  sectionBg: "#e8e7df",
+  cardBg: "#d4d2c2",
+  sectionBorder: "#b8b59e",
+  divider: "#9e9b7d",
+  textPrimary: "#39392e",
+  textSecondary: "#44432f",
+  textMuted: "#50503b",
 } as const;
 
 export const eventStyles = StyleSheet.create({
@@ -24,14 +24,14 @@ export const eventStyles = StyleSheet.create({
     alignItems: "flex-start",
   },
   eventTitle: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: "bold",
     color: colors.textPrimary,
-    fontFamily: "DM Serif Display",
+    fontFamily: "Lora",
   },
   // Use this variant when the title is inside an eventHeader row alongside pills
   eventTitleInRow: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: "bold",
     color: colors.textPrimary,
     flex: 1,
@@ -43,10 +43,16 @@ export const eventStyles = StyleSheet.create({
     marginLeft: 6,
     columnGap: 3,
   },
+  pillsColumn: {
+    flexDirection: "column",
+    rowGap: 4,
+    paddingVertical: 4,
+  },
   eventBody: {
-    fontSize: 9,
-    color: colors.textSecondary,
-    marginTop: 3,
+    fontSize: 11,
+    color: colors.textPrimary,
+    marginTop: 4,
+    marginBottom: 4,
     lineHeight: 1.5,
   },
 });

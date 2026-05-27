@@ -12,7 +12,7 @@ import {
   getFormattedHouseDescriptionText,
   getFormattedAspectText,
 } from "@/shared/lib/textHelpers";
-import { getAspectsToNatalPlanets, getPills } from "../../../helpers";
+import { getAspectsToNatalPlanets, getPills } from "../../helpers";
 import { PillPDF } from "./PillPDF";
 import { eventStyles as s } from "./styles";
 
@@ -47,14 +47,14 @@ export function MonthEclipsePDF({
 
   return (
     <View style={s.eventContainer}>
-      <View style={s.eventHeader}>
-        <Text style={s.eventTitleInRow}>{lunationText}</Text>
-        <View style={s.pillRow}>
+      <Text style={s.eventTitle}>{lunationText}</Text>
+      {pills.length > 0 && (
+        <View style={s.pillsColumn}>
           {pills.map((pill) => (
-            <PillPDF key={pill.type} type={pill.type} />
+            <PillPDF key={pill.type} type={pill.type} toolTip={pill.toolTip} />
           ))}
         </View>
-      </View>
+      )}
       <Text style={s.eventBody}>{interpretationText}</Text>
       {aspects.length > 0 && (
         <Text style={s.eventBody}>

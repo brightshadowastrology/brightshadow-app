@@ -27,7 +27,7 @@ export default function MonthLunation({ lunation }: { lunation: Lunation }) {
   const recommendationText =
     lunation.lunationType === "new moon"
       ? `It's a good time to set new intensions around your ${getFormattedHouseTopicsText(lunationHouse)}.`
-      : `This period of time marks the completion of efforts over the last sixth months in your ${getFormattedHouseTopicsText(lunationHouse)}.`;
+      : `This period of time marks the completion of efforts over the last sixth months in relation to ${getFormattedHouseTopicsText(lunationHouse)}.`;
   const aspects = getAspectsToNatalPlanets(
     lunation.position,
     birthChartData,

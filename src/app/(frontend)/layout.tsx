@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import { Inter, DM_Serif_Display } from "next/font/google";
+import { Quicksand, Lora } from "next/font/google";
 import { TRPCProvider } from "@/components/Providers/TRPCProvider";
 import "./globals.css";
 
-const inter = Inter({
+const quicksand = Quicksand({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-quicksand",
 });
 
-const dmSerifDisplay = DM_Serif_Display({
+const lora = Lora({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-dm-serif-display",
+  variable: "--font-lora",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${dmSerifDisplay.variable} antialiased`}>
+      <body className={`${quicksand.variable} ${lora.variable} antialiased`}>
         <TRPCProvider>{children}</TRPCProvider>
       </body>
     </html>

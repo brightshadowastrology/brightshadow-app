@@ -33,7 +33,7 @@ export default function MonthIngress({ ingress }: { ingress: IngressEntry }) {
     "Jupiter",
     "Saturn",
   ].includes(ingress.planet);
-  const placementText = `Natally, ${ingress.planet} rules your ${getFormattedHouseRulersText(natalPlacement.rulerOf || [])}. During this transit, your ${getFormattedHouseDescriptionText(natalPlacement.rulerOf || [])}, will be brought up in your ${getFormattedHouseDescriptionText([houseIngressedInto])}.`;
+  const placementText = `Natally, ${ingress.planet} rules your ${getFormattedHouseRulersText(natalPlacement.rulerOf || [])}. During this transit, topics related to ${getFormattedHouseDescriptionText(natalPlacement.rulerOf || [])}, will be brought up in your ${getFormattedHouseDescriptionText([houseIngressedInto])}.`;
 
   return (
     <div className={"border-t border-primary-700 pt-3"}>
