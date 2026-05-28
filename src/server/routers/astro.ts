@@ -11,6 +11,8 @@ import {
   getSolarEclipses,
   getEclipses,
   getMercuryRetrogradePeriods,
+  getVenusRetrogradePeriods,
+  getMarsRetrogradePeriods,
   getAllPlanetZeroDegreeIngresses,
   getMajorTransitsAllPlanets,
 } from "../astro";
@@ -121,6 +123,22 @@ export const astroRouter = trpc
     }),
     resolve({ input }) {
       return getMercuryRetrogradePeriods(input.date);
+    },
+  })
+  .query("getVenusRetrogradePeriods", {
+    input: z.object({
+      date: z.string().transform((val) => new Date(val)),
+    }),
+    resolve({ input }) {
+      return getVenusRetrogradePeriods(input.date);
+    },
+  })
+  .query("getMarsRetrogradePeriods", {
+    input: z.object({
+      date: z.string().transform((val) => new Date(val)),
+    }),
+    resolve({ input }) {
+      return getMarsRetrogradePeriods(input.date);
     },
   })
   .query("getAllPlanetZeroDegreeIngresses", {

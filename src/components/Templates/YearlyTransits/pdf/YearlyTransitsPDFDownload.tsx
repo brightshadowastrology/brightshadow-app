@@ -34,14 +34,13 @@ import {
 
 // ─── Pure helper functions (mirrored from YearlyTransits.tsx) ─────────────────
 
-function getNext12Months(): { month: number; year: number; label: string }[] {
-  const now = new Date();
-  const currentMonth = now.getMonth();
-  const currentYear = now.getFullYear();
-
-  return Array.from({ length: 13 }, (_, i) => {
-    const monthIndex = (currentMonth + i) % 12;
-    const year = currentYear + Math.floor((currentMonth + i) / 12);
+function getNext12Months(
+  startMonth = new Date().getMonth(),
+  startYear = new Date().getFullYear(),
+): { month: number; year: number; label: string }[] {
+  return Array.from({ length: 12 }, (_, i) => {
+    const monthIndex = (startMonth + i) % 12;
+    const year = startYear + Math.floor((startMonth + i) / 12);
     return {
       month: monthIndex,
       year,
@@ -67,6 +66,7 @@ function getRetrogradesForMonth(
   retrogrades: RetrogradePeriod[],
   month: number,
   year: number,
+  planet: string,
 ): RetrogradeEvent[] {
   const events: RetrogradeEvent[] = [];
   for (const r of retrogrades) {
@@ -77,6 +77,7 @@ function getRetrogradesForMonth(
         date: r.start.date,
         position: r.start.position,
         isStarting: true,
+        planet,
       });
     }
     if (end.getUTCMonth() === month && end.getUTCFullYear() === year) {
@@ -84,6 +85,7 @@ function getRetrogradesForMonth(
         date: r.end.date,
         position: r.end.position,
         isStarting: false,
+        planet,
       });
     }
   }
@@ -198,8 +200,11 @@ function computeNextProfectionYear(
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function YearlyTransitsPDFDownload() {
-  const months = getNext12Months();
-  const dateParam = useMemo(() => new Date().toISOString(), []);
+  const months = getNext12Months(0, new Date().getFullYear());
+  const dateParam = useMemo(() => {
+    const now = new Date();
+    return new Date(Date.UTC(now.getUTCFullYear(), 0, 1)).toISOString();
+  }, []);
   const { birthChartData, birthInfo, sectPlanets, profectionYear } =
     useBirthChart();
 
@@ -215,10 +220,14 @@ export function YearlyTransitsPDFDownload() {
     "astro.getEclipses",
     { date: dateParam },
   ]);
-  const { data: retrogrades, isLoading: retrogradesLoading } = trpc.useQuery([
-    "astro.getMercuryRetrogradePeriods",
-    { date: dateParam },
-  ]);
+  const { data: mercuryRetrogrades, isLoading: mercuryRetrogradesLoading } =
+    trpc.useQuery(["astro.getMercuryRetrogradePeriods", { date: dateParam }]);
+
+  const { data: venusRetrogrades, isLoading: venusRetrogradesLoading } =
+    trpc.useQuery(["astro.getVenusRetrogradePeriods", { date: dateParam }]);
+
+  const { data: marsRetrogrades, isLoading: marsRetrogradesLoading } =
+    trpc.useQuery(["astro.getMarsRetrogradePeriods", { date: dateParam }]);
   const { data: lunations, isLoading: lunationsLoading } = trpc.useQuery([
     "astro.getLunations",
     { date: dateParam },
@@ -230,7 +239,9 @@ export function YearlyTransitsPDFDownload() {
 
   const isLoading =
     eclipsesLoading ||
-    retrogradesLoading ||
+    mercuryRetrogradesLoading ||
+    venusRetrogradesLoading ||
+    marsRetrogradesLoading ||
     lunationsLoading ||
     ingressesLoading ||
     majorTransitsLoading;
@@ -239,7 +250,9 @@ export function YearlyTransitsPDFDownload() {
     if (
       !birthChartData ||
       !eclipses ||
-      !retrogrades ||
+      !mercuryRetrogrades ||
+      !venusRetrogrades ||
+      !marsRetrogrades ||
       !lunations ||
       !ingresses ||
       !majorTransits
@@ -254,7 +267,17 @@ export function YearlyTransitsPDFDownload() {
 
     return months.map(({ month, year, label }) => {
       const monthEclipses = getEclipsesForMonth(eclipses, month, year);
-      const monthRetrogrades = getRetrogradesForMonth(retrogrades, month, year);
+      const monthRetrogrades = mercuryRetrogrades
+        ? getRetrogradesForMonth(mercuryRetrogrades, month, year, "Mercury")
+        : [];
+      monthRetrogrades.push(
+        ...(venusRetrogrades
+          ? getRetrogradesForMonth(venusRetrogrades, month, year, "Venus")
+          : []),
+        ...(marsRetrogrades
+          ? getRetrogradesForMonth(marsRetrogrades, month, year, "Mars")
+          : []),
+      );
       const eclipseSigns = new Set(monthEclipses.map((e) => e.position.sign));
       const monthLunations = getLunationsForMonth(
         lunations,
@@ -315,7 +338,9 @@ export function YearlyTransitsPDFDownload() {
   }, [
     birthChartData,
     eclipses,
-    retrogrades,
+    mercuryRetrogrades,
+    venusRetrogrades,
+    marsRetrogrades,
     lunations,
     ingresses,
     majorTransits,

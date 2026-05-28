@@ -16,8 +16,8 @@ export function MonthRetrogradePDF({
   birthChartData: PlanetPoint[];
 }) {
   const phase = retrograde.isStarting
-    ? "Mercury Retrograde begins"
-    : "Mercury Retrograde ends";
+    ? `${retrograde.planet} Retrograde begins`
+    : `${retrograde.planet} Retrograde ends`;
   const houseIngressedInto = getHouseFromSign(
     birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ?? "Aries",
     retrograde.position.sign,

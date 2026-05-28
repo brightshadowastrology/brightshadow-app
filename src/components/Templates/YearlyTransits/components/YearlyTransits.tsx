@@ -52,6 +52,7 @@ function getRetrogradesForMonth(
   retrogrades: RetrogradePeriod[],
   month: number,
   year: number,
+  planet: string,
 ): RetrogradeEvent[] {
   const events: RetrogradeEvent[] = [];
 
@@ -64,6 +65,7 @@ function getRetrogradesForMonth(
         date: r.start.date,
         position: r.start.position,
         isStarting: true,
+        planet,
       });
     }
     if (end.getUTCMonth() === month && end.getUTCFullYear() === year) {
@@ -71,6 +73,7 @@ function getRetrogradesForMonth(
         date: r.end.date,
         position: r.end.position,
         isStarting: false,
+        planet,
       });
     }
   }
@@ -218,10 +221,14 @@ export const YearlyTransits = () => {
     { date: dateParam },
   ]);
 
-  const { data: retrogrades, isLoading: retrogradesLoading } = trpc.useQuery([
-    "astro.getMercuryRetrogradePeriods",
-    { date: dateParam },
-  ]);
+  const { data: mercuryRetrogrades, isLoading: mercuryRetrogradesLoading } =
+    trpc.useQuery(["astro.getMercuryRetrogradePeriods", { date: dateParam }]);
+
+  const { data: venusRetrogrades, isLoading: venusRetrogradesLoading } =
+    trpc.useQuery(["astro.getVenusRetrogradePeriods", { date: dateParam }]);
+
+  const { data: marsRetrogrades, isLoading: marsRetrogradesLoading } =
+    trpc.useQuery(["astro.getMarsRetrogradePeriods", { date: dateParam }]);
 
   const { data: lunations, isLoading: lunationsLoading } = trpc.useQuery([
     "astro.getLunations",
@@ -235,7 +242,9 @@ export const YearlyTransits = () => {
 
   const isLoading =
     eclipsesLoading ||
-    retrogradesLoading ||
+    mercuryRetrogradesLoading ||
+    venusRetrogradesLoading ||
+    marsRetrogradesLoading ||
     lunationsLoading ||
     ingressesLoading ||
     majorTransitsLoading;
@@ -250,9 +259,18 @@ export const YearlyTransits = () => {
         const monthEclipses = eclipses
           ? getEclipsesForMonth(eclipses, month, year)
           : [];
-        const monthRetrogrades = retrogrades
-          ? getRetrogradesForMonth(retrogrades, month, year)
+        const monthRetrogrades = mercuryRetrogrades
+          ? getRetrogradesForMonth(mercuryRetrogrades, month, year, "Mercury")
           : [];
+        monthRetrogrades.push(
+          ...(venusRetrogrades
+            ? getRetrogradesForMonth(venusRetrogrades, month, year, "Venus")
+            : []),
+          ...(marsRetrogrades
+            ? getRetrogradesForMonth(marsRetrogrades, month, year, "Mars")
+            : []),
+        );
+
         const eclipseSigns = new Set(monthEclipses.map((e) => e.position.sign));
         const monthLunations = lunations
           ? getLunationsForMonth(lunations, month, year).filter(
@@ -362,7 +380,7 @@ export const YearlyTransits = () => {
                         case "retrograde":
                           return (
                             <MonthRetrograde
-                              key={`retrograde-${event.data.date}`}
+                              key={`retrograde-${event.data.planet}-${event.data.date}-${event.data.isStarting ? "start" : "end"}`}
                               retrograde={event.data}
                             />
                           );

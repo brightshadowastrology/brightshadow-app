@@ -687,8 +687,10 @@ export const getEclipses = (date: Date): Eclipse[] => {
   return allEclipses;
 };
 
-export const getMercuryRetrogradePeriods = (date: Date): RetrogradePeriod[] => {
-  // Get Mercury retrograde periods for 1 year from the given date
+export const getRetrogradePeriods = (
+  date: Date,
+  planet: number,
+): RetrogradePeriod[] => {
   const retrogradePeriods: Array<RetrogradePeriod> = [];
   const startDate = new Date(date);
   const endDate = new Date(startDate);
@@ -704,21 +706,14 @@ export const getMercuryRetrogradePeriods = (date: Date): RetrogradePeriod[] => {
     const julday = getJulianDayFromDate(currentDate);
     const [jd_ut] = julday.data;
 
-    const calc_ut = sweph.calc_ut(
-      jd_ut,
-      sweph.constants.SE_MERCURY,
-      sweph.constants.SEFLG_SPEED,
-    );
+    const calc_ut = sweph.calc_ut(jd_ut, planet, sweph.constants.SEFLG_SPEED);
 
     const [longitude] = calc_ut.data;
 
     if (previousLongitude !== null) {
-      // Check if current longitude is less than previous day's longitude
-      // This indicates retrograde motion
       const isMovingBackward = longitude < previousLongitude;
 
       if (isMovingBackward && !isRetrograde) {
-        // Mercury just went retrograde - start a new period
         isRetrograde = true;
         const splitDeg = sweph.split_deg(
           previousLongitude ? previousLongitude : longitude,
@@ -738,7 +733,6 @@ export const getMercuryRetrogradePeriods = (date: Date): RetrogradePeriod[] => {
           end: { date: "", position: { degree: 0, minute: 0, sign: "" } },
         };
       } else if (!isMovingBackward && isRetrograde && currentPeriod) {
-        // Mercury just went direct - end the current period
         isRetrograde = false;
         const splitDeg = sweph.split_deg(
           previousLongitude ? previousLongitude : longitude,
@@ -768,11 +762,7 @@ export const getMercuryRetrogradePeriods = (date: Date): RetrogradePeriod[] => {
   if (isRetrograde && currentPeriod) {
     const julday = getJulianDayFromDate(endDate);
     const [jd_ut] = julday.data;
-    const calc_ut = sweph.calc_ut(
-      jd_ut,
-      sweph.constants.SE_MERCURY,
-      sweph.constants.SEFLG_SPEED,
-    );
+    const calc_ut = sweph.calc_ut(jd_ut, planet, sweph.constants.SEFLG_SPEED);
     const [longitude] = calc_ut.data;
     const splitDeg = sweph.split_deg(
       longitude,
@@ -800,6 +790,15 @@ export const getMercuryRetrogradePeriods = (date: Date): RetrogradePeriod[] => {
 
   return filteredRetrogradePeriods;
 };
+
+export const getMercuryRetrogradePeriods = (date: Date): RetrogradePeriod[] =>
+  getRetrogradePeriods(date, sweph.constants.SE_MERCURY);
+
+export const getVenusRetrogradePeriods = (date: Date): RetrogradePeriod[] =>
+  getRetrogradePeriods(date, sweph.constants.SE_VENUS);
+
+export const getMarsRetrogradePeriods = (date: Date): RetrogradePeriod[] =>
+  getRetrogradePeriods(date, sweph.constants.SE_MARS);
 
 export const getAllPlanetZeroDegreeIngresses = (date: Date) => {
   const planets = [
