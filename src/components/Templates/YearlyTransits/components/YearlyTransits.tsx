@@ -190,16 +190,16 @@ function computeNextProfectionYear(
 }
 
 export const YearlyTransits = () => {
-  // const months = getNext12Months();
-  // // use date of purchase
-  // const dateParam = useMemo(() => new Date().toISOString(), []);
+  const months = getNext12Months();
+  // use date of purchase
+  const dateParam = useMemo(() => new Date().toISOString(), []);
 
   //use first day of the current year
-  const months = getNext12Months(0, new Date().getFullYear());
-  const dateParam = useMemo(() => {
-    const now = new Date();
-    return new Date(Date.UTC(now.getUTCFullYear(), 0, 1)).toISOString();
-  }, []);
+  // const months = getNext12Months(0, new Date().getFullYear());
+  // const dateParam = useMemo(() => {
+  //   const now = new Date();
+  //   return new Date(Date.UTC(now.getUTCFullYear(), 0, 1)).toISOString();
+  // }, []);
 
   const today = new Date();
   const startOfToday = new Date(
