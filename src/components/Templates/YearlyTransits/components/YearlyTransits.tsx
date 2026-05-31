@@ -387,6 +387,7 @@ export const YearlyTransits = () => {
                             <MonthRetrograde
                               key={`retrograde-${event.data.planet}-${event.data.date}-${event.data.isStarting ? "start" : "end"}`}
                               retrograde={event.data}
+                              retrogradePlanet={event.data.planet}
                             />
                           );
                         case "ingress":

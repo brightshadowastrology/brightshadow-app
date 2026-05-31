@@ -7,13 +7,16 @@ import {
   getFormattedHouseTopicsText,
 } from "@/shared/lib/textHelpers";
 import { eventStyles as s } from "./styles";
+import { getRetrogradeRecommendationText } from "@/components/Templates/helpers";
 
 export function MonthRetrogradePDF({
   retrograde,
   birthChartData,
+  retrogradePlanet,
 }: {
   retrograde: RetrogradeEvent;
   birthChartData: PlanetPoint[];
+  retrogradePlanet: string;
 }) {
   const phase = retrograde.isStarting
     ? `${retrograde.planet} Retrograde begins`
@@ -24,13 +27,16 @@ export function MonthRetrogradePDF({
   );
   const retrogradeText = `${phase} | ${retrograde.position.sign} ${formatDegree(retrograde.position.degree, retrograde.position.minute)}`;
   const interpretationText = `This ${phase} in your ${getFormattedHouseText(houseIngressedInto)}.`;
-  const recommendationText = `This is a time when you may miscommunicate or experience delays around your ${getFormattedHouseTopicsText(houseIngressedInto)}. For these same reasons however, it's an excellent time to slow down, review, and reconsider these areas of life.`;
+  const recommendationText = getRetrogradeRecommendationText(
+    retrogradePlanet,
+    getFormattedHouseTopicsText(houseIngressedInto),
+  );
 
   return (
     <View style={s.eventContainer}>
       <Text style={s.eventTitle}>{retrogradeText}</Text>
       <Text style={s.eventBody}>{interpretationText}</Text>
-      <Text style={s.eventBody}>{recommendationText}</Text>
+      {retrograde.isStarting && <Text style={s.eventBody}>{recommendationText}</Text>}
     </View>
   );
 }

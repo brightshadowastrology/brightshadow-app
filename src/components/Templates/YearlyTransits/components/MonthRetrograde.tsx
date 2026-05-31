@@ -6,11 +6,14 @@ import {
   getFormattedHouseText,
   getFormattedHouseTopicsText,
 } from "@/shared/lib/textHelpers";
+import { getRetrogradeRecommendationText } from "@/components/Templates/helpers";
 
 export default function MonthRetrograde({
   retrograde,
+  retrogradePlanet,
 }: {
   retrograde: RetrogradeEvent;
+  retrogradePlanet: string;
 }) {
   const { birthChartData } = useBirthChart();
 
@@ -27,7 +30,10 @@ export default function MonthRetrograde({
 
   const retrogradeText = `${phase} | ${retrograde.position.sign} ${formatDegree(retrograde.position.degree, retrograde.position.minute)} `;
   const interpretationText = `This ${phase} in your ${getFormattedHouseText(houseIngressedInto)}.`;
-  const recommendationText = `This is a time when you may miscommunicate or experience delays around your ${getFormattedHouseTopicsText(houseIngressedInto)}. For these same reasons however, it's an excellent time to slow down, review, and reconsider these areas of life.`;
+  const recommendationText = getRetrogradeRecommendationText(
+    retrogradePlanet,
+    getFormattedHouseTopicsText(houseIngressedInto),
+  );
 
   return (
     <div className={"border-t border-primary-700 pt-3"}>
@@ -37,7 +43,9 @@ export default function MonthRetrograde({
         </h4>
       </div>
       <p className="text-primary-700 mt-1">{interpretationText}</p>
-      <p className="text-primary-700 mt-1">{recommendationText}</p>
+      <p className="text-primary-700 mt-1">
+        {retrograde.isStarting && recommendationText}
+      </p>
     </div>
   );
 }
