@@ -30,8 +30,6 @@ export default function Birthchart() {
   const [birthChartData, setBirthChartData] = useState<PlanetPoint[] | null>(
     null,
   );
-  const [profectionYear, setProfectionYear] =
-    useState<ProfectionYearData | null>(null);
   const [birthInfo, setBirthInfo] = useState<BirthInfo | null>(null);
   const [isDayChart, setIsDayChart] = useState<boolean | null>(null);
   const [sectPlanets, setSectPlanets] = useState<SectPlanets | null>(null);
@@ -77,14 +75,6 @@ export default function Birthchart() {
       const descendant = result.find((p) => p.planet === "Descendant");
       const sun = result.find((p) => p.planet === "Sun");
       if (ascendant && descendant && sun) {
-        const profectionResult = await trpcContext.fetchQuery([
-          "astro.getProfectionYear",
-          {
-            ascendantSign: ascendant.position.sign,
-            birthdate: utcDate.toISOString(),
-          },
-        ]);
-        setProfectionYear(profectionResult);
         const isDayChart = getIsDayChart(sun, ascendant, descendant);
         setIsDayChart(isDayChart);
         const sectPlanetsResult = getSectPlanets(isDayChart, result);
@@ -107,7 +97,7 @@ export default function Birthchart() {
         <BirthChartProvider
           value={birthChartData}
           birthInfo={birthInfo}
-          profectionYear={profectionYear}
+          profectionYear={null}
           isDayChart={isDayChart}
           sectPlanets={sectPlanets}
         >
@@ -118,12 +108,6 @@ export default function Birthchart() {
                 isDayChart={isDayChart}
                 sectPlanets={sectPlanets}
               />
-            </div>
-          )}
-
-          {profectionYear && (
-            <div className="mt-8 w-full">
-              <ProfectionYear data={profectionYear} />
             </div>
           )}
         </BirthChartProvider>
