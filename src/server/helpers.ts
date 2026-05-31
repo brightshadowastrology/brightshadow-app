@@ -41,7 +41,7 @@ export const getHousePositions = (
   longitude: number,
 ) => {
   //get ascendant
-  let houses = sweph.houses(
+  const houses = sweph.houses(
     date,
     latitude,
     longitude,
@@ -119,7 +119,7 @@ export const getExactLunationDate = (
   targetDate: Date,
   isNewMoon: boolean,
 ): Date => {
-  let exactDate = new Date(targetDate);
+  const exactDate = new Date(targetDate);
   let found = false;
 
   while (!found) {

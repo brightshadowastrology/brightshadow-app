@@ -18,6 +18,20 @@ import {
   neptuneIngressInterpretations,
   plutoIngressInterpretations,
 } from "@/shared/text/ingressInterpretations";
+import {
+  firstHouseRulershipInterpretations,
+  secondHouseRulershipInterpretations,
+  thirdHouseRulershipInterpretations,
+  fourthHouseRulershipInterpretations,
+  fifthHouseRulershipInterpretations,
+  sixthHouseRulershipInterpretations,
+  seventhHouseRulershipInterpretations,
+  eighthHouseRulershipInterpretations,
+  ninthHouseRulershipInterpretations,
+  tenthHouseRulershipInterpretations,
+  eleventhHouseRulershipInterpretations,
+  twelfthHouseRulershipInterpretations,
+} from "@/shared/text/houseRulershipInterpretations";
 import { ASPECT_LABELS } from "@/shared/lib/constants";
 import {
   type PlanetPoint,
@@ -243,4 +257,53 @@ export const getIngressInterpretation = (
   }
 
   return ingressTextCollection?.[house] || "";
+};
+
+export const getPlanetRulerText = (house: number, rulerHouse: number) => {
+  let textCollection: { [key: number]: string } = {};
+
+  switch (house) {
+    case 1:
+      textCollection = firstHouseRulershipInterpretations;
+      break;
+    case 2:
+      textCollection = secondHouseRulershipInterpretations;
+      break;
+    case 3:
+      textCollection = thirdHouseRulershipInterpretations;
+      break;
+    case 4:
+      textCollection = fourthHouseRulershipInterpretations;
+      break;
+    case 5:
+      textCollection = fifthHouseRulershipInterpretations;
+      break;
+    case 6:
+      textCollection = sixthHouseRulershipInterpretations;
+      break;
+    case 7:
+      textCollection = seventhHouseRulershipInterpretations;
+      break;
+    case 8:
+      textCollection = eighthHouseRulershipInterpretations;
+      break;
+    case 9:
+      textCollection = ninthHouseRulershipInterpretations;
+      break;
+    case 10:
+      textCollection = tenthHouseRulershipInterpretations;
+      break;
+    case 11:
+      textCollection = eleventhHouseRulershipInterpretations;
+      break;
+    case 12:
+      textCollection = twelfthHouseRulershipInterpretations;
+      break;
+    default:
+      console.log("Not found");
+  }
+
+  console.log("text collection", textCollection, "ruler house", rulerHouse);
+
+  return textCollection?.[rulerHouse] || "";
 };

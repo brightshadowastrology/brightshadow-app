@@ -59,7 +59,7 @@ export default function BirthchartDataForm({
 
   return (
     <Form.Root
-      className="flex w-[100%] flex-col py-8"
+      className="flex w-full flex-col py-8"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex w-full gap-4 items-start">

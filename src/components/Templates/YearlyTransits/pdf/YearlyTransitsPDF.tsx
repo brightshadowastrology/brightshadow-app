@@ -38,6 +38,7 @@ import { MonthRetrogradePDF } from "./MonthRetrogradePDF";
 import { MonthIngressPDF } from "./MonthIngressPDF";
 import { MonthTransitPDF } from "./MonthTransitPDF";
 import { MonthBirthdayPDF } from "./MonthBirthdayPDF";
+import { ProfectionYearPDF } from "./ProfectionYearPDF";
 import { colors } from "./styles";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -60,6 +61,7 @@ export type YearlyTransitsPDFProps = {
   months: MonthData[];
   birthChartData: PlanetPoint[];
   sectPlanets: SectPlanets;
+  profectionYear?: ProfectionYearData | null;
 };
 
 // ─── Styles ──────────────────────────────────────────────────────────────────
@@ -109,7 +111,6 @@ const styles = StyleSheet.create({
   emptyMonth: {
     fontSize: 9,
     color: colors.textMuted,
-    fontStyle: "italic",
   },
 });
 
@@ -119,11 +120,19 @@ export function YearlyTransitsPDF({
   months,
   birthChartData,
   sectPlanets,
+  profectionYear,
 }: YearlyTransitsPDFProps) {
   return (
     <Document>
       <Page size="LETTER" style={styles.page} wrap>
         <Text style={styles.pageTitle}>Yearly Transits</Text>
+
+        {profectionYear && (
+          <ProfectionYearPDF
+            data={profectionYear}
+            birthChartData={birthChartData}
+          />
+        )}
 
         {months.map(({ label, year, events }) => {
           // Group events by date

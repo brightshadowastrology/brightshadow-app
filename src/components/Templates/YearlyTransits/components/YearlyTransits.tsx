@@ -19,12 +19,13 @@ import MonthIngress from "./MonthIngress";
 import MonthTransit from "./MonthTransit";
 import MonthBirthday from "./MonthBirthday";
 import LoadingIndicator from "@/components/UI/LoadingIndicator";
+import ProfectionYear from "./ProfectionYear";
 
 function getNext12Months(
   startMonth = new Date().getMonth(),
   startYear = new Date().getFullYear(),
 ): { month: number; year: number; label: string }[] {
-  return Array.from({ length: 12 }, (_, i) => {
+  return Array.from({ length: 13 }, (_, i) => {
     const monthIndex = (startMonth + i) % 12;
     const year = startYear + Math.floor((startMonth + i) / 12);
     return {
@@ -255,6 +256,10 @@ export const YearlyTransits = () => {
 
   return (
     <div className="space-y-6 w-full">
+      {profectionYear && birthChartData && (
+        <ProfectionYear data={profectionYear} birthChartData={birthChartData} />
+      )}
+
       {months.map(({ month, year, label }) => {
         const monthEclipses = eclipses
           ? getEclipsesForMonth(eclipses, month, year)
@@ -403,6 +408,7 @@ export const YearlyTransits = () => {
                             <MonthBirthday
                               key={`birthday-${event.date}`}
                               nextProfectionYear={event.data}
+                              birthChartData={birthChartData}
                             />
                           ) : null;
                       }

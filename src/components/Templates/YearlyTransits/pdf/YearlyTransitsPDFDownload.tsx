@@ -38,7 +38,7 @@ function getNext12Months(
   startMonth = new Date().getMonth(),
   startYear = new Date().getFullYear(),
 ): { month: number; year: number; label: string }[] {
-  return Array.from({ length: 12 }, (_, i) => {
+  return Array.from({ length: 13 }, (_, i) => {
     const monthIndex = (startMonth + i) % 12;
     const year = startYear + Math.floor((startMonth + i) / 12);
     return {
@@ -372,6 +372,7 @@ export function YearlyTransitsPDFDownload() {
       months={monthsData}
       birthChartData={birthChartData}
       sectPlanets={sectPlanets}
+      profectionYear={profectionYear}
     />
   );
 

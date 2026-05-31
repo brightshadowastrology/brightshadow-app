@@ -207,3 +207,50 @@ export const SIGN_RULERS: { [key: string]: string } = {
   Aquarius: "Saturn",
   Pisces: "Jupiter",
 };
+
+export const PLANET_DIGNITIES_DEBILITIES: {
+  [key: string]: { [key: string]: string[] };
+} = {
+  Sun: {
+    Domicile: ["Leo"],
+    Exaltation: ["Aries"],
+    Detriment: ["Aquarius"],
+    Fall: ["Libra"],
+  },
+  Moon: {
+    Domicile: ["Cancer"],
+    Exaltation: ["Taurus"],
+    Detriment: ["Capricorn"],
+    Fall: ["Scorpio"],
+  },
+  Mercury: {
+    Domicile: ["Gemini", "Virgo"],
+    Exaltation: ["Virgo"],
+    Detriment: ["Sagittarius", "Pisces"],
+    Fall: ["Pisces"],
+  },
+  Venus: {
+    Domicile: ["Taurus", "Libra"],
+    Exaltation: ["Pisces"],
+    Detriment: ["Scorpio", "Aries"],
+    Fall: ["Virgo"],
+  },
+  Mars: {
+    Domicile: ["Aries", "Scorpio"],
+    Exaltation: ["Capricorn"],
+    Detriment: ["Libra", "Taurus"],
+    Fall: ["Cancer"],
+  },
+  Jupiter: {
+    Domicile: ["Sagittarius", "Pisces"],
+    Exaltation: ["Cancer"],
+    Detriment: ["Gemini", "Virgo"],
+    Fall: ["Capricorn"],
+  },
+  Saturn: {
+    Domicile: ["Capricorn", "Aquarius"],
+    Exaltation: ["Libra"],
+    Detriment: ["Cancer", "Leo"],
+    Fall: ["Aries"],
+  },
+};

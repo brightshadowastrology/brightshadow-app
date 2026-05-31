@@ -6,7 +6,10 @@ import {
   type Pill,
 } from "@/shared/types";
 import { sectInterpretations } from "@/shared/text/text";
-import { ASPECTS_MAP } from "@/shared/lib/constants";
+import {
+  ASPECTS_MAP,
+  PLANET_DIGNITIES_DEBILITIES,
+} from "@/shared/lib/constants";
 
 export const getAspectsToNatalPlanets = (
   transit: Position,
@@ -301,4 +304,37 @@ export const getPills = (
   }
 
   return pills;
+};
+
+// Helper for finding essential dignities of planets in a given sign, using the traditional rulership system
+export const getPlanetDignity = (planet: string, sign: string): string => {
+  let dignity = "";
+
+  ["Domicile", "Exaltation", "Detriment", "Fall"].forEach((dignityType) => {
+    if (PLANET_DIGNITIES_DEBILITIES[planet]) {
+      const planetDignities = PLANET_DIGNITIES_DEBILITIES[planet];
+      if (
+        planetDignities[dignityType as keyof typeof planetDignities].includes(
+          sign,
+        )
+      ) {
+        switch (dignityType) {
+          case "Domicile":
+            dignity = "in domicile";
+            break;
+          case "Exaltation":
+            dignity = "exalted";
+            break;
+          case "Detriment":
+            dignity = "in detriment";
+            break;
+          case "Fall":
+            dignity = "in fall";
+            break;
+        }
+      }
+    }
+  });
+
+  return dignity;
 };
