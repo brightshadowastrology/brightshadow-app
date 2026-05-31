@@ -153,7 +153,7 @@ export function YearlyTransitsPDF({
 
               {Object.keys(byDay).length === 0 ? (
                 <Text style={styles.emptyMonth}>
-                  No notable events this month.
+                  No notable events for the remainder of this month.
                 </Text>
               ) : (
                 Object.entries(byDay).map(([dateKey, dayEvents]) => {
@@ -217,6 +217,7 @@ export function YearlyTransitsPDF({
                               <MonthBirthdayPDF
                                 key="birthday"
                                 nextProfectionYear={event.data}
+                                birthChartData={birthChartData}
                               />
                             ) : null;
                         }

@@ -20,7 +20,21 @@ export const getAspectsToNatalPlanets = (
 ): TransitEntry[] => {
   const transitAspects = ASPECTS_MAP[transit.sign as keyof typeof ASPECTS_MAP];
 
-  const withinOrb = natalPlanets.filter(
+  const filteredNatalPlanets = [
+    "Sun",
+    "Moon",
+    "Mercury",
+    "Venus",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+  ];
+
+  const classicalPlanets = natalPlanets.filter((natal) =>
+    filteredNatalPlanets.includes(natal.planet),
+  );
+
+  const withinOrb = classicalPlanets.filter(
     (natal) => Math.abs(natal.position.degree - transit.degree) <= 3,
   );
 
