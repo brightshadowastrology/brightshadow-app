@@ -147,12 +147,12 @@ export type SectPlanets = {
 export type Pill = {
   type:
     | "powerful"
-    | "personallyFelt"
     | "joyous"
     | "excessive"
     | "productive"
     | "challenging"
     | "pivotPoint"
-    | "lifeDefining";
+    | "lifeDefining"
+    | "timeLordEvent";
   toolTip: string;
 };

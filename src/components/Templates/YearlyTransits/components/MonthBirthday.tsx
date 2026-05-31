@@ -11,7 +11,7 @@ export default function MonthBirthday({
   nextProfectionYear,
   birthChartData,
 }: MonthBirthdayProps) {
-  const { profectionYear, lordOfYear } = nextProfectionYear;
+  const { profectionYear } = nextProfectionYear;
 
   if (!birthChartData) return null;
 
@@ -23,7 +23,6 @@ export default function MonthBirthday({
         year..
       </p>
       <div className="text-primary-700 mt-1">
-        Your Lord of the Year is {lordOfYear}.{" "}
         <ProfectionYearBodyText
           data={nextProfectionYear}
           birthChartData={birthChartData}

@@ -5,10 +5,6 @@ const PILL_CONFIG = {
     colors: "bg-primary-300 text-primary-700 border-primary-700",
     text: "Powerful",
   },
-  personallyFelt: {
-    colors: "bg-primary-300 text-primary-700 border-primary-700",
-    text: "Personally Felt",
-  },
   joyous: {
     colors: "bg-primary-300 text-primary-700 border-primary-700",
     text: "Joyous",
@@ -32,6 +28,10 @@ const PILL_CONFIG = {
   lifeDefining: {
     colors: "bg-primary-300 text-primary-700 border-primary-700",
     text: "Life Defining",
+  },
+  timeLordEvent: {
+    colors: "bg-primary-300 text-primary-700 border-primary-700",
+    text: "Time Lord Event",
   },
 } as const;
 

@@ -13,7 +13,7 @@ import { getAspectsToNatalPlanets, getPills } from "../../helpers";
 import Pill from "@/components/UI/Pill";
 
 export default function MonthLunation({ lunation }: { lunation: Lunation }) {
-  const { birthChartData, sectPlanets } = useBirthChart();
+  const { birthChartData, sectPlanets, profectionYear } = useBirthChart();
 
   if (!birthChartData || !sectPlanets) return;
 
@@ -35,7 +35,7 @@ export default function MonthLunation({ lunation }: { lunation: Lunation }) {
     lunation.date,
   );
   const pills = aspects
-    .flatMap((aspect) => getPills(birthChartData, sectPlanets, aspect))
+    .flatMap((aspect) => getPills(birthChartData, sectPlanets, aspect, profectionYear))
     .filter(
       (pill, index, self) =>
         index === self.findIndex((p) => p.type === pill.type),

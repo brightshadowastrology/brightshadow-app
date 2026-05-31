@@ -3,6 +3,7 @@ import {
   type TransitEntry,
   type PlanetPoint,
   type SectPlanets,
+  type ProfectionYearData,
 } from "@/shared/types";
 import {
   formatDegree,
@@ -20,10 +21,12 @@ export function MonthTransitPDF({
   transit,
   birthChartData,
   sectPlanets,
+  profectionYearData,
 }: {
   transit: TransitEntry;
   birthChartData: PlanetPoint[];
   sectPlanets: SectPlanets;
+  profectionYearData: ProfectionYearData | null;
 }) {
   const ascendantSign =
     birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ??
@@ -49,7 +52,7 @@ export function MonthTransitPDF({
     aspectLabel,
   );
 
-  const pills = getPills(birthChartData, sectPlanets, transit);
+  const pills = getPills(birthChartData, sectPlanets, transit, profectionYearData);
 
   return (
     <View style={s.eventContainer}>

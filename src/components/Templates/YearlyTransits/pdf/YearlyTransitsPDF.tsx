@@ -173,6 +173,7 @@ export function YearlyTransitsPDF({
                                 eclipse={event.data}
                                 birthChartData={birthChartData}
                                 sectPlanets={sectPlanets}
+                                profectionYearData={profectionYear ?? null}
                               />
                             );
                           case "lunation":
@@ -182,6 +183,7 @@ export function YearlyTransitsPDF({
                                 lunation={event.data}
                                 birthChartData={birthChartData}
                                 sectPlanets={sectPlanets}
+                                profectionYearData={profectionYear ?? null}
                               />
                             );
                           case "retrograde":
@@ -207,6 +209,7 @@ export function YearlyTransitsPDF({
                                 transit={event.data}
                                 birthChartData={birthChartData}
                                 sectPlanets={sectPlanets}
+                                profectionYearData={profectionYear ?? null}
                               />
                             );
                           case "birthday":

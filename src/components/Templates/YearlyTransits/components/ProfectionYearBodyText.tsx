@@ -22,7 +22,7 @@ export default function ProfectionYearBodyText({
   const natalLord = birthChartData.find(
     (planet) => planet.planet === lordOfYear,
   );
-  const endText = `From now until your next birthday, you might find that these themes develop and come to fruition. You'll notice that transits in your ${getOrdinal(profectionYear)} house, transits to your ${lordOfYear}, and the transits of ${formattedLordOfYear.toLowerCase()} ${lordOfYear === "Moon" ? `(new and full moons, and especially eclipses!)` : ""} ${lordOfYear === "Sun" ? `( eclipses in particular)` : ""} mark important turning points.`;
+  const endText = `From now until your next birthday, you might find that these themes develop and come to fruition. You'll notice that transits in your ${getOrdinal(profectionYear)} house, transits to your ${lordOfYear}, and the transits of ${formattedLordOfYear.toLowerCase()} ${lordOfYear === "Moon" ? `(new and full moons, and especially eclipses!)` : ""} ${lordOfYear === "Sun" ? `(eclipses in particular)` : ""} mark important turning points.`;
 
   return (
     <>

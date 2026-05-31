@@ -4,6 +4,7 @@ import {
   type SectPlanets,
   type TransitEntry,
   type Pill,
+  type ProfectionYearData,
 } from "@/shared/types";
 import { sectInterpretations } from "@/shared/text/text";
 import {
@@ -171,6 +172,7 @@ export const getPills = (
   birthchartData: PlanetPoint[],
   sectPlanets: SectPlanets,
   transit: TransitEntry,
+  profectionYearData: ProfectionYearData | null,
 ): Pill[] => {
   const pills: Pill[] = [];
 
@@ -190,33 +192,9 @@ export const getPills = (
     split.length > 1 ? split[1].toLowerCase() : split[0];
 
   const transitAspect =
-    transitingPlanetAspect === "conjunct" ||
-    transitingPlanetAspect === "trine" ||
-    transitingPlanetAspect === "sextile"
+    transitingPlanetAspect === "trine" || transitingPlanetAspect === "sextile"
       ? "easy"
       : "hard";
-
-  // Powerful transits - Transits to angles or angle rulers
-  if (
-    transitAspect === "hard" &&
-    (isPlacementAngle(transit.natalPlanet) ||
-      isAngleRuler(natalPlanet.rulerOf || []))
-  ) {
-    pills.push({
-      type: "powerful",
-      toolTip:
-        "These hard transits to your angles or angle rulers mark significant turning points in life.",
-    });
-  }
-
-  // Personally felt transits - Transits of personal planets
-  if (transitAspect === "hard" && isPersonalPlanet(transit.transitingPlanet)) {
-    pills.push({
-      type: "personallyFelt",
-      toolTip:
-        "These hard transits of personal planets often manifest as personally felt challenges or changes.",
-    });
-  }
 
   if (isSectPlanet(transitingPlanetName)) {
     const isBenefic = isBeneficPlanet(transitingPlanetName);
@@ -261,6 +239,21 @@ export const getPills = (
     }
   }
 
+  // Powerful transits - Transits to angles or angle rulers
+  if (
+    transitAspect === "hard" &&
+    (isSocialPlanet(transitingPlanetName) ||
+      transitingPlanetName === "Eclipse") &&
+    (isPlacementAngle(transit.natalPlanet) ||
+      isAngleRuler(natalPlanet.rulerOf || []))
+  ) {
+    pills.push({
+      type: "powerful",
+      toolTip:
+        "These hard transits to your angles or angle rulers mark significant turning points in life.",
+    });
+  }
+
   if (
     transitAspect === "hard" &&
     isOuterPlanet(transitingPlanetName) &&
@@ -272,20 +265,6 @@ export const getPills = (
       type: "lifeDefining",
       toolTip:
         "These hard transits of the outer planets to your angles or angle rulers often manifest as life-changing events.",
-    });
-  }
-
-  // New beginnings - Transits of lunations
-  if (
-    (transitingPlanetAspect === "conjunct" ||
-      transitingPlanetAspect === "square" ||
-      transitingPlanetAspect === "opposition") &&
-    transitingPlanetName === "Lunation"
-  ) {
-    pills.push({
-      type: "pivotPoint",
-      toolTip:
-        "This lunation sets up six months of new beginnings and changes in the areas of life associated with this house.",
     });
   }
 
@@ -301,6 +280,53 @@ export const getPills = (
       toolTip:
         "This eclipse sets up six months of major endings and new beginnings in the areas of life associated with this house.",
     });
+  }
+
+  // Time lord events - Transits to the profected house, transits to the ruler of the profected house, or transits from the profected ruler
+  // If moon is the time lord for the year, new and full moons, as well as eclipeses are time lord events
+  // If sun is the time lord for the year then eclipses, and the changing of the sun's sign are time lords events
+  // For other planets, the ingress of the planet into a new sign, as well as any hard aspect from that planet is a time lord event
+  if (profectionYearData) {
+    const { profectionSign, lordOfYear } = profectionYearData;
+
+    const isProfectedHouseTransit = transit.position.sign === profectionSign;
+    const isTransitToLordOfYear = transit.natalPlanet === lordOfYear;
+
+    let isTransitFromLordOfYear = false;
+    if (lordOfYear === "Moon") {
+      isTransitFromLordOfYear = transitingPlanetName === "Eclipse";
+    } else if (lordOfYear === "Sun") {
+      isTransitFromLordOfYear = transitingPlanetName === "Eclipse";
+    } else {
+      isTransitFromLordOfYear =
+        transit.transitingPlanet === lordOfYear && transitAspect === "hard";
+    }
+
+    if (
+      isProfectedHouseTransit ||
+      isTransitToLordOfYear ||
+      isTransitFromLordOfYear
+    ) {
+      let toolTip = "";
+      if (isTransitFromLordOfYear) {
+        if (lordOfYear === "Moon") {
+          toolTip =
+            "As your time lord, the Moon's lunations and eclipses mark pivotal moments this year.";
+        } else if (lordOfYear === "Sun") {
+          toolTip =
+            "As your time lord, this eclipse marks a significant turning point this year.";
+        } else {
+          toolTip = `This hard transit from your time lord ${lordOfYear} marks a key turning point this year.`;
+        }
+      } else if (isTransitToLordOfYear) {
+        toolTip = `This transit to your natal ${lordOfYear} activates your time lord for this year.`;
+      } else {
+        toolTip =
+          "This transit occurs in your profected sign, activating this year's key themes.";
+      }
+
+      pills.push({ type: "timeLordEvent", toolTip });
+    }
   }
 
   return pills;

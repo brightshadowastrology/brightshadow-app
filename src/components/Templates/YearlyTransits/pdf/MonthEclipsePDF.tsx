@@ -3,6 +3,7 @@ import {
   type Eclipse,
   type PlanetPoint,
   type SectPlanets,
+  type ProfectionYearData,
 } from "@/shared/types";
 import {
   titleCase,
@@ -20,10 +21,12 @@ export function MonthEclipsePDF({
   eclipse,
   birthChartData,
   sectPlanets,
+  profectionYearData,
 }: {
   eclipse: Eclipse;
   birthChartData: PlanetPoint[];
   sectPlanets: SectPlanets;
+  profectionYearData: ProfectionYearData | null;
 }) {
   const lunationHouse = getHouseFromSign(
     birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ??
@@ -39,7 +42,7 @@ export function MonthEclipsePDF({
     eclipse.date,
   );
   const pills = aspects
-    .flatMap((aspect) => getPills(birthChartData, sectPlanets, aspect))
+    .flatMap((aspect) => getPills(birthChartData, sectPlanets, aspect, profectionYearData))
     .filter(
       (pill, index, self) =>
         index === self.findIndex((p) => p.type === pill.type),

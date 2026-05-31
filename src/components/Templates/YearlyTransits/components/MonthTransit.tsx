@@ -12,7 +12,7 @@ import Pill from "@/components/UI/Pill";
 import { getPills } from "../../helpers";
 
 export default function MonthTransit({ transit }: { transit: TransitEntry }) {
-  const { birthChartData, sectPlanets } = useBirthChart();
+  const { birthChartData, sectPlanets, profectionYear } = useBirthChart();
 
   if (!birthChartData || !sectPlanets) return;
 
@@ -42,7 +42,7 @@ export default function MonthTransit({ transit }: { transit: TransitEntry }) {
     aspectLabel,
   );
 
-  const pills = getPills(birthChartData, sectPlanets, transit);
+  const pills = getPills(birthChartData, sectPlanets, transit, profectionYear);
 
   return (
     <div className={"border-t border-primary-700 pt-3"}>

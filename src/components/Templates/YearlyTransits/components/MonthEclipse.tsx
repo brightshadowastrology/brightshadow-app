@@ -17,7 +17,7 @@ export default function MonthEclipse({
   eclipse: Eclipse;
   showDate?: boolean;
 }) {
-  const { birthChartData, sectPlanets } = useBirthChart();
+  const { birthChartData, sectPlanets, profectionYear } = useBirthChart();
 
   if (!birthChartData || !sectPlanets) return;
 
@@ -35,7 +35,7 @@ export default function MonthEclipse({
     eclipse.date,
   );
   const pills = aspects
-    .flatMap((aspect) => getPills(birthChartData, sectPlanets, aspect))
+    .flatMap((aspect) => getPills(birthChartData, sectPlanets, aspect, profectionYear))
     .filter(
       (pill, index, self) =>
         index === self.findIndex((p) => p.type === pill.type),

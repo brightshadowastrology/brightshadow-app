@@ -11,12 +11,6 @@ const PILL_PDF_CONFIG: Record<
     border: "#50503b",
     text: "Powerful",
   },
-  personallyFelt: {
-    bg: "#b8b59e",
-    color: "#50503b",
-    border: "#50503b",
-    text: "Personally Felt",
-  },
   joyous: {
     bg: "#b8b59e",
     color: "#50503b",
@@ -52,6 +46,12 @@ const PILL_PDF_CONFIG: Record<
     color: "#50503b",
     border: "#50503b",
     text: "Life Defining",
+  },
+  timeLordEvent: {
+    bg: "#b8b59e",
+    color: "#50503b",
+    border: "#50503b",
+    text: "Time Lord Event",
   },
 };
 
