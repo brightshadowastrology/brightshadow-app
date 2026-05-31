@@ -802,6 +802,8 @@ export const getMarsRetrogradePeriods = (date: Date): RetrogradePeriod[] =>
 
 export const getAllPlanetZeroDegreeIngresses = (date: Date) => {
   const planets = [
+    "Sun",
+    "Mercury",
     "Venus",
     "Mars",
     "Jupiter",

@@ -27,6 +27,7 @@ export default function MonthIngress({ ingress }: { ingress: IngressEntry }) {
     houseIngressedInto.toString(),
   );
   const isTraditionalPlanet = [
+    "Sun",
     "Mercury",
     "Venus",
     "Mars",

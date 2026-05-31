@@ -1,5 +1,35 @@
 import { type IngressInterpretations } from "@/shared/types";
 
+export const sunIngressInterpretations: IngressInterpretations = {
+  "1": "Sun entering your 1st house can bring a boost of confidence and vitality. You may feel more self-assured and ready to take on new challenges, making it a great time for personal growth and self-expression.",
+  "2": "With Sun in your 2nd house, you may find pleasure in material comforts and financial matters. This transit can enhance your appreciation for beauty and luxury, and may bring opportunities for financial gain.",
+  "3": "Sun entering your 3rd house can enhance your communication skills and make social interactions more enjoyable. It's a great time for networking, learning, and expressing your ideas creatively.",
+  "4": "With Sun in your 4th house, you may feel a stronger connection to home and family. This transit can bring harmony to domestic life and encourage you to create a beautiful and comfortable living space.",
+  "5": "Sun entering your 5th house can ignite your creativity and passion. This is a great time for romance, hobbies, and enjoying life's pleasures. You may find yourself drawn to artistic pursuits or social events.",
+  "6": "With Sun in your 6th house, you may find joy in work and daily routines. This transit can improve your relationships with coworkers and encourage you to take better care of your health and well-being.",
+  "7": "Sun entering your 7th house can enhance your relationships and partnerships. This is a great time for romance, marriage, and forming harmonious connections with others.",
+  "8": "With Sun in your 8th house, you may experience deeper emotional connections and a heightened sense of intimacy. This transit can also bring financial benefits through shared resources or inheritances.",
+  "9": "Sun entering your 9th house can inspire a love for travel, learning, and new experiences. This is a great time for expanding your horizons and connecting with different cultures.",
+  "10": "With Sun in your 10th house, you may find success and recognition in your career. This transit can enhance your public image and bring opportunities for advancement.",
+  "11": "Sun entering your 11th house can bring joy through friendships and social connections. This is a great time for group activities, networking, and pursuing your aspirations.",
+  "12": "With Sun in your 12th house, you may find beauty in solitude and introspection. This transit can encourage you to connect with your inner self and find peace through creative or spiritual pursuits.",
+};
+
+export const mercuryIngressInterpretations: IngressInterpretations = {
+  "1": "Mercury entering your 1st house can enhance your communication skills and make you more expressive. You may feel more curious and eager to learn, making it a great time for self-expression and connecting with others.",
+  "2": "With Mercury in your 2nd house, you may find pleasure in material comforts and financial matters. This transit can enhance your appreciation for beauty and luxury, and may bring opportunities for financial gain.",
+  "3": "Mercury entering your 3rd house can enhance your communication skills and make social interactions more enjoyable. It's a great time for networking, learning, and expressing your ideas creatively.",
+  "4": "With Mercury in your 4th house, you may feel a stronger connection to home and family. This transit can bring harmony to domestic life and encourage you to create a beautiful and comfortable living space.",
+  "5": "Mercury entering your 5th house can ignite your creativity and passion. This is a great time for romance, hobbies, and enjoying life's pleasures. You may find yourself drawn to artistic pursuits or social events.",
+  "6": "With Mercury in your 6th house, you may find joy in work and daily routines. This transit can improve your relationships with coworkers and encourage you to take better care of your health and well-being.",
+  "7": "Mercury entering your 7th house can enhance your relationships and partnerships. This is a great time for romance, marriage, and forming harmonious connections with others.",
+  "8": "With Mercury in your 8th house, you may experience deeper emotional connections and a heightened sense of intimacy. This transit can also bring financial benefits through shared resources or inheritances.",
+  "9": "Mercury entering your 9th house can inspire a love for travel, learning, and new experiences. This is a great time for expanding your horizons and connecting with different cultures.",
+  "10": "With Mercury in your 10th house, you may find success and recognition in your career. This transit can enhance your public image and bring opportunities for advancement.",
+  "11": "Mercury entering your 11th house can bring joy through friendships and social connections. This is a great time for group activities, networking, and pursuing your aspirations.",
+  "12": "With Mercury in your 12th house, you may find beauty in solitude and introspection. This transit can encourage you to connect with your inner self and find peace through creative or spiritual pursuits.",
+};
+
 export const venusIngressInterpretations: IngressInterpretations = {
   "1": "Venus entering your 1st house can bring a boost of confidence and charm. You may feel more attractive and sociable, making it a great time for self-expression and connecting with others.",
   "2": "With Venus in your 2nd house, you may find pleasure in material comforts and financial matters. This transit can enhance your appreciation for beauty and luxury, and may bring opportunities for financial gain.",

@@ -10,6 +10,8 @@ import {
   venusTransitInterpretations,
 } from "@/shared/text/transitInterpretations";
 import {
+  sunIngressInterpretations,
+  mercuryIngressInterpretations,
   venusIngressInterpretations,
   marsIngressInterpretations,
   jupiterIngressInterpretations,
@@ -231,6 +233,12 @@ export const getIngressInterpretation = (
   let ingressTextCollection: IngressInterpretations = {};
 
   switch (transitingPlanet) {
+    case "Sun":
+      ingressTextCollection = sunIngressInterpretations;
+      break;
+    case "Mercury":
+      ingressTextCollection = mercuryIngressInterpretations;
+      break;
     case "Venus":
       ingressTextCollection = venusIngressInterpretations;
       break;
