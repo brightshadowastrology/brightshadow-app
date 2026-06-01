@@ -15,6 +15,7 @@ import {
   getMarsRetrogradePeriods,
   getAllPlanetZeroDegreeIngresses,
   getMajorTransitsAllPlanets,
+  getMajorTransitsAllPlanetsWithOrb,
 } from "../astro";
 
 const positionSchema = z.object({
@@ -156,5 +157,19 @@ export const astroRouter = trpc
     }),
     resolve({ input }) {
       return getMajorTransitsAllPlanets(input.natalPlacements, input.date);
+    },
+  })
+  .query("getMajorTransitsAllPlanetsWithOrb", {
+    input: z.object({
+      natalPlacements: z.array(planetPositionSchema),
+      orb: z.number(),
+      date: z.string().transform((val) => new Date(val)),
+    }),
+    resolve({ input }) {
+      return getMajorTransitsAllPlanetsWithOrb(
+        input.natalPlacements,
+        input.orb,
+        input.date,
+      );
     },
   });

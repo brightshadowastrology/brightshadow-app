@@ -40,6 +40,8 @@ export type ProfectionYearData = {
 
 export type IngressEntry = { date: string; planet: string; sign: string };
 
+export type TransitPhase = "applying" | "exact" | "separating";
+
 export type TransitEntry = {
   date: string;
   transitingPlanet: string;
@@ -48,6 +50,7 @@ export type TransitEntry = {
   position: Position;
   natalPosition: Position;
   exactMatch: boolean;
+  phase?: TransitPhase;
 };
 
 export type PlanetaryIngress = {
@@ -59,6 +62,25 @@ export type PlanetaryIngress = {
   };
   matchesFound: number;
   dates: DatesMatch[];
+};
+
+export type IngressOrbWindow = {
+  applyingDate: string | null;
+  exactDate: string;
+  separatingDate: string | null;
+  position: Position;
+};
+
+export type PlanetaryIngressWithOrb = {
+  planet: string;
+  targetPosition: Position;
+  orb: number;
+  searchPeriod: {
+    start: string;
+    end: string;
+  };
+  matchesFound: number;
+  windows: IngressOrbWindow[];
 };
 
 export type Transits = {
@@ -78,6 +100,25 @@ export type MajorTransits = {
   natalPosition: Position;
   modality: string;
   transits: Transits[];
+};
+
+export type TransitsWithOrb = {
+  planet: string;
+  conjunct: PlanetaryIngressWithOrb | null;
+  opposition: PlanetaryIngressWithOrb | null;
+  superiorSquare: PlanetaryIngressWithOrb | null;
+  inferiorSquare: PlanetaryIngressWithOrb | null;
+  superiorTrine: PlanetaryIngressWithOrb | null;
+  inferiorTrine: PlanetaryIngressWithOrb | null;
+  superiorSextile: PlanetaryIngressWithOrb | null;
+  inferiorSextile: PlanetaryIngressWithOrb | null;
+};
+
+export type MajorTransitsWithOrb = {
+  natalPlanet: string;
+  natalPosition: Position;
+  modality: string;
+  transits: TransitsWithOrb[];
 };
 
 export type Eclipse = {

@@ -19,8 +19,12 @@ import {
   type Lunation,
   type Position,
   type PlanetaryIngress,
+  type PlanetaryIngressWithOrb,
+  type IngressOrbWindow,
   type Transits,
   type MajorTransits,
+  type TransitsWithOrb,
+  type MajorTransitsWithOrb,
   type Eclipse,
   type RetrogradePeriod,
   type ProfectionYearData,
@@ -252,6 +256,147 @@ export const getPlanetaryIngressByDegree = (
   };
 };
 
+export const getPlanetaryIngressWithOrb = (
+  planet: string,
+  position: Position,
+  orb: number,
+  date?: Date,
+): PlanetaryIngressWithOrb => {
+  const exact = getPlanetaryIngressByDegree(planet, position, date);
+  const bodyNumber = constants.PLANET_MAP[planet];
+  const signIndex = sharedConstants.SIGNS.indexOf(position.sign);
+  const targetLon = signIndex * 30 + position.degree + position.minute / 60;
+
+  const getLon = (jd: number): number =>
+    sweph.calc_ut(jd, bodyNumber, sweph.constants.SEFLG_SPEED).data[0];
+
+  const diffFrom = (jd: number, target: number): number =>
+    ((getLon(jd) - target + 540) % 360) - 180;
+
+  const toJd = (d: Date): number =>
+    sweph.utc_to_jd(
+      d.getUTCFullYear(),
+      d.getUTCMonth() + 1,
+      d.getUTCDate(),
+      0,
+      0,
+      0,
+      sweph.constants.SE_GREG_CAL,
+    ).data[0];
+
+  const jdToDateStr = (jd: number): string => {
+    const utc = sweph.jdut1_to_utc(jd, sweph.constants.SE_GREG_CAL);
+    return new Date(
+      Date.UTC(
+        utc.year,
+        utc.month - 1,
+        utc.day,
+        utc.hour,
+        utc.minute,
+        utc.second,
+      ),
+    )
+      .toISOString()
+      .split("T")[0];
+  };
+
+  const bisect = (lo: number, hi: number, target: number): number => {
+    let loDiff = diffFrom(lo, target);
+    for (let i = 0; i < 30; i++) {
+      const mid = (lo + hi) / 2;
+      const midDiff = diffFrom(mid, target);
+      if (loDiff * midDiff <= 0) {
+        hi = mid;
+      } else {
+        lo = mid;
+        loDiff = midDiff;
+      }
+    }
+    return (lo + hi) / 2;
+  };
+
+  // Recover a precise JD from the date string (which is day-resolution only)
+  const refineExactJd = (dateStr: string): number => {
+    const roughJd = toJd(new Date(dateStr + "T00:00:00Z"));
+    let prevJd = roughJd - 1.5;
+    let prevDiff = diffFrom(prevJd, targetLon);
+    for (let jd = prevJd + 0.25; jd <= roughJd + 1.5; jd += 0.25) {
+      const curDiff = diffFrom(jd, targetLon);
+      if (prevDiff * curDiff <= 0 && Math.abs(prevDiff - curDiff) < 180) {
+        return bisect(prevJd, jd, targetLon);
+      }
+      prevJd = jd;
+      prevDiff = curDiff;
+    }
+    return roughJd;
+  };
+
+  const step = 0.5;
+  const searchDays = 90;
+
+  const windows: IngressOrbWindow[] = exact.dates.map((match) => {
+    const exactJd = refineExactJd(match.date);
+
+    const speed = sweph.calc_ut(
+      exactJd,
+      bodyNumber,
+      sweph.constants.SEFLG_SPEED,
+    ).data[3];
+    const isDirect = speed >= 0;
+
+    // For direct motion:  applying = targetLon - orb, separating = targetLon + orb
+    // For retrograde:     applying = targetLon + orb, separating = targetLon - orb
+    const applyingTarget = isDirect ? targetLon - orb : targetLon + orb;
+    const separatingTarget = isDirect ? targetLon + orb : targetLon - orb;
+
+    let applyingDate: string | null = null;
+    {
+      let prevJd = exactJd;
+      let prevDiff = diffFrom(exactJd, applyingTarget);
+      for (let jd = exactJd - step; jd >= exactJd - searchDays; jd -= step) {
+        const curDiff = diffFrom(jd, applyingTarget);
+        if (prevDiff * curDiff <= 0 && Math.abs(prevDiff - curDiff) < 180) {
+          applyingDate = jdToDateStr(bisect(jd, prevJd, applyingTarget));
+          break;
+        }
+        prevJd = jd;
+        prevDiff = curDiff;
+      }
+    }
+
+    let separatingDate: string | null = null;
+    {
+      let prevJd = exactJd;
+      let prevDiff = diffFrom(exactJd, separatingTarget);
+      for (let jd = exactJd + step; jd <= exactJd + searchDays; jd += step) {
+        const curDiff = diffFrom(jd, separatingTarget);
+        if (prevDiff * curDiff <= 0 && Math.abs(prevDiff - curDiff) < 180) {
+          separatingDate = jdToDateStr(bisect(prevJd, jd, separatingTarget));
+          break;
+        }
+        prevJd = jd;
+        prevDiff = curDiff;
+      }
+    }
+
+    return {
+      applyingDate,
+      exactDate: match.date,
+      separatingDate,
+      position: match.position,
+    };
+  });
+
+  return {
+    planet,
+    targetPosition: position,
+    orb,
+    searchPeriod: exact.searchPeriod,
+    matchesFound: exact.matchesFound,
+    windows,
+  };
+};
+
 export const getMajorTransitsForAPlanet = (
   natalPlanet: string,
   position: Position,
@@ -292,15 +437,7 @@ export const getMajorTransitsForAPlanet = (
       position.sign as keyof typeof sharedConstants.ASPECTS_MAP
     ].inferiorSextile;
 
-  const transitingPlanet = [
-    // "Venus",
-    // "Mars",
-    "Jupiter",
-    "Saturn",
-    "Uranus",
-    "Neptune",
-    "Pluto",
-  ];
+  const transitingPlanet = ["Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"];
 
   const result: Transits[] = transitingPlanet.map((planet) => {
     const conjunctTransits = getPlanetaryIngressByDegree(
@@ -393,6 +530,104 @@ export const getMajorTransitsForAPlanet = (
         inferiorSextileTransits.matchesFound > 0
           ? inferiorSextileTransits
           : null,
+    };
+  });
+
+  return {
+    natalPlanet,
+    natalPosition: {
+      sign: position.sign,
+      degree: position.degree,
+      minute: position.minute || 0,
+    },
+    modality,
+    transits: result,
+  };
+};
+
+export const getMajorTransitsForAPlanetWithOrb = (
+  natalPlanet: string,
+  position: Position,
+  orb: number,
+  date?: Date,
+): MajorTransitsWithOrb => {
+  const modality = getPlanetModality(natalPlanet);
+
+  const aspectMap =
+    sharedConstants.ASPECTS_MAP[
+      position.sign as keyof typeof sharedConstants.ASPECTS_MAP
+    ];
+
+  const transitingPlanets = ["Saturn", "Uranus", "Neptune", "Pluto"];
+
+  const result: TransitsWithOrb[] = transitingPlanets.map((planet) => {
+    const pos = (sign: string) => ({
+      sign,
+      degree: position.degree,
+      minute: position.minute || 0,
+    });
+
+    const conjunct = getPlanetaryIngressWithOrb(
+      planet,
+      pos(aspectMap.conjunct),
+      orb,
+      date,
+    );
+    const opposition = getPlanetaryIngressWithOrb(
+      planet,
+      pos(aspectMap.opposition),
+      orb,
+      date,
+    );
+    const superiorSquare = getPlanetaryIngressWithOrb(
+      planet,
+      pos(aspectMap.superiorSquare),
+      orb,
+      date,
+    );
+    const inferiorSquare = getPlanetaryIngressWithOrb(
+      planet,
+      pos(aspectMap.inferiorSquare),
+      orb,
+      date,
+    );
+    const superiorTrine = getPlanetaryIngressWithOrb(
+      planet,
+      pos(aspectMap.superiorTrine),
+      orb,
+      date,
+    );
+    const inferiorTrine = getPlanetaryIngressWithOrb(
+      planet,
+      pos(aspectMap.inferiorTrine),
+      orb,
+      date,
+    );
+    const superiorSextile = getPlanetaryIngressWithOrb(
+      planet,
+      pos(aspectMap.superiorSextile),
+      orb,
+      date,
+    );
+    const inferiorSextile = getPlanetaryIngressWithOrb(
+      planet,
+      pos(aspectMap.inferiorSextile),
+      orb,
+      date,
+    );
+
+    return {
+      planet,
+      conjunct: conjunct.matchesFound > 0 ? conjunct : null,
+      opposition: opposition.matchesFound > 0 ? opposition : null,
+      superiorSquare: superiorSquare.matchesFound > 0 ? superiorSquare : null,
+      inferiorSquare: inferiorSquare.matchesFound > 0 ? inferiorSquare : null,
+      superiorTrine: superiorTrine.matchesFound > 0 ? superiorTrine : null,
+      inferiorTrine: inferiorTrine.matchesFound > 0 ? inferiorTrine : null,
+      superiorSextile:
+        superiorSextile.matchesFound > 0 ? superiorSextile : null,
+      inferiorSextile:
+        inferiorSextile.matchesFound > 0 ? inferiorSextile : null,
     };
   });
 
@@ -860,4 +1095,34 @@ export const getMajorTransitsAllPlanets = (
       date,
     );
   });
+};
+
+export const getMajorTransitsAllPlanetsWithOrb = (
+  natalPlacements: PlanetPoint[],
+  orb: number,
+  date: Date,
+) => {
+  const traditionalPlanets = [
+    "Ascendant",
+    "Midheaven",
+    "Sun",
+    "Moon",
+    "Mercury",
+    "Venus",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+  ];
+  const traditionalPlacements = natalPlacements.filter((placement) =>
+    traditionalPlanets.includes(placement.planet),
+  );
+
+  return traditionalPlacements.map((placement) =>
+    getMajorTransitsForAPlanetWithOrb(
+      placement.planet,
+      placement.position,
+      orb,
+      date,
+    ),
+  );
 };

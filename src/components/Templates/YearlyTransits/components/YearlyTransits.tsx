@@ -5,7 +5,7 @@ import { useBirthChart } from "@/components/Providers/BirthChartContext";
 import {
   type Eclipse,
   type Lunation,
-  type MajorTransits,
+  type MajorTransitsWithOrb,
   type RetrogradeEvent,
   type RetrogradePeriod,
   type IngressEntry,
@@ -17,6 +17,7 @@ import MonthLunation from "./MonthLunation";
 import MonthRetrograde from "./MonthRetrograde";
 import MonthIngress from "./MonthIngress";
 import MonthTransit from "./MonthTransit";
+import MonthIngressWithOrb from "./MonthIngressWithOrb";
 import MonthBirthday from "./MonthBirthday";
 import LoadingIndicator from "@/components/UI/LoadingIndicator";
 import ProfectionYear from "./ProfectionYear";
@@ -140,7 +141,7 @@ const ASPECT_KEYS = [
 ] as const;
 
 function getTransitsForMonth(
-  majorTransits: MajorTransits[],
+  majorTransits: MajorTransitsWithOrb[],
   month: number,
   year: number,
 ): TransitEntry[] {
@@ -152,18 +153,28 @@ function getTransitsForMonth(
         const ingress = transit[aspectKey];
         if (!ingress) continue;
 
-        for (const d of ingress.dates) {
-          const date = new Date(d.date);
-          if (date.getUTCMonth() === month && date.getUTCFullYear() === year) {
-            entries.push({
-              date: d.date,
-              transitingPlanet: transit.planet,
-              natalPlanet: mt.natalPlanet,
-              aspect: aspectKey,
-              position: d.position,
-              natalPosition: mt.natalPosition,
-              exactMatch: d.exactMatch,
-            });
+        for (const window of ingress.windows) {
+          const phases = [
+            { date: window.applyingDate, phase: "applying" as const },
+            { date: window.exactDate, phase: "exact" as const },
+            { date: window.separatingDate, phase: "separating" as const },
+          ];
+
+          for (const { date, phase } of phases) {
+            if (!date) continue;
+            const d = new Date(date);
+            if (d.getUTCMonth() === month && d.getUTCFullYear() === year) {
+              entries.push({
+                date,
+                transitingPlanet: transit.planet,
+                natalPlanet: mt.natalPlanet,
+                aspect: aspectKey,
+                position: window.position,
+                natalPosition: mt.natalPosition,
+                exactMatch: phase === "exact",
+                phase,
+              });
+            }
           }
         }
       }
@@ -211,8 +222,8 @@ export const YearlyTransits = () => {
   const { data: majorTransits, isLoading: majorTransitsLoading } =
     trpc.useQuery(
       [
-        "astro.getMajorTransitsAllPlanets",
-        { natalPlacements: birthChartData!, date: dateParam },
+        "astro.getMajorTransitsAllPlanetsWithOrb",
+        { natalPlacements: birthChartData!, orb: 3, date: dateParam },
       ],
       { enabled: !!birthChartData },
     );
@@ -398,7 +409,13 @@ export const YearlyTransits = () => {
                             />
                           );
                         case "transit":
-                          return (
+                          return event.data.phase === "applying" ||
+                            event.data.phase === "separating" ? (
+                            <MonthIngressWithOrb
+                              key={`transit-${event.data.date}-${event.data.transitingPlanet}-${event.data.natalPlanet}-${event.data.aspect}-${event.data.phase}`}
+                              transit={event.data}
+                            />
+                          ) : (
                             <MonthTransit
                               key={`transit-${event.data.date}-${event.data.transitingPlanet}-${event.data.natalPlanet}-${event.data.aspect}`}
                               transit={event.data}
