@@ -253,10 +253,24 @@ export const getPills = (
     }
   }
 
-  // Powerful transits - Transits to angles or angle rulers
+  // Notable transits - Transits to angles or angle rulers
   if (
     transitAspect === "hard" &&
-    (isSocialPlanet(transitingPlanetName) ||
+    isSocialPlanet(transitingPlanetName) &&
+    (isPlacementAngle(transit.natalPlanet) ||
+      isAngleRuler(natalPlanet.rulerOf || []))
+  ) {
+    pills.push({
+      type: "notable",
+      toolTip:
+        "These hard transits of the social planets to your angles or angle rulers mark significant turning points in life.",
+    });
+  }
+
+  // Powerful - Transits of outer planets to angles or angle rulers
+  if (
+    transitAspect === "hard" &&
+    (isOuterPlanet(transitingPlanetName) ||
       transitingPlanetName === "Eclipse") &&
     (isPlacementAngle(transit.natalPlanet) ||
       isAngleRuler(natalPlanet.rulerOf || []))
@@ -264,31 +278,12 @@ export const getPills = (
     pills.push({
       type: "powerful",
       toolTip:
-        "These hard transits to your angles or angle rulers mark significant turning points in life.",
-    });
-  }
-
-  if (
-    transitAspect === "hard" &&
-    isOuterPlanet(transitingPlanetName) &&
-    (isPlacementAngle(transit.natalPlanet) ||
-      isAngleRuler(natalPlanet.rulerOf || []))
-  ) {
-    // Life defining - Transits of outer planets to angles or angle rulers
-    pills.push({
-      type: "lifeDefining",
-      toolTip:
         "These hard transits of the outer planets to your angles or angle rulers often manifest as life-changing events.",
     });
   }
 
-  // New beginnings - Transits of eclipses
-  if (
-    (transitingPlanetAspect === "conjunct" ||
-      transitingPlanetAspect === "square" ||
-      transitingPlanetAspect === "opposition") &&
-    transitingPlanetName === "Eclipse"
-  ) {
+  // Pivot Point - Transits of eclipses
+  if (transitAspect === "hard" && transitingPlanetName === "Eclipse") {
     pills.push({
       type: "pivotPoint",
       toolTip:

@@ -1,22 +1,17 @@
 "use client";
 
+import { BirthChartProvider } from "@/components/Providers/BirthChartContext";
+import { type PlaceDetails } from "@/components/UI/PlacesAutocomplete";
 import * as constants from "@/shared/lib/constants";
+import { trpc } from "@/shared/lib/trpc";
+import { type PlanetPoint, type SectPlanets } from "@/shared/types";
+import moment from "moment-timezone";
 import { useState } from "react";
 import { type TimeValue } from "react-aria";
-import { type PlaceDetails } from "@/components/UI/PlacesAutocomplete";
-import { trpc } from "@/shared/lib/trpc";
-import {
-  type PlanetPoint,
-  type ProfectionYearData,
-  type SectPlanets,
-} from "@/shared/types";
 import { type BirthInfo } from "../../Providers/BirthChartContext";
 import BirthchartDataForm from "../BirthchartDataForm";
-import BirthchartData from "./components/BirthchartData";
-import ProfectionYear from "./components/ProfectionYear";
-import moment from "moment-timezone";
-import { BirthChartProvider } from "@/components/Providers/BirthChartContext";
 import { getIsDayChart, getSectPlanets } from "../helpers";
+import BirthchartData from "./components/BirthchartData";
 
 type BirthchartFormData = {
   day: string;

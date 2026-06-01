@@ -1,33 +1,33 @@
 import * as React from "react";
 
 const PILL_CONFIG = {
-  powerful: {
+  notable: {
     colors: "bg-primary-300 text-primary-700 border-primary-700",
-    text: "Powerful",
+    text: "Notable",
   },
   joyous: {
-    colors: "bg-primary-300 text-primary-700 border-primary-700",
+    colors: "bg-accent-500 text-accent-800 border-accent-800",
     text: "Joyous",
   },
   excessive: {
-    colors: "bg-primary-300 text-primary-700 border-primary-700",
+    colors: "bg-accent-300 text-accent-600 border-accent-600",
     text: "Excessive",
   },
   productive: {
-    colors: "bg-primary-300 text-primary-700 border-primary-700",
+    colors: "bg-secondary-200 text-secondary-400 border-secondary-400",
     text: "Productive",
   },
   challenging: {
-    colors: "bg-primary-300 text-primary-700 border-primary-700",
+    colors: "bg-secondary-400 text-secondary-600 border-secondary-600",
     text: "Challenging",
   },
-  pivotPoint: {
-    colors: "bg-primary-300 text-primary-700 border-primary-700",
-    text: "Pivot Point",
+  powerful: {
+    colors: "bg-secondary-500 text-secondary-800 border-secondary-800",
+    text: "Powerful",
   },
-  lifeDefining: {
-    colors: "bg-primary-300 text-primary-700 border-primary-700",
-    text: "Life Defining",
+  pivotPoint: {
+    colors: "bg-primary-100 text-primary-400 border-primary-400",
+    text: "Pivot Point",
   },
   timeLordEvent: {
     colors: "bg-primary-300 text-primary-700 border-primary-700",

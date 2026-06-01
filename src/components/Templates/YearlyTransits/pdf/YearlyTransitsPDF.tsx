@@ -192,6 +192,7 @@ export function YearlyTransitsPDF({
                                 key={`retrograde-${i}`}
                                 retrograde={event.data}
                                 birthChartData={birthChartData}
+                                retrogradePlanet={event.data.planet}
                               />
                             );
                           case "ingress":
