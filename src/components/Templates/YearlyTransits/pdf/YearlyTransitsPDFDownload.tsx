@@ -19,7 +19,7 @@ import { useBirthChart } from "@/components/Providers/BirthChartContext";
 import {
   type Eclipse,
   type Lunation,
-  type MajorTransits,
+  type MajorTransitsWithOrb,
   type RetrogradePeriod,
   type RetrogradeEvent,
   type IngressEntry,
@@ -150,7 +150,7 @@ const ASPECT_KEYS = [
 ] as const;
 
 function getTransitsForMonth(
-  majorTransits: MajorTransits[],
+  majorTransits: MajorTransitsWithOrb[],
   month: number,
   year: number,
 ): TransitEntry[] {
@@ -160,18 +160,27 @@ function getTransitsForMonth(
       for (const aspectKey of ASPECT_KEYS) {
         const ingress = transit[aspectKey];
         if (!ingress) continue;
-        for (const d of ingress.dates) {
-          const date = new Date(d.date);
-          if (date.getUTCMonth() === month && date.getUTCFullYear() === year) {
-            entries.push({
-              date: d.date,
-              transitingPlanet: transit.planet,
-              natalPlanet: mt.natalPlanet,
-              aspect: aspectKey,
-              position: d.position,
-              natalPosition: mt.natalPosition,
-              exactMatch: d.exactMatch,
-            });
+        for (const window of ingress.windows) {
+          const phases = [
+            { date: window.applyingDate, phase: "applying" as const },
+            { date: window.exactDate, phase: "exact" as const },
+            { date: window.separatingDate, phase: "separating" as const },
+          ];
+          for (const { date, phase } of phases) {
+            if (!date) continue;
+            const d = new Date(date);
+            if (d.getUTCMonth() === month && d.getUTCFullYear() === year) {
+              entries.push({
+                date,
+                transitingPlanet: transit.planet,
+                natalPlanet: mt.natalPlanet,
+                aspect: aspectKey,
+                position: window.position,
+                natalPosition: mt.natalPosition,
+                exactMatch: phase === "exact",
+                phase,
+              });
+            }
           }
         }
       }
@@ -216,8 +225,8 @@ export function YearlyTransitsPDFDownload() {
   const { data: majorTransits, isLoading: majorTransitsLoading } =
     trpc.useQuery(
       [
-        "astro.getMajorTransitsAllPlanets",
-        { natalPlacements: birthChartData!, date: dateParam },
+        "astro.getMajorTransitsAllPlanetsWithOrb",
+        { natalPlacements: birthChartData!, orb: 3, date: dateParam },
       ],
       { enabled: !!birthChartData },
     );

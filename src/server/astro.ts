@@ -558,7 +558,7 @@ export const getMajorTransitsForAPlanetWithOrb = (
       position.sign as keyof typeof sharedConstants.ASPECTS_MAP
     ];
 
-  const transitingPlanets = ["Saturn", "Uranus", "Neptune", "Pluto"];
+  const transitingPlanets = ["Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"];
 
   const result: TransitsWithOrb[] = transitingPlanets.map((planet) => {
     const pos = (sign: string) => ({

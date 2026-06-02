@@ -44,6 +44,15 @@ export default function MonthTransit({ transit }: { transit: TransitEntry }) {
 
   const pills = getPills(birthChartData, sectPlanets, transit, profectionYear);
 
+  console.log("Rendered", {
+    title,
+    positionText,
+    interpretationText,
+    generalSignificationsText,
+    transitInterpretation,
+    pills,
+  });
+
   return (
     <div className={"border-t border-primary-700 pt-3"}>
       <div className="flex justify-between items-start">
