@@ -17,7 +17,7 @@ import MonthLunation from "./MonthLunation";
 import MonthRetrograde from "./MonthRetrograde";
 import MonthIngress from "./MonthIngress";
 import MonthTransit from "./MonthTransit";
-import MonthIngressWithOrb from "./MonthIngressWithOrb";
+import MonthTransitWithOrb from "./MonthTransitWithOrb";
 import MonthBirthday from "./MonthBirthday";
 import LoadingIndicator from "@/components/UI/LoadingIndicator";
 import ProfectionYear from "./ProfectionYear";
@@ -411,7 +411,7 @@ export const YearlyTransits = () => {
                         case "transit":
                           return event.data.phase === "applying" ||
                             event.data.phase === "separating" ? (
-                            <MonthIngressWithOrb
+                            <MonthTransitWithOrb
                               key={`transit-${event.data.date}-${event.data.transitingPlanet}-${event.data.natalPlanet}-${event.data.aspect}-${event.data.phase}`}
                               transit={event.data}
                             />

@@ -26,10 +26,11 @@ export default function MonthTransit({ transit }: { transit: TransitEntry }) {
 
   const transitHouse = getHouseFromSign(ascendantSign, transit.position.sign);
   const aspectLabel = ASPECT_LABELS[transit.aspect] || transit.aspect;
+  const aspectInterpretationText =
+    "This is the most intense phase of the transit, where its influence is strongest. You may be feeling the effects more acutely during this time.";
 
   const title = `${transit.transitingPlanet} ${aspectLabel} natal ${transit.natalPlanet}`;
   const positionText = `${transit.position.sign} ${formatDegree(transit.position.degree, transit.position.minute)}`;
-
   const interpretationText = `Transiting ${transit.transitingPlanet} at ${positionText} in your ${getFormattedHouseText(transitHouse)} forms a ${aspectLabel} to your natal ${transit.natalPlanet} at ${transit.natalPosition.sign} ${formatDegree(transit.natalPosition.degree, transit.natalPosition.minute)}.`;
   const generalSignificationsText = getGeneralSignificationsText(
     transit.transitingPlanet,
@@ -43,15 +44,6 @@ export default function MonthTransit({ transit }: { transit: TransitEntry }) {
   );
 
   const pills = getPills(birthChartData, sectPlanets, transit, profectionYear);
-
-  console.log("Rendered", {
-    title,
-    positionText,
-    interpretationText,
-    generalSignificationsText,
-    transitInterpretation,
-    pills,
-  });
 
   return (
     <div className={"border-t border-primary-700 pt-3"}>
@@ -72,6 +64,8 @@ export default function MonthTransit({ transit }: { transit: TransitEntry }) {
       <p className="text-primary-700 mt-1">{interpretationText}</p>
       <p className="text-primary-700 mt-1">{generalSignificationsText}</p>
       <p className="text-primary-700 mt-1">{transitInterpretation}</p>
+
+      <p className="text-primary-700 mt-1">{aspectInterpretationText}</p>
     </div>
   );
 }

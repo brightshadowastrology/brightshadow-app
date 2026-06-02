@@ -37,7 +37,7 @@ import { MonthLunationPDF } from "./MonthLunationPDF";
 import { MonthRetrogradePDF } from "./MonthRetrogradePDF";
 import { MonthIngressPDF } from "./MonthIngressPDF";
 import { MonthTransitPDF } from "./MonthTransitPDF";
-import { MonthIngressWithOrbPDF } from "./MonthIngressWithOrbPDF";
+import { MonthTransitWithOrbPDF } from "./MonthTransitWithOrbPDF";
 import { MonthBirthdayPDF } from "./MonthBirthdayPDF";
 import { ProfectionYearPDF } from "./ProfectionYearPDF";
 import { colors } from "./styles";
@@ -204,7 +204,7 @@ export function YearlyTransitsPDF({
                           case "transit":
                             return event.data.phase === "applying" ||
                               event.data.phase === "separating" ? (
-                              <MonthIngressWithOrbPDF
+                              <MonthTransitWithOrbPDF
                                 key={`transit-${i}`}
                                 transit={event.data}
                                 birthChartData={birthChartData}
