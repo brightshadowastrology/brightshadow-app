@@ -4,6 +4,12 @@ export type Location = {
   elevation?: number;
 };
 
+export type BirthInfo = {
+  birthDate: string;
+  birthTime: string;
+  location: string;
+};
+
 export type Position = {
   sign: string;
   degree: number;

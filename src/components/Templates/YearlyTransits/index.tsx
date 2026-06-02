@@ -10,7 +10,7 @@ import {
   type ProfectionYearData,
   type SectPlanets,
 } from "@/shared/types";
-import { type BirthInfo } from "../../Providers/BirthChartContext";
+import { type BirthInfo } from "@/shared/types";
 import moment from "moment-timezone";
 import BirthchartDataForm from "../BirthchartDataForm";
 import { BirthChartProvider } from "@/components/Providers/BirthChartContext";
@@ -68,10 +68,12 @@ export default function Birthchart() {
       setBirthChartData(result);
       setBirthInfo({
         birthDate: dateString.split(" ")[0],
-        birthTime: `${String(data.time.hour).padStart(2, "0")}:${String(data.time.minute).padStart(2, "0")}`,
-        location: data.place.displayName,
+        birthTime: `${String(data.time.hour).padStart(2, "0")}:${String(data.time.minute).padStart(2, "0")} ${data.time.hour >= 12 ? "PM" : "AM"}`,
+        location:
+          data.place.formattedAddress ||
+          data.place.displayName ||
+          "Unknown location",
       });
-
       // Get ascendant sign from birth chart and call getProfectionYear
       const ascendant = result.find((p) => p.planet === "Ascendant");
       const descendant = result.find((p) => p.planet === "Descendant");

@@ -422,6 +422,7 @@ export function YearlyTransitsPDFDownload() {
       sectPlanets={sectPlanets}
       profectionYear={profectionYear}
       notableEvents={notableEvents}
+      birthInfo={birthInfo}
     />
   );
 

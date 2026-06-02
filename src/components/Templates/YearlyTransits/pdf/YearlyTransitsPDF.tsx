@@ -32,6 +32,7 @@ import {
   type SectPlanets,
   type ProfectionYearData,
 } from "@/shared/types";
+import { type BirthInfo } from "@/shared/types";
 import { MonthEclipsePDF } from "./MonthEclipsePDF";
 import { MonthLunationPDF } from "./MonthLunationPDF";
 import { MonthRetrogradePDF } from "./MonthRetrogradePDF";
@@ -65,6 +66,7 @@ export type YearlyTransitsPDFProps = {
   sectPlanets: SectPlanets;
   profectionYear?: ProfectionYearData | null;
   notableEvents?: NotableEvent[];
+  birthInfo?: BirthInfo | null;
 };
 
 export type { NotableEvent };
@@ -82,7 +84,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "Lora",
     color: colors.textPrimary,
-    marginBottom: 20,
+    marginBottom: 16,
+    textAlign: "center",
+  },
+  pageIntro: {
+    fontSize: 14,
+    fontFamily: "Lora",
+    color: colors.textPrimary,
+    marginBottom: 16,
+    textAlign: "center",
   },
   section: {
     marginBottom: 16,
@@ -124,11 +134,47 @@ export function YearlyTransitsPDF({
   sectPlanets,
   profectionYear,
   notableEvents,
+  birthInfo,
 }: YearlyTransitsPDFProps) {
   return (
     <Document>
       <Page size="LETTER" style={styles.page} wrap>
-        <Text style={styles.pageTitle}>Yearly Transits</Text>
+        <Text style={styles.pageTitle}>
+          Your Yearly Transits (
+          {new Date().toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })}{" "}
+          -{" "}
+          {new Date(
+            new Date().setFullYear(new Date().getFullYear() + 1),
+          ).toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })}
+          )
+        </Text>
+
+        {birthInfo && (
+          <View>
+            <Text style={styles.pageIntro}>
+              {new Date(birthInfo.birthDate + "T00:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })} · {`${birthInfo.birthTime}`} ·{" "}
+              {birthInfo.location}
+            </Text>
+
+            <Text style={styles.pageIntro}>
+              This report provides an overview of the significant astrological
+              events and transits for the year, based on your birth chart. It
+              includes eclipses, lunations, retrograde periods, planetary
+              ingresses, and important transits that may influence your life
+              during this period. Additionally, it highlights notable dates and
+              the profection year themes to help you navigate the energies at
+              play.
+            </Text>
+          </View>
+        )}
 
         {notableEvents && notableEvents.length > 0 && (
           <NotableDatesPDF

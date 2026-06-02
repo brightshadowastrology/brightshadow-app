@@ -5,13 +5,8 @@ import {
   type PlanetPoint,
   type ProfectionYearData,
   type SectPlanets,
+  type BirthInfo,
 } from "@/shared/types";
-
-export type BirthInfo = {
-  birthDate: string;
-  birthTime: string;
-  location: string;
-};
 
 type BirthChartContextValue = {
   birthChartData: PlanetPoint[] | null;
