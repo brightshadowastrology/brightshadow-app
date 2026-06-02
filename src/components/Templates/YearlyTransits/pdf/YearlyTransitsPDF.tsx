@@ -99,9 +99,6 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: colors.cardBg,
     borderRadius: 4,
-    // borderWidth: 1,
-    // borderStyle: "solid",
-    // borderColor: colors.sectionBorder,
   },
   dayLabel: {
     fontSize: 9,

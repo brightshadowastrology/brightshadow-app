@@ -372,7 +372,7 @@ export const YearlyTransits = () => {
                 ).map(([dateKey, events]) => (
                   <div
                     key={dateKey}
-                    className="p-4 bg-primary-200 rounded-md space-y-3"
+                    className="p-4 bg-primary-100 rounded-md space-y-3"
                   >
                     <p className="text-primary-500 text-sm">
                       {label} {parseInt(dateKey.slice(8, 10), 10)}, {year}

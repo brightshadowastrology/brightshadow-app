@@ -31,21 +31,14 @@ export default function ProfectionYear({
               ${signDescriptions[profectionSign].join(", ").replace(/, ([^,]*)$/, ", and $1")} in areas of life related to 
               ${houseThemes.toLowerCase()}`;
 
-  //find natal planet that is the lord of the year and get its natal position for transit interpretation
-  const natalLord = birthChartData.find(
-    (planet) => planet.planet === lordOfYear,
-  );
-
-  const endText = `From now until your next birthday, you might find that these themes develop and come to fruition. You'll notice that transits in your ${getOrdinal(profectionYear)} house, transits to your ${lordOfYear}, and the transits of ${formattedLordOfYear.toLowerCase()} ${lordOfYear === "Moon" ? `(new and full moons, and especially eclipses!)` : ""} ${lordOfYear === "Sun" ? `(eclipses in particular)` : ""} mark important turning points.`;
-
   return (
     <section className="mb-4 w-full p-6 bg-background-100 rounded-lg border border-primary-500">
-      <h3 className="text-xl font-semibold mb-4 text-secondary-500">
+      <h3 className="text-xl font-semibold mb-4 text-primary-500">
         Your Annual Profection
       </h3>
 
-      <div className="p-6 bg-primary-200  rounded-lg border border-primary-400 mb-4">
-        <p className="text-primary-950">
+      <div className="p-6 bg-primary-100 rounded-lg mb-4">
+        <p className="text-primary-700">
           Not every planet in our birthchart is active at the same time. The
           technique know as a annual profections give us a means to find out
           when specific planets (and the houses they rule) will play a bigger
@@ -58,9 +51,9 @@ export default function ProfectionYear({
         </p>
       </div>
 
-      <div className="p-6 bg-primary-200  rounded-lg border border-primary-400 space-y-4">
+      <div className="p-6 bg-primary-100 rounded-lg space-y-4">
         <div className="flex items-center gap-4">
-          <div className="text-4xl font-bold text-primary-950">
+          <div className="text-4xl font-bold text-primary-700">
             {profectionYear}
           </div>
           <div>

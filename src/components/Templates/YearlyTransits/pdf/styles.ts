@@ -2,8 +2,8 @@ import { StyleSheet } from "@react-pdf/renderer";
 
 export const colors = {
   pageBg: "#f0ece4",
-  sectionBg: "#e8e7df",
-  cardBg: "#d4d2c2",
+  sectionBg: "#f0ece4",
+  cardBg: "#e8e7df",
   sectionBorder: "#b8b59e",
   divider: "#9e9b7d",
   textPrimary: "#39392e",
