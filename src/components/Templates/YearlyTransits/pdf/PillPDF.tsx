@@ -55,38 +55,23 @@ const PILL_PDF_CONFIG: Record<
   },
 };
 
-export function PillPDF({
-  type,
-  toolTip,
-}: {
-  type: Pill["type"];
-  toolTip?: string;
-}) {
+export function PillPDF({ type }: { type: Pill["type"] }) {
   const config = PILL_PDF_CONFIG[type];
   return (
-    <View style={{ flexDirection: "row", alignItems: "center", columnGap: 4 }}>
-      <View
-        style={{
-          backgroundColor: config.bg,
-          borderRadius: 8,
-          borderWidth: 1,
-          borderStyle: "solid",
-          borderColor: config.border,
-          paddingHorizontal: 6,
-          paddingVertical: 2,
-        }}
-      >
-        <Text style={{ color: config.color, fontSize: 10, fontWeight: "bold" }}>
-          {config.text}
-        </Text>
-      </View>
-      {toolTip && (
-        <Text
-          style={{ color: "#50503b", fontSize: 10, flex: 1, flexWrap: "wrap" }}
-        >
-          {toolTip}
-        </Text>
-      )}
+    <View
+      style={{
+        backgroundColor: config.bg,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderStyle: "solid",
+        borderColor: config.border,
+        paddingHorizontal: 6,
+        paddingVertical: 2,
+      }}
+    >
+      <Text style={{ color: config.color, fontSize: 10, fontWeight: "bold" }}>
+        {config.text}
+      </Text>
     </View>
   );
 }

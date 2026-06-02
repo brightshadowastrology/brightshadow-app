@@ -21,6 +21,12 @@ import MonthTransitWithOrb from "./MonthTransitWithOrb";
 import MonthBirthday from "./MonthBirthday";
 import LoadingIndicator from "@/components/UI/LoadingIndicator";
 import ProfectionYear from "./ProfectionYear";
+import NotableDates, { type NotableEvent } from "./NotableDates";
+import {
+  isDateNotable,
+  isEclipseNotable,
+  isLunationNotable,
+} from "../../helpers";
 
 function getNext12Months(
   startMonth = new Date().getMonth(),
@@ -217,7 +223,8 @@ export const YearlyTransits = () => {
   const startOfToday = new Date(
     Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()),
   );
-  const { birthChartData, birthInfo, profectionYear } = useBirthChart();
+  const { birthChartData, birthInfo, profectionYear, sectPlanets } =
+    useBirthChart();
 
   const { data: majorTransits, isLoading: majorTransitsLoading } =
     trpc.useQuery(
@@ -261,12 +268,82 @@ export const YearlyTransits = () => {
     ingressesLoading ||
     majorTransitsLoading;
 
+  const notableEvents = useMemo((): NotableEvent[] => {
+    if (!birthChartData || !sectPlanets) return [];
+    const profectionYearData = profectionYear ?? null;
+
+    const notableTransits: NotableEvent[] = majorTransits
+      ? months.flatMap(({ month, year }) =>
+          getTransitsForMonth(majorTransits, month, year)
+            .filter(
+              (t) =>
+                t.phase === "exact" &&
+                isDateNotable(
+                  birthChartData,
+                  sectPlanets,
+                  t,
+                  profectionYearData,
+                ),
+            )
+            .map((t) => ({ type: "transit" as const, data: t })),
+        )
+      : [];
+
+    const notableEclipses: NotableEvent[] = eclipses
+      ? eclipses
+          .filter((e) =>
+            isEclipseNotable(
+              e,
+              birthChartData,
+              sectPlanets,
+              profectionYearData,
+            ),
+          )
+          .map((e) => ({ type: "eclipse" as const, data: e }))
+      : [];
+
+    const notableLunations: NotableEvent[] = lunations
+      ? lunations
+          .filter((l) =>
+            isLunationNotable(
+              l,
+              birthChartData,
+              sectPlanets,
+              profectionYearData,
+            ),
+          )
+          .map((l) => ({ type: "lunation" as const, data: l }))
+      : [];
+
+    return [...notableTransits, ...notableEclipses, ...notableLunations].sort(
+      (a, b) =>
+        new Date(a.data.date).getTime() - new Date(b.data.date).getTime(),
+    );
+  }, [
+    majorTransits,
+    eclipses,
+    lunations,
+    birthChartData,
+    sectPlanets,
+    profectionYear,
+    months,
+  ]);
+
   if (isLoading) {
     return <LoadingIndicator />;
   }
 
   return (
     <div className="space-y-6 w-full">
+      {birthChartData && sectPlanets && notableEvents.length > 0 && (
+        <NotableDates
+          events={notableEvents}
+          birthChartData={birthChartData}
+          sectPlanets={sectPlanets}
+          profectionYearData={profectionYear ?? null}
+        />
+      )}
+
       {profectionYear && birthChartData && (
         <ProfectionYear data={profectionYear} birthChartData={birthChartData} />
       )}

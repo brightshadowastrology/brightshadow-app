@@ -5,6 +5,8 @@ import {
   type TransitEntry,
   type Pill,
   type ProfectionYearData,
+  type Eclipse,
+  type Lunation,
 } from "@/shared/types";
 import { sectInterpretations } from "@/shared/text/text";
 import {
@@ -224,14 +226,21 @@ export const getPills = (
       "";
 
     // Joyous transits - Easy Transits from benefic
-    if (isBenefic && transitAspect === "easy") {
+    if (
+      isBenefic &&
+      (transitAspect === "easy" || transitingPlanetAspect === "conjunct")
+    ) {
       pills.push({
         type: "joyous",
         toolTip: text,
       });
     }
     // Excessive transit - Hard transits from benefics
-    if (isBenefic && transitAspect === "hard") {
+    if (
+      isBenefic &&
+      (transitingPlanetAspect === "square" ||
+        transitingPlanetAspect === "opposition")
+    ) {
       pills.push({
         type: "excessive",
         toolTip: text,
@@ -339,6 +348,56 @@ export const getPills = (
   }
 
   return pills;
+};
+
+export const isDateNotable = (
+  birthchartData: PlanetPoint[],
+  sectPlanets: SectPlanets,
+  transit: TransitEntry,
+  profectionYearData: ProfectionYearData | null,
+): boolean => {
+  const pills = getPills(birthchartData, sectPlanets, transit, profectionYearData);
+  return pills.some(
+    (pill) =>
+      pill.type === "powerful" ||
+      pill.type === "challenging" ||
+      pill.type === "joyous" ||
+      pill.type === "notable",
+  );
+};
+
+export const isEclipseNotable = (
+  eclipse: Eclipse,
+  birthchartData: PlanetPoint[],
+  sectPlanets: SectPlanets,
+  profectionYearData: ProfectionYearData | null,
+): boolean => {
+  const aspects = getAspectsToNatalPlanets(
+    eclipse.position,
+    birthchartData,
+    eclipse.type,
+    eclipse.date,
+  );
+  return aspects.some((aspect) =>
+    isDateNotable(birthchartData, sectPlanets, aspect, profectionYearData),
+  );
+};
+
+export const isLunationNotable = (
+  lunation: Lunation,
+  birthchartData: PlanetPoint[],
+  sectPlanets: SectPlanets,
+  profectionYearData: ProfectionYearData | null,
+): boolean => {
+  const aspects = getAspectsToNatalPlanets(
+    lunation.position,
+    birthchartData,
+    lunation.lunationType,
+    lunation.date,
+  );
+  return aspects.some((aspect) =>
+    isDateNotable(birthchartData, sectPlanets, aspect, profectionYearData),
+  );
 };
 
 export const getRetrogradeRecommendationText = (

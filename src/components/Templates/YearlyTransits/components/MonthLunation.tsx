@@ -10,7 +10,7 @@ import {
   getFormattedAspectText,
 } from "@/shared/lib/textHelpers";
 import { getAspectsToNatalPlanets, getPills } from "../../helpers";
-import Pill from "@/components/UI/Pill";
+import InfoPill from "@/components/UI/InfoPill";
 
 export default function MonthLunation({ lunation }: { lunation: Lunation }) {
   const { birthChartData, sectPlanets, profectionYear } = useBirthChart();
@@ -35,7 +35,9 @@ export default function MonthLunation({ lunation }: { lunation: Lunation }) {
     lunation.date,
   );
   const pills = aspects
-    .flatMap((aspect) => getPills(birthChartData, sectPlanets, aspect, profectionYear))
+    .flatMap((aspect) =>
+      getPills(birthChartData, sectPlanets, aspect, profectionYear),
+    )
     .filter(
       (pill, index, self) =>
         index === self.findIndex((p) => p.type === pill.type),
@@ -51,7 +53,11 @@ export default function MonthLunation({ lunation }: { lunation: Lunation }) {
         <div className="flex flex-col gap-2 py-2">
           {pills.map((pill) => {
             return (
-              <Pill key={pill.type} type={pill.type} toolTip={pill.toolTip} />
+              <InfoPill
+                key={pill.type}
+                type={pill.type}
+                toolTip={pill.toolTip}
+              />
             );
           })}
         </div>

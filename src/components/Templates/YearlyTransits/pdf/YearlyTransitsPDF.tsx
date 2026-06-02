@@ -40,6 +40,7 @@ import { MonthTransitPDF } from "./MonthTransitPDF";
 import { MonthTransitWithOrbPDF } from "./MonthTransitWithOrbPDF";
 import { MonthBirthdayPDF } from "./MonthBirthdayPDF";
 import { ProfectionYearPDF } from "./ProfectionYearPDF";
+import { NotableDatesPDF, type NotableEvent } from "./NotableDatesPDF";
 import { colors } from "./styles";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -63,7 +64,10 @@ export type YearlyTransitsPDFProps = {
   birthChartData: PlanetPoint[];
   sectPlanets: SectPlanets;
   profectionYear?: ProfectionYearData | null;
+  notableEvents?: NotableEvent[];
 };
+
+export type { NotableEvent };
 
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
@@ -119,11 +123,21 @@ export function YearlyTransitsPDF({
   birthChartData,
   sectPlanets,
   profectionYear,
+  notableEvents,
 }: YearlyTransitsPDFProps) {
   return (
     <Document>
       <Page size="LETTER" style={styles.page} wrap>
         <Text style={styles.pageTitle}>Yearly Transits</Text>
+
+        {notableEvents && notableEvents.length > 0 && (
+          <NotableDatesPDF
+            events={notableEvents}
+            birthChartData={birthChartData}
+            sectPlanets={sectPlanets}
+            profectionYearData={profectionYear ?? null}
+          />
+        )}
 
         {profectionYear && (
           <ProfectionYearPDF

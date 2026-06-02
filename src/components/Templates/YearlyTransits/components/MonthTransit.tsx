@@ -8,7 +8,7 @@ import {
   getFormattedTransitText,
 } from "@/shared/lib/textHelpers";
 import { ASPECT_LABELS } from "@/shared/lib/constants";
-import Pill from "@/components/UI/Pill";
+import InfoPill from "@/components/UI/InfoPill";
 import { getPills } from "../../helpers";
 
 export default function MonthTransit({ transit }: { transit: TransitEntry }) {
@@ -55,7 +55,11 @@ export default function MonthTransit({ transit }: { transit: TransitEntry }) {
         <div className="flex flex-col gap-2 py-2">
           {pills.map((pill) => {
             return (
-              <Pill key={pill.type} type={pill.type} toolTip={pill.toolTip} />
+              <InfoPill
+                key={pill.type}
+                type={pill.type}
+                toolTip={pill.toolTip}
+              />
             );
           })}
         </div>

@@ -14,7 +14,7 @@ import {
 } from "@/shared/lib/textHelpers";
 import { ASPECT_LABELS } from "@/shared/lib/constants";
 import { getPills } from "../../helpers";
-import { PillPDF } from "./PillPDF";
+import { InfoPillPDF } from "./InfoPillPDF";
 import { eventStyles as s } from "./styles";
 
 export function MonthTransitPDF({
@@ -60,7 +60,7 @@ export function MonthTransitPDF({
       {pills.length > 0 && (
         <View style={s.pillsColumn}>
           {pills.map((pill) => (
-            <PillPDF key={pill.type} type={pill.type} toolTip={pill.toolTip} />
+            <InfoPillPDF key={pill.type} type={pill.type} toolTip={pill.toolTip} />
           ))}
         </View>
       )}

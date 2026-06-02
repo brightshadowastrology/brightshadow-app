@@ -14,7 +14,7 @@ import {
   getFormattedAspectText,
 } from "@/shared/lib/textHelpers";
 import { getAspectsToNatalPlanets, getPills } from "../../helpers";
-import { PillPDF } from "./PillPDF";
+import { InfoPillPDF } from "./InfoPillPDF";
 import { eventStyles as s } from "./styles";
 
 export function MonthEclipsePDF({
@@ -54,7 +54,7 @@ export function MonthEclipsePDF({
       {pills.length > 0 && (
         <View style={s.pillsColumn}>
           {pills.map((pill) => (
-            <PillPDF key={pill.type} type={pill.type} toolTip={pill.toolTip} />
+            <InfoPillPDF key={pill.type} type={pill.type} toolTip={pill.toolTip} />
           ))}
         </View>
       )}
