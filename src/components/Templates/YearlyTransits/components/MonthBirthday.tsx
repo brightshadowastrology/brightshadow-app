@@ -1,5 +1,5 @@
-import { PlanetPoint, type ProfectionYearData } from "@/shared/types";
 import { getOrdinal } from "@/shared/lib/textHelpers";
+import { PlanetPoint, type ProfectionYearData } from "@/shared/types";
 import ProfectionYearBodyText from "./ProfectionYearBodyText";
 
 type MonthBirthdayProps = {

@@ -11,28 +11,32 @@
  *   );
  */
 
-import { useMemo } from "react";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import * as constants from "@/shared/lib/constants";
-import { trpc } from "@/shared/lib/trpc";
 import { useBirthChart } from "@/components/Providers/BirthChartContext";
+import * as constants from "@/shared/lib/constants";
+import {
+  isDateNotable,
+  isEclipseNotable,
+  isLunationNotable,
+} from "@/shared/lib/textHelpers";
+import { trpc } from "@/shared/lib/trpc";
 import {
   type Eclipse,
+  type IngressEntry,
   type Lunation,
   type MajorTransitsWithOrb,
-  type RetrogradePeriod,
-  type RetrogradeEvent,
-  type IngressEntry,
-  type TransitEntry,
   type ProfectionYearData,
+  type RetrogradeEvent,
+  type RetrogradePeriod,
+  type TransitEntry,
 } from "@/shared/types";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { useMemo } from "react";
 import {
   YearlyTransitsPDF,
-  type MonthEvent,
   type MonthData,
+  type MonthEvent,
   type NotableEvent,
 } from "./YearlyTransitsPDF";
-import { isDateNotable, isEclipseNotable, isLunationNotable } from "../../helpers";
 
 // ─── Pure helper functions (mirrored from YearlyTransits.tsx) ─────────────────
 
@@ -375,7 +379,12 @@ export function YearlyTransitsPDFDownload() {
             .filter(
               (t) =>
                 t.phase === "exact" &&
-                isDateNotable(birthChartData, sectPlanets, t, profectionYearData),
+                isDateNotable(
+                  birthChartData,
+                  sectPlanets,
+                  t,
+                  profectionYearData,
+                ),
             )
             .map((t) => ({ type: "transit" as const, data: t })),
         )
@@ -384,7 +393,12 @@ export function YearlyTransitsPDFDownload() {
     const notableEclipses: NotableEvent[] = eclipses
       ? eclipses
           .filter((e) =>
-            isEclipseNotable(e, birthChartData, sectPlanets, profectionYearData),
+            isEclipseNotable(
+              e,
+              birthChartData,
+              sectPlanets,
+              profectionYearData,
+            ),
           )
           .map((e) => ({ type: "eclipse" as const, data: e }))
       : [];
@@ -392,15 +406,29 @@ export function YearlyTransitsPDFDownload() {
     const notableLunations: NotableEvent[] = lunations
       ? lunations
           .filter((l) =>
-            isLunationNotable(l, birthChartData, sectPlanets, profectionYearData),
+            isLunationNotable(
+              l,
+              birthChartData,
+              sectPlanets,
+              profectionYearData,
+            ),
           )
           .map((l) => ({ type: "lunation" as const, data: l }))
       : [];
 
     return [...notableTransits, ...notableEclipses, ...notableLunations].sort(
-      (a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime(),
+      (a, b) =>
+        new Date(a.data.date).getTime() - new Date(b.data.date).getTime(),
     );
-  }, [majorTransits, eclipses, lunations, birthChartData, sectPlanets, profectionYear, months]);
+  }, [
+    majorTransits,
+    eclipses,
+    lunations,
+    birthChartData,
+    sectPlanets,
+    profectionYear,
+    months,
+  ]);
 
   if (!birthChartData || !sectPlanets) return null;
 

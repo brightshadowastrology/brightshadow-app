@@ -1,13 +1,12 @@
 import { useBirthChart } from "@/components/Providers/BirthChartContext";
-import { type TransitEntry } from "@/shared/types";
-import {
-  formatDegree,
-  getHouseFromSign,
-  getFormattedHouseText,
-  getGeneralSignificationsText,
-  getFormattedTransitText,
-} from "@/shared/lib/textHelpers";
 import { ASPECT_LABELS } from "@/shared/lib/constants";
+import { formatDegree, getHouseFromSign } from "@/shared/lib/textHelpers";
+import {
+  getFormattedHouseText,
+  getFormattedTransitText,
+  getGeneralSignificationsText,
+} from "@/shared/text/general";
+import { type TransitEntry } from "@/shared/types";
 
 export default function MonthTransitWithOrb({
   transit,

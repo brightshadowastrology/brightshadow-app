@@ -1,12 +1,11 @@
 import { useBirthChart } from "@/components/Providers/BirthChartContext";
-import { type RetrogradeEvent } from "@/shared/types";
+import { formatDegree, getHouseFromSign } from "@/shared/lib/textHelpers";
 import {
-  formatDegree,
-  getHouseFromSign,
   getFormattedHouseText,
   getFormattedHouseTopicsText,
-} from "@/shared/lib/textHelpers";
-import { getRetrogradeRecommendationText } from "@/components/Templates/helpers";
+} from "@/shared/text/general";
+import { getRetrogradeRecommendationText } from "@/shared/text/retrogradeRecommendationText";
+import { type RetrogradeEvent } from "@/shared/types";
 
 export default function MonthRetrograde({
   retrograde,

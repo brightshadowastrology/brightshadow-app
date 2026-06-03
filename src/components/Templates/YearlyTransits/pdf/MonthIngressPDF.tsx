@@ -1,12 +1,12 @@
-import { Text, View } from "@react-pdf/renderer";
-import { type IngressEntry, type PlanetPoint } from "@/shared/types";
+import { getHouseFromSign } from "@/shared/lib/textHelpers";
 import {
-  getHouseFromSign,
-  getFormattedHouseText,
-  getFormattedHouseRulersText,
   getFormattedHouseDescriptionText,
-  getIngressInterpretation,
-} from "@/shared/lib/textHelpers";
+  getFormattedHouseRulersText,
+  getFormattedHouseText,
+  getIngressInterpretationText,
+} from "@/shared/text/general";
+import { type IngressEntry, type PlanetPoint } from "@/shared/types";
+import { Text, View } from "@react-pdf/renderer";
 import { eventStyles as s } from "./styles";
 
 const TRADITIONAL_PLANETS = ["Mercury", "Venus", "Mars", "Jupiter", "Saturn"];
@@ -29,7 +29,7 @@ export function MonthIngressPDF({
       "Aries",
     ingress.sign,
   );
-  const ingressInterpretation = getIngressInterpretation(
+  const ingressInterpretation = getIngressInterpretationText(
     ingress.planet,
     houseIngressedInto.toString(),
   );

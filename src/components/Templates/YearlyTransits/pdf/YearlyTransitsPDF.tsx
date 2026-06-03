@@ -1,11 +1,32 @@
 import {
+  type BirthInfo,
+  type Eclipse,
+  type IngressEntry,
+  type Lunation,
+  type PlanetPoint,
+  type ProfectionYearData,
+  type RetrogradeEvent,
+  type SectPlanets,
+  type TransitEntry,
+} from "@/shared/types";
+import {
   Document,
   Font,
   Page,
-  View,
-  Text,
   StyleSheet,
+  Text,
+  View,
 } from "@react-pdf/renderer";
+import { MonthBirthdayPDF } from "./MonthBirthdayPDF";
+import { MonthEclipsePDF } from "./MonthEclipsePDF";
+import { MonthIngressPDF } from "./MonthIngressPDF";
+import { MonthLunationPDF } from "./MonthLunationPDF";
+import { MonthRetrogradePDF } from "./MonthRetrogradePDF";
+import { MonthTransitPDF } from "./MonthTransitPDF";
+import { MonthTransitWithOrbPDF } from "./MonthTransitWithOrbPDF";
+import { NotableDatesPDF, type NotableEvent } from "./NotableDatesPDF";
+import { ProfectionYearPDF } from "./ProfectionYearPDF";
+import { colors } from "./styles";
 
 Font.register({
   family: "Quicksand",
@@ -22,27 +43,6 @@ Font.register({
     { src: "/fonts/Lora-Italic-VariableFont_wght.ttf", fontStyle: "italic" },
   ],
 });
-import {
-  type Eclipse,
-  type Lunation,
-  type RetrogradeEvent,
-  type IngressEntry,
-  type TransitEntry,
-  type PlanetPoint,
-  type SectPlanets,
-  type ProfectionYearData,
-} from "@/shared/types";
-import { type BirthInfo } from "@/shared/types";
-import { MonthEclipsePDF } from "./MonthEclipsePDF";
-import { MonthLunationPDF } from "./MonthLunationPDF";
-import { MonthRetrogradePDF } from "./MonthRetrogradePDF";
-import { MonthIngressPDF } from "./MonthIngressPDF";
-import { MonthTransitPDF } from "./MonthTransitPDF";
-import { MonthTransitWithOrbPDF } from "./MonthTransitWithOrbPDF";
-import { MonthBirthdayPDF } from "./MonthBirthdayPDF";
-import { ProfectionYearPDF } from "./ProfectionYearPDF";
-import { NotableDatesPDF, type NotableEvent } from "./NotableDatesPDF";
-import { colors } from "./styles";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -160,8 +160,11 @@ export function YearlyTransitsPDF({
         {birthInfo && (
           <View>
             <Text style={styles.pageIntro}>
-              {new Date(birthInfo.birthDate + "T00:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })} · {`${birthInfo.birthTime}`} ·{" "}
-              {birthInfo.location}
+              {new Date(birthInfo.birthDate + "T00:00:00").toLocaleDateString(
+                "en-US",
+                { month: "long", day: "numeric", year: "numeric" },
+              )}{" "}
+              · {`${birthInfo.birthTime}`} · {birthInfo.location}
             </Text>
 
             <Text style={styles.pageIntro}>

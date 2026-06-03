@@ -1,20 +1,23 @@
-import { Text, View } from "@react-pdf/renderer";
+import {
+  formatDegree,
+  getAspectsToNatalPlanets,
+  getHouseFromSign,
+  getPills,
+  titleCase,
+} from "@/shared/lib/textHelpers";
+import {
+  getFormattedAspectText,
+  getFormattedHouseDescriptionText,
+  getFormattedHouseText,
+  getFormattedHouseTopicsText,
+} from "@/shared/text/general";
 import {
   type Lunation,
   type PlanetPoint,
-  type SectPlanets,
   type ProfectionYearData,
+  type SectPlanets,
 } from "@/shared/types";
-import {
-  titleCase,
-  formatDegree,
-  getHouseFromSign,
-  getFormattedHouseText,
-  getFormattedHouseDescriptionText,
-  getFormattedHouseTopicsText,
-  getFormattedAspectText,
-} from "@/shared/lib/textHelpers";
-import { getAspectsToNatalPlanets, getPills } from "../../helpers";
+import { Text, View } from "@react-pdf/renderer";
 import { InfoPillPDF } from "./InfoPillPDF";
 import { eventStyles as s } from "./styles";
 
@@ -47,7 +50,9 @@ export function MonthLunationPDF({
     lunation.date,
   );
   const pills = aspects
-    .flatMap((aspect) => getPills(birthChartData, sectPlanets, aspect, profectionYearData))
+    .flatMap((aspect) =>
+      getPills(birthChartData, sectPlanets, aspect, profectionYearData),
+    )
     .filter(
       (pill, index, self) =>
         index === self.findIndex((p) => p.type === pill.type),
@@ -59,7 +64,11 @@ export function MonthLunationPDF({
       {pills.length > 0 && (
         <View style={s.pillsColumn}>
           {pills.map((pill) => (
-            <InfoPillPDF key={pill.type} type={pill.type} toolTip={pill.toolTip} />
+            <InfoPillPDF
+              key={pill.type}
+              type={pill.type}
+              toolTip={pill.toolTip}
+            />
           ))}
         </View>
       )}

@@ -1,32 +1,32 @@
-import { useMemo } from "react";
-import * as constants from "@/shared/lib/constants";
-import { trpc } from "@/shared/lib/trpc";
 import { useBirthChart } from "@/components/Providers/BirthChartContext";
-import {
-  type Eclipse,
-  type Lunation,
-  type MajorTransitsWithOrb,
-  type RetrogradeEvent,
-  type RetrogradePeriod,
-  type IngressEntry,
-  type TransitEntry,
-  type ProfectionYearData,
-} from "@/shared/types";
-import MonthEclipse from "./MonthEclipse";
-import MonthLunation from "./MonthLunation";
-import MonthRetrograde from "./MonthRetrograde";
-import MonthIngress from "./MonthIngress";
-import MonthTransit from "./MonthTransit";
-import MonthTransitWithOrb from "./MonthTransitWithOrb";
-import MonthBirthday from "./MonthBirthday";
 import LoadingIndicator from "@/components/UI/LoadingIndicator";
-import ProfectionYear from "./ProfectionYear";
-import NotableDates, { type NotableEvent } from "./NotableDates";
+import * as constants from "@/shared/lib/constants";
 import {
   isDateNotable,
   isEclipseNotable,
   isLunationNotable,
-} from "../../helpers";
+} from "@/shared/lib/textHelpers";
+import { trpc } from "@/shared/lib/trpc";
+import {
+  type Eclipse,
+  type IngressEntry,
+  type Lunation,
+  type MajorTransitsWithOrb,
+  type ProfectionYearData,
+  type RetrogradeEvent,
+  type RetrogradePeriod,
+  type TransitEntry,
+} from "@/shared/types";
+import { useMemo } from "react";
+import MonthBirthday from "./MonthBirthday";
+import MonthEclipse from "./MonthEclipse";
+import MonthIngress from "./MonthIngress";
+import MonthLunation from "./MonthLunation";
+import MonthRetrograde from "./MonthRetrograde";
+import MonthTransit from "./MonthTransit";
+import MonthTransitWithOrb from "./MonthTransitWithOrb";
+import NotableDates, { type NotableEvent } from "./NotableDates";
+import ProfectionYear from "./ProfectionYear";
 
 function getNext12Months(
   startMonth = new Date().getMonth(),

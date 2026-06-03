@@ -1,5 +1,5 @@
-import { Text, View } from "@react-pdf/renderer";
 import { type Pill } from "@/shared/types";
+import { Text, View } from "@react-pdf/renderer";
 
 const PILL_PDF_CONFIG: Record<
   Pill["type"],

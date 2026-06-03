@@ -1,15 +1,17 @@
 import { useBirthChart } from "@/components/Providers/BirthChartContext";
-import { type TransitEntry } from "@/shared/types";
+import InfoPill from "@/components/UI/InfoPill";
+import { ASPECT_LABELS } from "@/shared/lib/constants";
 import {
   formatDegree,
   getHouseFromSign,
-  getFormattedHouseText,
-  getGeneralSignificationsText,
-  getFormattedTransitText,
+  getPills,
 } from "@/shared/lib/textHelpers";
-import { ASPECT_LABELS } from "@/shared/lib/constants";
-import InfoPill from "@/components/UI/InfoPill";
-import { getPills } from "../../helpers";
+import {
+  getFormattedHouseText,
+  getFormattedTransitText,
+  getGeneralSignificationsText,
+} from "@/shared/text/general";
+import { type TransitEntry } from "@/shared/types";
 
 export default function MonthTransit({ transit }: { transit: TransitEntry }) {
   const { birthChartData, sectPlanets, profectionYear } = useBirthChart();

@@ -1,15 +1,18 @@
 import { useBirthChart } from "@/components/Providers/BirthChartContext";
-import { type Eclipse } from "@/shared/types";
-import { getAspectsToNatalPlanets, getPills } from "../../helpers";
 import InfoPill from "@/components/UI/InfoPill";
 import {
-  titleCase,
   formatDegree,
+  getAspectsToNatalPlanets,
   getHouseFromSign,
-  getFormattedHouseText,
-  getFormattedHouseDescriptionText,
-  getFormattedAspectText,
+  getPills,
+  titleCase,
 } from "@/shared/lib/textHelpers";
+import {
+  getFormattedAspectText,
+  getFormattedHouseDescriptionText,
+  getFormattedHouseText,
+} from "@/shared/text/general";
+import { type Eclipse } from "@/shared/types";
 
 export default function MonthEclipse({
   eclipse,

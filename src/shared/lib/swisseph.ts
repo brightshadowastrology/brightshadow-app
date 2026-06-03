@@ -197,7 +197,7 @@ export const getHousePositions = (
   longitude: number,
 ) => {
   //get ascendant
-  let houses = sweph.houses(
+  const houses = sweph.houses(
     date,
     latitude,
     longitude,
@@ -341,7 +341,7 @@ export const getBirthChartData = (date: Date) => {
   );
   const houseDegrees = convertValuetoDegrees(houses.houses[0]);
 
-  let result = placements.map((placement) => {
+  const result = placements.map((placement) => {
     const house = getPlanetHouse(placement.sign, houseDegrees.sign);
     return {
       ...placement,
@@ -389,7 +389,7 @@ export const getPlanetaryIngressByDegree = (
   endDate.setFullYear(startDate.getFullYear() + 1);
 
   // Search day by day
-  let currentDate = new Date(startDate);
+  const currentDate = new Date(startDate);
 
   while (currentDate <= endDate) {
     // Convert to Julian day
@@ -557,79 +557,61 @@ export const getMajorTransitsForAPlanet = (
   };
 };
 
-// Helper to find the exact date time for new moons and full moons in the coming year, a date that is close enough, and increment the hours and minutes to find 0 degree conjunction
-const getExactLunationDate = (targetDate: Date, isNewMoon: boolean) => {
-  let exactDate = new Date(targetDate);
-  let found = false;
+// Finds the exact lunation moment via Newton-Raphson on the Sun-Moon angular separation.
+// calc_ut with SEFLG_SPEED returns longitude speed (deg/day) at data[3], used as the derivative.
+export const getExactLunationDate = (
+  targetDate: Date,
+  isNewMoon: boolean,
+): Date => {
+  const julday = sweph.utc_to_jd(
+    targetDate.getUTCFullYear(),
+    targetDate.getUTCMonth() + 1,
+    targetDate.getUTCDate(),
+    targetDate.getUTCHours(),
+    targetDate.getUTCMinutes(),
+    0,
+    sweph.constants.SE_GREG_CAL,
+  );
 
-  while (!found) {
-    const julday = sweph.utc_to_jd(
-      exactDate.getUTCFullYear(),
-      exactDate.getUTCMonth() + 1,
-      exactDate.getUTCDate(),
-      exactDate.getUTCHours(),
-      exactDate.getUTCMinutes(),
-      0,
-      sweph.constants.SE_GREG_CAL,
-    );
+  const target = isNewMoon ? 0 : 180;
+  let jd = julday.data[0];
 
-    const [jd_ut] = julday.data;
-
-    // Calculate Sun position
+  for (let i = 0; i < 50; i++) {
     const sunCalc = sweph.calc_ut(
-      jd_ut,
+      jd,
       sweph.constants.SE_SUN,
       sweph.constants.SEFLG_SPEED,
     );
-    const [sunLongitude] = sunCalc.data;
-    const sunSplitDeg = sweph.split_deg(
-      sunLongitude,
-      sweph.constants.SE_SPLIT_DEG_ZODIACAL,
-    );
-
-    // Calculate Moon position
     const moonCalc = sweph.calc_ut(
-      jd_ut,
+      jd,
       sweph.constants.SE_MOON,
       sweph.constants.SEFLG_SPEED,
     );
-    const [moonLongitude] = moonCalc.data;
-    const moonSplitDeg = sweph.split_deg(
-      moonLongitude,
-      sweph.constants.SE_SPLIT_DEG_ZODIACAL,
-    );
 
-    const angleDiff = sweph.difdegn(
-      sweph.d2l(sunLongitude),
-      sweph.d2l(moonLongitude),
-    );
+    const sunLon: number = sunCalc.data[0];
+    const moonLon: number = moonCalc.data[0];
+    const sunSpeed: number = sunCalc.data[3];
+    const moonSpeed: number = moonCalc.data[3];
 
-    if (isNewMoon) {
-      // New Moon when angle difference is close to 0
-      if (angleDiff < 0.1 || angleDiff > 359.9) {
-        found = true;
-      } else {
-        // Increment by 1 hour
-        exactDate.setUTCHours(exactDate.getUTCHours() + 1);
-      }
-    } else {
-      // Full Moon when angle difference is close to 180
-      if (angleDiff > 179.9 && angleDiff < 180.1) {
-        found = true;
-      } else {
-        // Increment by 1 hour
-        exactDate.setUTCHours(exactDate.getUTCHours() + 1);
-      }
-    }
+    // Normalize separation to -180..180 so the step direction is always correct
+    let diff = moonLon - sunLon - target;
+    diff = ((diff % 360) + 360) % 360;
+    if (diff > 180) diff -= 360;
+
+    if (Math.abs(diff) < 1e-6) break;
+
+    // Newton step: diff (deg) / relative speed (deg/day) = days to shift
+    jd -= diff / (moonSpeed - sunSpeed);
   }
 
-  return exactDate;
+  const deltaDays = jd - julday.data[0];
+  return new Date(targetDate.getTime() + deltaDays * 86400000);
 };
 
 export const getLunations = (date?: Date) => {
   const startDate = date || new Date();
   // For each sign, we need to find the dates where the moon is conjunct the Sun, and when the moon is in opposition to the Sun
-  let results = signs.map((sign) => {
+  const results = signs.map((sign) => {
     return {
       sign,
       newMoons: [] as Array<{
@@ -652,7 +634,7 @@ export const getLunations = (date?: Date) => {
   const fullMoons: Array<string> = [];
 
   // Search day by day
-  let currentDate = new Date(startDate);
+  const currentDate = new Date(startDate);
 
   while (currentDate <= endDate) {
     // Convert to Julian day

@@ -1,5 +1,41 @@
 import * as constants from "@/shared/lib/constants";
-import { houseDescriptions, houseTopics } from "@/shared/text/text";
+import {
+  ASPECT_LABELS,
+  ASPECTS_MAP,
+  PLANET_DIGNITIES_DEBILITIES,
+} from "@/shared/lib/constants";
+import {
+  eighthHouseRulershipInterpretations,
+  eleventhHouseRulershipInterpretations,
+  fifthHouseRulershipInterpretations,
+  firstHouseRulershipInterpretations,
+  fourthHouseRulershipInterpretations,
+  ninthHouseRulershipInterpretations,
+  secondHouseRulershipInterpretations,
+  seventhHouseRulershipInterpretations,
+  sixthHouseRulershipInterpretations,
+  tenthHouseRulershipInterpretations,
+  thirdHouseRulershipInterpretations,
+  twelfthHouseRulershipInterpretations,
+} from "@/shared/text/houseRulershipInterpretations";
+import {
+  jupiterIngressInterpretations,
+  marsIngressInterpretations,
+  mercuryIngressInterpretations,
+  neptuneIngressInterpretations,
+  plutoIngressInterpretations,
+  saturnIngressInterpretations,
+  sunIngressInterpretations,
+  uranusIngressInterpretations,
+  venusIngressInterpretations,
+} from "@/shared/text/ingressInterpretations";
+import {
+  houseDescriptions,
+  houseTopics,
+  planetDescriptions,
+  sectInterpretations,
+  signDescriptions,
+} from "@/shared/text/general";
 import {
   jupiterTransitInterpretations,
   marsTransitInterpretations,
@@ -10,36 +46,16 @@ import {
   venusTransitInterpretations,
 } from "@/shared/text/transitInterpretations";
 import {
-  sunIngressInterpretations,
-  mercuryIngressInterpretations,
-  venusIngressInterpretations,
-  marsIngressInterpretations,
-  jupiterIngressInterpretations,
-  saturnIngressInterpretations,
-  uranusIngressInterpretations,
-  neptuneIngressInterpretations,
-  plutoIngressInterpretations,
-} from "@/shared/text/ingressInterpretations";
-import {
-  firstHouseRulershipInterpretations,
-  secondHouseRulershipInterpretations,
-  thirdHouseRulershipInterpretations,
-  fourthHouseRulershipInterpretations,
-  fifthHouseRulershipInterpretations,
-  sixthHouseRulershipInterpretations,
-  seventhHouseRulershipInterpretations,
-  eighthHouseRulershipInterpretations,
-  ninthHouseRulershipInterpretations,
-  tenthHouseRulershipInterpretations,
-  eleventhHouseRulershipInterpretations,
-  twelfthHouseRulershipInterpretations,
-} from "@/shared/text/houseRulershipInterpretations";
-import { ASPECT_LABELS } from "@/shared/lib/constants";
-import {
-  type PlanetPoint,
-  type TransitInterpretations,
+  type Eclipse,
   type IngressInterpretations,
-  TransitEntry,
+  type Lunation,
+  type Pill,
+  type PlanetPoint,
+  type Position,
+  type ProfectionYearData,
+  type SectPlanets,
+  type TransitEntry,
+  type TransitInterpretations,
 } from "@/shared/types";
 
 export const getOrdinal = (n: number): string => {
@@ -86,232 +102,425 @@ export const getHouseFromSign = (
   return houseNumber;
 };
 
-export const getFormattedPlanetText = (planetName: string) => {
-  return planetName === "Sun" || planetName === "Moon"
-    ? `The ${planetName}`
-    : planetName;
-};
-
-export const getFormattedHouseText = (house: number) => {
-  return `${getOrdinal(house)} house`;
-};
-
-export const getFormattedHouseRulersText = (housesRuledByPlanet: number[]) => {
-  const housesFormatted = housesRuledByPlanet.map((house) => {
-    return getOrdinal(house);
-  });
-  return `${housesFormatted.join(", ").replace(/, ([^,]*)$/, ", and $1")} ${housesRuledByPlanet.length === 1 ? "house" : "houses"}`;
-};
-
-export const getFormattedHouseDescriptionText = (
-  housesRuledByPlanet: number[],
-) => {
-  return housesRuledByPlanet
-    .map((house) => {
-      return houseDescriptions[house];
-    })
-    .join(", as well as your ");
-};
-
-export const getFormattedHouseTopicsText = (house: number) => {
-  return houseTopics[house].join(", ").replace(/, ([^,]*)$/, ", and $1");
-};
-
-export const getFormattedAspectText = (
-  aspects: TransitEntry[],
-  transitText?: string,
-) => {
-  const text = aspects.map((aspect) => {
-    const formattedAspect = ASPECT_LABELS[aspect.aspect] || aspect.aspect;
-    const a =
-      formattedAspect === "conjunct"
-        ? ""
-        : formattedAspect === "opposition"
-          ? "an"
-          : "a";
-
-    return `${a} ${formattedAspect} to your natal ${aspect.natalPlanet}`;
-  });
-
-  return `This ${transitText || "transit"} is in ${text.join(", ").replace(/, ([^,]*)$/, ", and $1")}.`;
-};
-
-export const getFormattedTransitText = (
+export const getAspectsToNatalPlanets = (
+  transit: Position,
+  natalPlanets: PlanetPoint[],
   transitingPlanet: string,
-  natalPlanet: PlanetPoint,
-  aspectLabel: string,
-) => {
-  let transitTextCollection: TransitInterpretations = {};
-  const aspect =
-    aspectLabel === "conjunct"
-      ? "conjunct"
-      : aspectLabel === "square" || aspectLabel === "opposition"
-        ? "squareOrOpposition"
-        : "trineOrSextile";
+  date: string,
+): TransitEntry[] => {
+  const transitAspects = ASPECTS_MAP[transit.sign as keyof typeof ASPECTS_MAP];
 
-  switch (transitingPlanet) {
-    case "Venus":
-      transitTextCollection = venusTransitInterpretations;
-      break;
-    case "Mars":
-      transitTextCollection = marsTransitInterpretations;
-      break;
-    case "Jupiter":
-      transitTextCollection = jupiterTransitInterpretations;
-      break;
-    case "Saturn":
-      transitTextCollection = saturnTransitInterpretations;
-      break;
-    case "Uranus":
-      transitTextCollection = uranusTransitInterpretations;
-      break;
-    case "Neptune":
-      transitTextCollection = neptuneTransitInterpretations;
-      break;
-    case "Pluto":
-      transitTextCollection = plutoTransitInterpretations;
-      break;
-    default:
-      console.log("Not found");
-  }
+  const filteredNatalPlanets = [
+    "Sun",
+    "Moon",
+    "Mercury",
+    "Venus",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+  ];
 
-  return natalPlanet.rulerOf
-    ?.map((house) => {
-      return (
-        transitTextCollection?.[natalPlanet.planet]?.[aspect]?.[house] || ""
+  const classicalPlanets = natalPlanets.filter((natal) =>
+    filteredNatalPlanets.includes(natal.planet),
+  );
+
+  const withinOrb = classicalPlanets.filter(
+    (natal) => Math.abs(natal.position.degree - transit.degree) <= 3,
+  );
+
+  if (withinOrb.length === 0) return [];
+
+  const entries = withinOrb
+    .map((natal) => {
+      const match = Object.entries(transitAspects).find(
+        ([, sign]) => sign === natal.position.sign,
       );
+      if (!match) return null;
+      const entry: TransitEntry = {
+        date,
+        transitingPlanet,
+        natalPlanet: natal.planet,
+        aspect: match[0],
+        position: transit,
+        natalPosition: natal.position,
+        exactMatch: natal.position.degree === transit.degree,
+      };
+      return entry;
     })
-    .join(" ");
+    .filter((entry): entry is TransitEntry => {
+      return !!entry;
+    });
+
+  return entries;
 };
 
-export const getGeneralSignificationsText = (
-  transitingPlanet: string,
-  natalPlanet: PlanetPoint,
-  aspectLabel: string,
+export const getIsDayChart = (
+  sun: PlanetPoint,
+  ascendant: PlanetPoint,
+  descendant: PlanetPoint,
 ) => {
-  let transitTextCollection: TransitInterpretations = {};
-  const aspect =
-    aspectLabel === "conjunct"
-      ? "conjunct"
-      : aspectLabel === "square" || aspectLabel === "opposition"
-        ? "squareOrOpposition"
-        : "trineOrSextile";
+  const dayHouses = [12, 11, 10, 9, 8];
 
-  switch (transitingPlanet) {
-    case "Venus":
-      transitTextCollection = venusTransitInterpretations;
-      break;
-    case "Mars":
-      transitTextCollection = marsTransitInterpretations;
-      break;
-    case "Jupiter":
-      transitTextCollection = jupiterTransitInterpretations;
-      break;
-    case "Saturn":
-      transitTextCollection = saturnTransitInterpretations;
-      break;
-    case "Uranus":
-      transitTextCollection = uranusTransitInterpretations;
-      break;
-    case "Neptune":
-      transitTextCollection = neptuneTransitInterpretations;
-      break;
-    case "Pluto":
-      transitTextCollection = plutoTransitInterpretations;
-      break;
-    default:
-      console.log("Not found");
+  if (dayHouses.includes(sun.house)) {
+    return true;
   }
 
-  return transitTextCollection?.[natalPlanet.planet]?.[aspect]?.[0] || "";
+  if (sun.house === 1 || sun.house === 7) {
+    if (
+      (sun.position.sign === ascendant.position.sign &&
+        ascendant.position.degree > sun.position.degree) ||
+      (sun.position.sign === descendant.position.sign &&
+        descendant.position.degree < sun.position.degree)
+    ) {
+      return true;
+    }
+  }
+
+  return false;
 };
 
-export const getIngressInterpretation = (
-  transitingPlanet: string,
-  house: string,
-) => {
-  let ingressTextCollection: IngressInterpretations = {};
-
-  switch (transitingPlanet) {
-    case "Sun":
-      ingressTextCollection = sunIngressInterpretations;
-      break;
-    case "Mercury":
-      ingressTextCollection = mercuryIngressInterpretations;
-      break;
-    case "Venus":
-      ingressTextCollection = venusIngressInterpretations;
-      break;
-    case "Mars":
-      ingressTextCollection = marsIngressInterpretations;
-      break;
-    case "Jupiter":
-      ingressTextCollection = jupiterIngressInterpretations;
-      break;
-    case "Saturn":
-      ingressTextCollection = saturnIngressInterpretations;
-      break;
-    case "Uranus":
-      ingressTextCollection = uranusIngressInterpretations;
-      break;
-    case "Neptune":
-      ingressTextCollection = neptuneIngressInterpretations;
-      break;
-    case "Pluto":
-      ingressTextCollection = plutoIngressInterpretations;
-      break;
-    default:
-      console.log("Not found");
-  }
-
-  return ingressTextCollection?.[house] || "";
+export const isFastMoving = (planet: string) => {
+  return ["Mars", "Venus"].includes(planet);
 };
 
-export const getPlanetRulerText = (house: number, rulerHouse: number) => {
-  let textCollection: { [key: number]: string } = {};
+export const isPersonalPlanet = (planet: string) => {
+  return ["Sun", "Moon", "Mercury", "Venus", "Mars"].includes(planet);
+};
 
-  switch (house) {
-    case 1:
-      textCollection = firstHouseRulershipInterpretations;
-      break;
-    case 2:
-      textCollection = secondHouseRulershipInterpretations;
-      break;
-    case 3:
-      textCollection = thirdHouseRulershipInterpretations;
-      break;
-    case 4:
-      textCollection = fourthHouseRulershipInterpretations;
-      break;
-    case 5:
-      textCollection = fifthHouseRulershipInterpretations;
-      break;
-    case 6:
-      textCollection = sixthHouseRulershipInterpretations;
-      break;
-    case 7:
-      textCollection = seventhHouseRulershipInterpretations;
-      break;
-    case 8:
-      textCollection = eighthHouseRulershipInterpretations;
-      break;
-    case 9:
-      textCollection = ninthHouseRulershipInterpretations;
-      break;
-    case 10:
-      textCollection = tenthHouseRulershipInterpretations;
-      break;
-    case 11:
-      textCollection = eleventhHouseRulershipInterpretations;
-      break;
-    case 12:
-      textCollection = twelfthHouseRulershipInterpretations;
-      break;
-    default:
-      console.log("Not found");
+export const isBeneficPlanet = (planet: string) => {
+  return ["Jupiter", "Venus"].includes(planet);
+};
+
+export const isPlacementAngle = (placement: string) => {
+  return ["Midheaven", "IC", "Ascendant", "Descendant"].includes(placement);
+};
+
+export const isAngleRuler = (rulerOf: number[]) => {
+  return rulerOf.some((house) => [1, 4, 7, 10].includes(house));
+};
+
+export const isSectPlanet = (planet: string) => {
+  return ["Jupiter", "Venus", "Mars", "Saturn"].includes(planet);
+};
+
+export const isSocialPlanet = (planet: string) => {
+  return ["Jupiter", "Saturn"].includes(planet);
+};
+
+export const isOuterPlanet = (planet: string) => {
+  return ["Uranus", "Neptune", "Pluto"].includes(planet);
+};
+
+export const getSectPlanets = (
+  isDayChart: boolean,
+  birthchartData: PlanetPoint[],
+): SectPlanets => {
+  const inSectBenefic: PlanetPoint = birthchartData.find((p) =>
+    isDayChart ? p.planet === "Jupiter" : p.planet === "Venus",
+  ) || {
+    planet: "Jupiter",
+    modality: "Fixed",
+    position: {
+      sign: "Leo",
+      degree: 0,
+      minute: 0,
+    },
+    house: 1,
+  };
+  const outOfSectBenefic = birthchartData.find((p) =>
+    isDayChart ? p.planet === "Venus" : p.planet === "Jupiter",
+  ) || {
+    planet: "Venus",
+    modality: "Fixed",
+    position: {
+      sign: "Leo",
+      degree: 0,
+      minute: 0,
+    },
+    house: 1,
+  };
+  const inSectMalefic = birthchartData.find((p) =>
+    isDayChart ? p.planet === "Saturn" : p.planet === "Mars",
+  ) || {
+    planet: "Saturn",
+    modality: "Fixed",
+    position: {
+      sign: "Leo",
+      degree: 0,
+      minute: 0,
+    },
+    house: 1,
+  };
+  const outOfSectMalefic = birthchartData.find((p) =>
+    isDayChart ? p.planet === "Mars" : p.planet === "Saturn",
+  ) || {
+    planet: "Mars",
+    modality: "Fixed",
+    position: {
+      sign: "Leo",
+      degree: 0,
+      minute: 0,
+    },
+    house: 1,
+  };
+
+  return {
+    inSectBenefic,
+    inSectMalefic,
+    outOfSectBenefic,
+    outOfSectMalefic,
+  };
+};
+
+export const getPills = (
+  birthchartData: PlanetPoint[],
+  sectPlanets: SectPlanets,
+  transit: TransitEntry,
+  profectionYearData: ProfectionYearData | null,
+): Pill[] => {
+  const pills: Pill[] = [];
+
+  const natalPlanet =
+    birthchartData.find((p) => p.planet === transit.natalPlanet) ||
+    birthchartData[0];
+  const transitingPlanetName = transit.transitingPlanet
+    .toLowerCase()
+    .includes("moon")
+    ? "Lunation"
+    : transit.transitingPlanet.toLowerCase().includes("eclipse")
+      ? "Eclipse"
+      : transit.transitingPlanet;
+  const split = transit.aspect.split(/(?=[A-Z])/);
+
+  const transitingPlanetAspect =
+    split.length > 1 ? split[1].toLowerCase() : split[0];
+
+  const transitAspect =
+    transitingPlanetAspect === "trine" || transitingPlanetAspect === "sextile"
+      ? "easy"
+      : "hard";
+
+  if (isSectPlanet(transitingPlanetName)) {
+    const isBenefic = isBeneficPlanet(transitingPlanetName);
+    const sect = isBenefic
+      ? sectPlanets.inSectBenefic.planet === transitingPlanetName
+        ? "inSectBenefic"
+        : "outOfSectBenefic"
+      : sectPlanets.inSectMalefic.planet === transitingPlanetName
+        ? "inSectMalefic"
+        : "outOfSectMalefic";
+    const text =
+      sectInterpretations?.[transitingPlanetName]?.[sect]?.[transitAspect] ||
+      "";
+
+    // Joyous transits - Easy Transits from benefic
+    if (
+      isBenefic &&
+      (transitAspect === "easy" || transitingPlanetAspect === "conjunct")
+    ) {
+      pills.push({
+        type: "joyous",
+        toolTip: text,
+      });
+    }
+    // Excessive transit - Hard transits from benefics
+    if (
+      isBenefic &&
+      (transitingPlanetAspect === "square" ||
+        transitingPlanetAspect === "opposition")
+    ) {
+      pills.push({
+        type: "excessive",
+        toolTip: text,
+      });
+    }
+    // Productive - Easy transits from malefics
+    if (!isBenefic && transitAspect === "easy") {
+      pills.push({
+        type: "productive",
+        toolTip: text,
+      });
+    }
+    // Challening - Hard transits from malefics
+    if (!isBenefic && transitAspect === "hard") {
+      pills.push({
+        type: "challenging",
+        toolTip: text,
+      });
+    }
   }
 
-  console.log("text collection", textCollection, "ruler house", rulerHouse);
+  // Notable transits - Transits to angles or angle rulers
+  if (
+    transitAspect === "hard" &&
+    isSocialPlanet(transitingPlanetName) &&
+    (isPlacementAngle(transit.natalPlanet) ||
+      isAngleRuler(natalPlanet.rulerOf || []))
+  ) {
+    pills.push({
+      type: "notable",
+      toolTip:
+        "These hard transits of the social planets to your angles or angle rulers mark significant turning points in life.",
+    });
+  }
 
-  return textCollection?.[rulerHouse] || "";
+  // Powerful - Transits of outer planets to angles or angle rulers
+  if (
+    transitAspect === "hard" &&
+    (isOuterPlanet(transitingPlanetName) ||
+      transitingPlanetName === "Eclipse") &&
+    (isPlacementAngle(transit.natalPlanet) ||
+      isAngleRuler(natalPlanet.rulerOf || []))
+  ) {
+    pills.push({
+      type: "powerful",
+      toolTip:
+        "These hard transits of the outer planets to your angles or angle rulers often manifest as life-changing events.",
+    });
+  }
+
+  // Pivot Point - Transits of eclipses
+  if (transitAspect === "hard" && transitingPlanetName === "Eclipse") {
+    pills.push({
+      type: "pivotPoint",
+      toolTip:
+        "This eclipse sets up six months of major endings and new beginnings in the areas of life associated with this house.",
+    });
+  }
+
+  // Time lord events - Transits to the profected house, transits to the ruler of the profected house, or transits from the profected ruler
+  // If moon is the time lord for the year, new and full moons, as well as eclipeses are time lord events
+  // If sun is the time lord for the year then eclipses, and the changing of the sun's sign are time lords events
+  // For other planets, the ingress of the planet into a new sign, as well as any hard aspect from that planet is a time lord event
+  if (profectionYearData) {
+    const { profectionSign, lordOfYear } = profectionYearData;
+
+    const isProfectedHouseTransit = transit.position.sign === profectionSign;
+    const isTransitToLordOfYear = transit.natalPlanet === lordOfYear;
+
+    let isTransitFromLordOfYear = false;
+    if (lordOfYear === "Moon") {
+      isTransitFromLordOfYear = transitingPlanetName === "Eclipse";
+    } else if (lordOfYear === "Sun") {
+      isTransitFromLordOfYear = transitingPlanetName === "Eclipse";
+    } else {
+      isTransitFromLordOfYear =
+        transit.transitingPlanet === lordOfYear && transitAspect === "hard";
+    }
+
+    if (
+      isProfectedHouseTransit ||
+      isTransitToLordOfYear ||
+      isTransitFromLordOfYear
+    ) {
+      let toolTip = "";
+      if (isTransitFromLordOfYear) {
+        if (lordOfYear === "Moon") {
+          toolTip =
+            "As your time lord, the Moon's lunations and eclipses mark pivotal moments this year.";
+        } else if (lordOfYear === "Sun") {
+          toolTip =
+            "As your time lord, this eclipse marks a significant turning point this year.";
+        } else {
+          toolTip = `This hard transit from your time lord ${lordOfYear} marks a key turning point this year.`;
+        }
+      } else if (isTransitToLordOfYear) {
+        toolTip = `This transit to your natal ${lordOfYear} activates your time lord for this year.`;
+      } else {
+        toolTip =
+          "This transit occurs in your profected sign, activating this year's key themes.";
+      }
+
+      pills.push({ type: "timeLordEvent", toolTip });
+    }
+  }
+
+  return pills;
+};
+
+export const isDateNotable = (
+  birthchartData: PlanetPoint[],
+  sectPlanets: SectPlanets,
+  transit: TransitEntry,
+  profectionYearData: ProfectionYearData | null,
+): boolean => {
+  const pills = getPills(
+    birthchartData,
+    sectPlanets,
+    transit,
+    profectionYearData,
+  );
+  return pills.some(
+    (pill) =>
+      pill.type === "powerful" ||
+      pill.type === "challenging" ||
+      pill.type === "joyous" ||
+      pill.type === "notable",
+  );
+};
+
+export const isEclipseNotable = (
+  eclipse: Eclipse,
+  birthchartData: PlanetPoint[],
+  sectPlanets: SectPlanets,
+  profectionYearData: ProfectionYearData | null,
+): boolean => {
+  const aspects = getAspectsToNatalPlanets(
+    eclipse.position,
+    birthchartData,
+    eclipse.type,
+    eclipse.date,
+  );
+  return aspects.some((aspect) =>
+    isDateNotable(birthchartData, sectPlanets, aspect, profectionYearData),
+  );
+};
+
+export const isLunationNotable = (
+  lunation: Lunation,
+  birthchartData: PlanetPoint[],
+  sectPlanets: SectPlanets,
+  profectionYearData: ProfectionYearData | null,
+): boolean => {
+  const aspects = getAspectsToNatalPlanets(
+    lunation.position,
+    birthchartData,
+    lunation.lunationType,
+    lunation.date,
+  );
+  return aspects.some((aspect) =>
+    isDateNotable(birthchartData, sectPlanets, aspect, profectionYearData),
+  );
+};
+
+export const getPlanetDignity = (planet: string, sign: string): string => {
+  let dignity = "";
+
+  ["Domicile", "Exaltation", "Detriment", "Fall"].forEach((dignityType) => {
+    if (PLANET_DIGNITIES_DEBILITIES[planet]) {
+      const planetDignities = PLANET_DIGNITIES_DEBILITIES[planet];
+      if (
+        planetDignities[dignityType as keyof typeof planetDignities].includes(
+          sign,
+        )
+      ) {
+        switch (dignityType) {
+          case "Domicile":
+            dignity = "in domicile";
+            break;
+          case "Exaltation":
+            dignity = "exalted";
+            break;
+          case "Detriment":
+            dignity = "in detriment";
+            break;
+          case "Fall":
+            dignity = "in fall";
+            break;
+        }
+      }
+    }
+  });
+
+  return dignity;
 };

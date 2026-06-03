@@ -1,5 +1,5 @@
-import { Text, View } from "@react-pdf/renderer";
 import { type Pill } from "@/shared/types";
+import { Text, View } from "@react-pdf/renderer";
 import { PillPDF } from "./PillPDF";
 
 export function InfoPillPDF({

@@ -1,8 +1,6 @@
-import { getOrdinal } from "@/shared/lib/textHelpers";
-import { lordDescriptions } from "@/shared/text/text";
-import { getPlanetDignity } from "../../helpers";
-import { getPlanetRulerText } from "@/shared/lib/textHelpers";
-import { type ProfectionYearData, type PlanetPoint } from "@/shared/types";
+import { getOrdinal, getPlanetDignity } from "@/shared/lib/textHelpers";
+import { getPlanetRulerText, lordDescriptions } from "@/shared/text/general";
+import { type PlanetPoint, type ProfectionYearData } from "@/shared/types";
 
 type ProfectionYearBodyTextProps = {
   data: ProfectionYearData;

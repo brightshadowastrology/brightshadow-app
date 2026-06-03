@@ -1,16 +1,20 @@
-import { Text, View } from "@react-pdf/renderer";
+import { ASPECT_LABELS, MONTHS } from "@/shared/lib/constants";
 import {
-  type TransitEntry,
-  type SectPlanets,
-  type PlanetPoint,
-  type ProfectionYearData,
+  formatDegree,
+  getAspectsToNatalPlanets,
+  getPills,
+  titleCase,
+} from "@/shared/lib/textHelpers";
+import {
   type Eclipse,
   type Lunation,
+  type PlanetPoint,
+  type ProfectionYearData,
+  type SectPlanets,
+  type TransitEntry,
 } from "@/shared/types";
-import { ASPECT_LABELS, MONTHS } from "@/shared/lib/constants";
+import { Text, View } from "@react-pdf/renderer";
 import { PillPDF } from "./PillPDF";
-import { getAspectsToNatalPlanets, getPills } from "../../helpers";
-import { titleCase, formatDegree } from "@/shared/lib/textHelpers";
 import { colors } from "./styles";
 
 export type NotableEvent =
@@ -138,7 +142,12 @@ export function NotableDatesPDF({
             );
             const pills = aspects
               .flatMap((aspect) =>
-                getPills(birthChartData, sectPlanets, aspect, profectionYearData),
+                getPills(
+                  birthChartData,
+                  sectPlanets,
+                  aspect,
+                  profectionYearData,
+                ),
               )
               .filter(
                 (pill, idx, self) =>
@@ -191,7 +200,12 @@ export function NotableDatesPDF({
             );
             const pills = aspects
               .flatMap((aspect) =>
-                getPills(birthChartData, sectPlanets, aspect, profectionYearData),
+                getPills(
+                  birthChartData,
+                  sectPlanets,
+                  aspect,
+                  profectionYearData,
+                ),
               )
               .filter(
                 (pill, idx, self) =>

@@ -1,12 +1,12 @@
-import { Text, View, StyleSheet } from "@react-pdf/renderer";
-import { type ProfectionYearData, type PlanetPoint } from "@/shared/types";
-import { getOrdinal, getPlanetRulerText } from "@/shared/lib/textHelpers";
+import { getOrdinal, getPlanetDignity } from "@/shared/lib/textHelpers";
 import {
-  signDescriptions,
+  getPlanetRulerText,
   houseTopics,
   lordDescriptions,
-} from "@/shared/text/text";
-import { getPlanetDignity } from "../../helpers";
+  signDescriptions,
+} from "@/shared/text/general";
+import { type PlanetPoint, type ProfectionYearData } from "@/shared/types";
+import { StyleSheet, Text, View } from "@react-pdf/renderer";
 import { colors } from "./styles";
 
 const s = StyleSheet.create({
@@ -88,9 +88,14 @@ export function ProfectionYearPDF({
       ? `The ${lordOfYear}`
       : lordOfYear;
 
-  const signText = `This year emphasizes being ${signDescriptions[profectionSign]
+  const signText = `This year emphasizes being ${signDescriptions[
+    profectionSign
+  ]
     .join(", ")
-    .replace(/, ([^,]*)$/, ", and $1")} in areas of life related to ${houseThemes.toLowerCase()}`;
+    .replace(
+      /, ([^,]*)$/,
+      ", and $1",
+    )} in areas of life related to ${houseThemes.toLowerCase()}`;
 
   const natalLord = birthChartData.find((p) => p.planet === lordOfYear);
 
@@ -111,13 +116,13 @@ export function ProfectionYearPDF({
       <View style={s.card}>
         <Text style={s.bodyText}>
           Not every planet in our birthchart is active at the same time. The
-          technique known as annual profections gives us a means to find out when
-          specific planets (and the houses they rule) will play a bigger role in
-          certain periods of time. The technique is simple: a year for a house.
-          We start at 0 years of age, in the 1st house — themes related to the
-          first house and how its ruler is placed become very visible. Then, when
-          we turn 1 year old, we move into a 2nd house profection year, and 2nd
-          house themes predominate our life.
+          technique known as annual profections gives us a means to find out
+          when specific planets (and the houses they rule) will play a bigger
+          role in certain periods of time. The technique is simple: a year for a
+          house. We start at 0 years of age, in the 1st house — themes related
+          to the first house and how its ruler is placed become very visible.
+          Then, when we turn 1 year old, we move into a 2nd house profection
+          year, and 2nd house themes predominate our life.
         </Text>
       </View>
 
@@ -142,9 +147,7 @@ export function ProfectionYearPDF({
             Lord of the Year: {formattedLordOfYear}
           </Text>
           <Text style={s.bodyText}>{natalDescription}</Text>
-          {rulerText ? (
-            <Text style={s.bodyText}>{rulerText}</Text>
-          ) : null}
+          {rulerText ? <Text style={s.bodyText}>{rulerText}</Text> : null}
           <Text style={s.bodyText}>{endText}</Text>
           <Text style={s.bodyText}>{lordDescription}</Text>
         </View>

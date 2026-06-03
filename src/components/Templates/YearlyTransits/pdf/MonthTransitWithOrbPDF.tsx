@@ -1,13 +1,12 @@
-import { Text, View } from "@react-pdf/renderer";
-import { type TransitEntry, type PlanetPoint } from "@/shared/types";
-import {
-  formatDegree,
-  getHouseFromSign,
-  getFormattedHouseText,
-  getGeneralSignificationsText,
-  getFormattedTransitText,
-} from "@/shared/lib/textHelpers";
 import { ASPECT_LABELS } from "@/shared/lib/constants";
+import { formatDegree, getHouseFromSign } from "@/shared/lib/textHelpers";
+import {
+  getFormattedHouseText,
+  getFormattedTransitText,
+  getGeneralSignificationsText,
+} from "@/shared/text/general";
+import { type PlanetPoint, type TransitEntry } from "@/shared/types";
+import { Text, View } from "@react-pdf/renderer";
 import { eventStyles as s } from "./styles";
 
 export function MonthTransitWithOrbPDF({

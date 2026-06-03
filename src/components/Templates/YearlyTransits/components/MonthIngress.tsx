@@ -1,12 +1,12 @@
 import { useBirthChart } from "@/components/Providers/BirthChartContext";
-import { type PlanetPoint, type IngressEntry } from "@/shared/types";
+import { getHouseFromSign } from "@/shared/lib/textHelpers";
 import {
-  getHouseFromSign,
-  getFormattedHouseText,
-  getFormattedHouseRulersText,
   getFormattedHouseDescriptionText,
-  getIngressInterpretation,
-} from "@/shared/lib/textHelpers";
+  getFormattedHouseRulersText,
+  getFormattedHouseText,
+  getIngressInterpretationText,
+} from "@/shared/text/general";
+import { type IngressEntry, type PlanetPoint } from "@/shared/types";
 
 export default function MonthIngress({ ingress }: { ingress: IngressEntry }) {
   const { birthChartData } = useBirthChart();
@@ -22,7 +22,7 @@ export default function MonthIngress({ ingress }: { ingress: IngressEntry }) {
       "Aries",
     ingress.sign,
   );
-  const ingressInterpretation = getIngressInterpretation(
+  const ingressInterpretation = getIngressInterpretationText(
     ingress.planet,
     houseIngressedInto.toString(),
   );

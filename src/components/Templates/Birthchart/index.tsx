@@ -10,7 +10,7 @@ import { useState } from "react";
 import { type TimeValue } from "react-aria";
 import { type BirthInfo } from "@/shared/types";
 import BirthchartDataForm from "../BirthchartDataForm";
-import { getIsDayChart, getSectPlanets } from "../helpers";
+import { getIsDayChart, getSectPlanets } from "@/shared/lib/textHelpers";
 import BirthchartData from "./components/BirthchartData";
 
 type BirthchartFormData = {

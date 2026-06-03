@@ -1,13 +1,7 @@
 import { getOrdinal } from "@/shared/lib/textHelpers";
-import {
-  signDescriptions,
-  houseTopics,
-  lordDescriptions,
-} from "@/shared/text/text";
-import { getPlanetDignity } from "../../helpers";
-import { getPlanetRulerText } from "@/shared/lib/textHelpers";
+import { houseTopics, signDescriptions } from "@/shared/text/general";
+import { type PlanetPoint, type ProfectionYearData } from "@/shared/types";
 import ProfectionYearBodyText from "./ProfectionYearBodyText";
-import { type ProfectionYearData, type PlanetPoint } from "@/shared/types";
 
 type ProfectionYearProps = {
   data: ProfectionYearData;

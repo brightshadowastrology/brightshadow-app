@@ -1,13 +1,12 @@
-import { Text, View } from "@react-pdf/renderer";
-import { type RetrogradeEvent, type PlanetPoint } from "@/shared/types";
+import { formatDegree, getHouseFromSign } from "@/shared/lib/textHelpers";
 import {
-  formatDegree,
-  getHouseFromSign,
   getFormattedHouseText,
   getFormattedHouseTopicsText,
-} from "@/shared/lib/textHelpers";
+} from "@/shared/text/general";
+import { getRetrogradeRecommendationText } from "@/shared/text/retrogradeRecommendationText";
+import { type PlanetPoint, type RetrogradeEvent } from "@/shared/types";
+import { Text, View } from "@react-pdf/renderer";
 import { eventStyles as s } from "./styles";
-import { getRetrogradeRecommendationText } from "@/components/Templates/helpers";
 
 export function MonthRetrogradePDF({
   retrograde,
@@ -22,7 +21,8 @@ export function MonthRetrogradePDF({
     ? `${retrograde.planet} Retrograde begins`
     : `${retrograde.planet} Retrograde ends`;
   const houseIngressedInto = getHouseFromSign(
-    birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ?? "Aries",
+    birthChartData.find((a) => a.planet === "Ascendant")?.position.sign ??
+      "Aries",
     retrograde.position.sign,
   );
   const retrogradeText = `${phase} | ${retrograde.position.sign} ${formatDegree(retrograde.position.degree, retrograde.position.minute)}`;
@@ -36,7 +36,9 @@ export function MonthRetrogradePDF({
     <View style={s.eventContainer}>
       <Text style={s.eventTitle}>{retrogradeText}</Text>
       <Text style={s.eventBody}>{interpretationText}</Text>
-      {retrograde.isStarting && <Text style={s.eventBody}>{recommendationText}</Text>}
+      {retrograde.isStarting && (
+        <Text style={s.eventBody}>{recommendationText}</Text>
+      )}
     </View>
   );
 }

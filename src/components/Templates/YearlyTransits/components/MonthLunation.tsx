@@ -1,16 +1,19 @@
 import { useBirthChart } from "@/components/Providers/BirthChartContext";
-import { type Lunation } from "@/shared/types";
-import {
-  titleCase,
-  formatDegree,
-  getHouseFromSign,
-  getFormattedHouseText,
-  getFormattedHouseDescriptionText,
-  getFormattedHouseTopicsText,
-  getFormattedAspectText,
-} from "@/shared/lib/textHelpers";
-import { getAspectsToNatalPlanets, getPills } from "../../helpers";
 import InfoPill from "@/components/UI/InfoPill";
+import {
+  formatDegree,
+  getAspectsToNatalPlanets,
+  getHouseFromSign,
+  getPills,
+  titleCase,
+} from "@/shared/lib/textHelpers";
+import {
+  getFormattedAspectText,
+  getFormattedHouseDescriptionText,
+  getFormattedHouseText,
+  getFormattedHouseTopicsText,
+} from "@/shared/text/general";
+import { type Lunation } from "@/shared/types";
 
 export default function MonthLunation({ lunation }: { lunation: Lunation }) {
   const { birthChartData, sectPlanets, profectionYear } = useBirthChart();

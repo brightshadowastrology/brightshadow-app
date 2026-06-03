@@ -3,7 +3,7 @@ import {
   planetDescriptions,
   signDescriptions,
   houseDescriptions,
-} from "@/shared/text/text";
+} from "@/shared/text/general";
 import * as constants from "@/shared/lib/constants";
 import {
   getOrdinal,
@@ -11,6 +11,7 @@ import {
   randomArrayIndex,
   getHouseFromSign,
 } from "@/shared/lib/textHelpers";
+
 type BirthchartDataProps = {
   data: PlanetPoint[];
   sectPlanets: SectPlanets;
@@ -128,24 +129,17 @@ export default function BirthchartData({
                   | House {placement.house}
                 </span>
               </div>
-              <p className="text-primary-700">
-                {interpretPosition(placement)}
-              </p>
+              <p className="text-primary-700">{interpretPosition(placement)}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section className="mb-4 w-full p-6 bg-background-100 rounded-lg border border-primary-500">
-        <h3 className="text-xl font-semibold text-primary-500">
-          Your Angles
-        </h3>
+        <h3 className="text-xl font-semibold text-primary-500">Your Angles</h3>
         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
           {angles.map((angle) => (
-            <div
-              key={angle.planet}
-              className="p-4 bg-primary-200 rounded-md"
-            >
+            <div key={angle.planet} className="p-4 bg-primary-200 rounded-md">
               <div className="flex justify-between items-start mb-2">
                 <h4 className="text-lg font-medium text-primary-700">
                   {angle.planet}
@@ -170,9 +164,7 @@ export default function BirthchartData({
         outOfSectBenefic &&
         outOfSectMalefic && (
           <section className="mb-4 w-full p-6 bg-background-100 rounded-lg border border-primary-500">
-            <h3 className="text-xl font-semibold text-primary-500">
-              Sect
-            </h3>
+            <h3 className="text-xl font-semibold text-primary-500">Sect</h3>
             <p className="text-primary-500 text-sm mt-2">
               You have a {isDayChart ? "day" : "night"} chart.
             </p>

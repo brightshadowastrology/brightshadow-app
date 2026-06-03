@@ -1,19 +1,21 @@
-import { Text, View } from "@react-pdf/renderer";
-import {
-  type TransitEntry,
-  type PlanetPoint,
-  type SectPlanets,
-  type ProfectionYearData,
-} from "@/shared/types";
+import { ASPECT_LABELS } from "@/shared/lib/constants";
 import {
   formatDegree,
   getHouseFromSign,
-  getFormattedHouseText,
-  getGeneralSignificationsText,
-  getFormattedTransitText,
+  getPills,
 } from "@/shared/lib/textHelpers";
-import { ASPECT_LABELS } from "@/shared/lib/constants";
-import { getPills } from "../../helpers";
+import {
+  getFormattedHouseText,
+  getFormattedTransitText,
+  getGeneralSignificationsText,
+} from "@/shared/text/general";
+import {
+  type PlanetPoint,
+  type ProfectionYearData,
+  type SectPlanets,
+  type TransitEntry,
+} from "@/shared/types";
+import { Text, View } from "@react-pdf/renderer";
 import { InfoPillPDF } from "./InfoPillPDF";
 import { eventStyles as s } from "./styles";
 
@@ -52,7 +54,12 @@ export function MonthTransitPDF({
     aspectLabel,
   );
 
-  const pills = getPills(birthChartData, sectPlanets, transit, profectionYearData);
+  const pills = getPills(
+    birthChartData,
+    sectPlanets,
+    transit,
+    profectionYearData,
+  );
 
   return (
     <View style={s.eventContainer}>
@@ -60,7 +67,11 @@ export function MonthTransitPDF({
       {pills.length > 0 && (
         <View style={s.pillsColumn}>
           {pills.map((pill) => (
-            <InfoPillPDF key={pill.type} type={pill.type} toolTip={pill.toolTip} />
+            <InfoPillPDF
+              key={pill.type}
+              type={pill.type}
+              toolTip={pill.toolTip}
+            />
           ))}
         </View>
       )}

@@ -14,7 +14,7 @@ import { type BirthInfo } from "@/shared/types";
 import moment from "moment-timezone";
 import BirthchartDataForm from "../BirthchartDataForm";
 import { BirthChartProvider } from "@/components/Providers/BirthChartContext";
-import { getIsDayChart, getSectPlanets } from "../helpers";
+import { getIsDayChart, getSectPlanets } from "@/shared/lib/textHelpers";
 import YearlyTransits from "./components/YearlyTransits";
 import YearlyTransitsPDFDownload from "./pdf/YearlyTransitsPDFDownload";
 
