@@ -22,9 +22,9 @@ export default function SectionAngles({
       <h3 className="text-xl font-semibold text-primary-500">Your Angles</h3>
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
         {angles.map((angle) => (
-          <div key={angle.planet} className="p-4 bg-primary-200 rounded-md">
+          <div key={angle.planet} className="p-4 bg-primary-100 rounded-md">
             <div className="flex justify-between items-start mb-2">
-              <h4 className="text-lg font-medium text-primary-700">
+              <h4 className="text-lg font-medium text-primary-950">
                 {angle.planet}
               </h4>
               <span className="text-primary-500 text-sm">

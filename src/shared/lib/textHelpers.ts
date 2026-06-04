@@ -1,53 +1,11 @@
 import * as constants from "@/shared/lib/constants";
 import {
-  ASPECT_LABELS,
   ASPECTS_MAP,
   PLANET_DIGNITIES_DEBILITIES,
 } from "@/shared/lib/constants";
-import {
-  eighthHouseRulershipInterpretations,
-  eleventhHouseRulershipInterpretations,
-  fifthHouseRulershipInterpretations,
-  firstHouseRulershipInterpretations,
-  fourthHouseRulershipInterpretations,
-  ninthHouseRulershipInterpretations,
-  secondHouseRulershipInterpretations,
-  seventhHouseRulershipInterpretations,
-  sixthHouseRulershipInterpretations,
-  tenthHouseRulershipInterpretations,
-  thirdHouseRulershipInterpretations,
-  twelfthHouseRulershipInterpretations,
-} from "@/shared/text/houseRulershipInterpretations";
-import {
-  jupiterIngressInterpretations,
-  marsIngressInterpretations,
-  mercuryIngressInterpretations,
-  neptuneIngressInterpretations,
-  plutoIngressInterpretations,
-  saturnIngressInterpretations,
-  sunIngressInterpretations,
-  uranusIngressInterpretations,
-  venusIngressInterpretations,
-} from "@/shared/text/ingressInterpretations";
-import {
-  houseDescriptions,
-  houseTopics,
-  planetDescriptions,
-  sectInterpretations,
-  signDescriptions,
-} from "@/shared/text/general";
-import {
-  jupiterTransitInterpretations,
-  marsTransitInterpretations,
-  neptuneTransitInterpretations,
-  plutoTransitInterpretations,
-  saturnTransitInterpretations,
-  uranusTransitInterpretations,
-  venusTransitInterpretations,
-} from "@/shared/text/transitInterpretations";
+import { sectInterpretations } from "@/shared/text/general";
 import {
   type Eclipse,
-  type IngressInterpretations,
   type Lunation,
   type Pill,
   type PlanetPoint,
@@ -55,7 +13,6 @@ import {
   type ProfectionYearData,
   type SectPlanets,
   type TransitEntry,
-  type TransitInterpretations,
 } from "@/shared/types";
 
 export const getOrdinal = (n: number): string => {
@@ -209,6 +166,18 @@ export const isSocialPlanet = (planet: string) => {
 
 export const isOuterPlanet = (planet: string) => {
   return ["Uranus", "Neptune", "Pluto"].includes(planet);
+};
+
+export const isAngular = (house: number) => {
+  return [1, 4, 7, 10].includes(house);
+};
+
+export const isGoodHouse = (house: number) => {
+  return [2, 3, 5, 9, 11].includes(house);
+};
+
+export const isBadHouse = (house: number) => {
+  return [6, 8, 12].includes(house);
 };
 
 export const getSectPlanets = (
@@ -494,7 +463,7 @@ export const isLunationNotable = (
 };
 
 export const getPlanetDignity = (planet: string, sign: string): string => {
-  let dignity = "";
+  let dignity = "peregrine";
 
   ["Domicile", "Exaltation", "Detriment", "Fall"].forEach((dignityType) => {
     if (PLANET_DIGNITIES_DEBILITIES[planet]) {
@@ -517,6 +486,8 @@ export const getPlanetDignity = (planet: string, sign: string): string => {
           case "Fall":
             dignity = "in fall";
             break;
+          default:
+            dignity = "peregrine";
         }
       }
     }

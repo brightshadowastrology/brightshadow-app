@@ -6,12 +6,18 @@ import * as constants from "@/shared/lib/constants";
 import { trpc } from "@/shared/lib/trpc";
 import { type PlanetPoint, type SectPlanets } from "@/shared/types";
 import moment from "moment-timezone";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import { type TimeValue } from "react-aria";
 import { type BirthInfo } from "@/shared/types";
 import BirthchartDataForm from "../BirthchartDataForm";
 import { getIsDayChart, getSectPlanets } from "@/shared/lib/textHelpers";
 import BirthchartData from "./components/BirthchartData";
+
+const BirthchartPDFDownload = dynamic(
+  () => import("./pdf/BirthchartPDFDownload"),
+  { ssr: false },
+);
 
 type BirthchartFormData = {
   day: string;
@@ -100,7 +106,8 @@ export default function Birthchart() {
           sectPlanets={sectPlanets}
         >
           {birthChartData && sectPlanets && (
-            <div className="mt-8 w-full">
+            <div className="mt-8 w-full space-y-4">
+              <BirthchartPDFDownload />
               <BirthchartData
                 data={birthChartData}
                 isDayChart={isDayChart}

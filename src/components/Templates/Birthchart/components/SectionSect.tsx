@@ -28,9 +28,9 @@ export default function SectionSect({
               You have a {isDayChart ? "day" : "night"} chart.
             </p>
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div className="p-4 bg-primary-200 rounded-md">
+              <div className="p-4 bg-primary-100 rounded-md">
                 <div className="flex justify-between items-start mb-2">
-                  <h4 className="text-lg font-medium text-primary-700">
+                  <h4 className="text-lg font-medium text-primary-950">
                     {`In-Sect Benefic: ${inSectBenefic.planet}`}
                   </h4>
                   <span className="text-primary-500 text-sm">
@@ -45,9 +45,9 @@ export default function SectionSect({
                 </span>
               </div>
 
-              <div className="p-4 bg-primary-200 rounded-md">
+              <div className="p-4 bg-primary-100 rounded-md">
                 <div className="flex justify-between items-start mb-2">
-                  <h4 className="text-lg font-medium text-primary-700">
+                  <h4 className="text-lg font-medium text-primary-950">
                     {`Out-of-Sect Benefic: ${outOfSectBenefic.planet}`}
                   </h4>
                   <span className="text-primary-500 text-sm">
@@ -62,9 +62,9 @@ export default function SectionSect({
                 </span>
               </div>
 
-              <div className="p-4 bg-primary-200 rounded-md">
+              <div className="p-4 bg-primary-100 rounded-md">
                 <div className="flex justify-between items-start mb-2">
-                  <h4 className="text-lg font-medium text-primary-700">
+                  <h4 className="text-lg font-medium text-primary-950">
                     {`In-Sect Malefic: ${inSectMalefic.planet}`}
                   </h4>
                   <span className="text-primary-500 text-sm">
@@ -79,9 +79,9 @@ export default function SectionSect({
                 </span>
               </div>
 
-              <div className="p-4 bg-primary-200 rounded-md">
+              <div className="p-4 bg-primary-100 rounded-md">
                 <div className="flex justify-between items-start mb-2">
-                  <h4 className="text-lg font-medium text-primary-700">
+                  <h4 className="text-lg font-medium text-primary-950">
                     {`Out-of-Sect Malefic: ${outOfSectMalefic.planet}`}
                   </h4>
                   <span className="text-primary-500 text-sm">
@@ -91,7 +91,7 @@ export default function SectionSect({
                     )}`}
                   </span>
                 </div>
-                <span className="text-primary-700">
+                <span className="text-primary-950">
                   {`Your in-sect benefit is ${outOfSectMalefic.planet}.`}
                 </span>
               </div>
